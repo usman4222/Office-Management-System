@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import RegiserLogin from "./Pages/RegiserLogin";
+import RegisterLogin from "./Pages/RegisterLogin";
 import Header from "./components/Header";
+import Home from "./Pages/Home";
+import About from "./Pages/About";
 
 function App() {
 
@@ -8,7 +10,9 @@ function App() {
     <BrowserRouter>
     <Header />
       <Routes>
-        <Route path="/login" element={<RegiserLogin />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/login" element={<RegisterLogin />} />
       </Routes>
     </BrowserRouter>
   );

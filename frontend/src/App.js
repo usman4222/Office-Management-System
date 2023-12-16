@@ -1,9 +1,16 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import RegiserLogin from "./Pages/RegiserLogin";
+import Header from "./components/Header";
 
 function App() {
+
   return (
-    <div className="App">
-      <h1>This is app testing</h1>
-    </div>
+    <BrowserRouter>
+    <Header />
+      <Routes>
+        <Route path="/login" element={<RegiserLogin />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

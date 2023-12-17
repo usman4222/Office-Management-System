@@ -1,0 +1,46 @@
+.sidebar{
+    background: #392068;
+    width: 20vmax;
+    display: flex;
+    flex-direction: column;
+    padding: 4rem 0;
+}
+.sidebar > a:first-child{
+    padding: 0;
+}
+.all p {
+    text-decoration: none !important;
+    color: #fff;
+    padding: 5px 0;
+    transition: all ease .3s;
+    /* Additional reset for text decoration */
+    -webkit-text-decoration: none;
+    text-decoration: none;
+}
+.sidebar > a > img{
+    width: 100%;
+    transition: all ease .3s;
+}
+.sidebar > a > img:hover{
+    filter: drop-shadow(0 0 10px tomato);
+}
+.sidebar > a{
+    text-decoration: none;
+    transition: all ease .3s;
+    color: #fff;
+    padding: 2rem;
+    font: 200 1rem "Roboto";
+}
+.sidebar > a:hover{
+    transform: scale(1.1);
+}
+.sidebar a > p{
+    display: flex;
+    align-items: center;
+}
+.sidebar a > p > svg{
+    margin-right: 0.5rem;
+}
+.MuiTypography-root{
+    background: #fff !important;
+}

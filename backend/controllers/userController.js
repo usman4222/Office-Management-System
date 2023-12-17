@@ -3,12 +3,11 @@ const ErrorHandler = require('../utils/errorHanlder');
 const catchAsyncError = require('../middleware/catchAsyncError');
 const sendToken = require('../utils/jwtToken');
 
-
-
 //register user
 exports.registerUser = async (req, res, next) => {
     try {
         const { name, email, password } = req.body;
+        console.log("Received Data:", req.body);
 
         // Check if user with the email already exists
         const existingUser = await User.findOne({ email });
@@ -16,10 +15,8 @@ exports.registerUser = async (req, res, next) => {
             return res.status(400).json({ message: "Email is already registered" });
         }
 
-        // Create a new user (you might want to hash the password here)
         const newUser = await User.create({ name, email, password });
 
-        // Send token upon successful registration
         // sendToken(
         //     newUser,
         //     201,
@@ -30,9 +27,10 @@ exports.registerUser = async (req, res, next) => {
             success: true,
             message: "User Created Successfully"
          });
+         console.log("New User Created:", newUser); 
     } catch (error) {
-        // Pass the error to the error-handling middleware using next
-        next(error);
+        next(error)
+        console.error("Registration Error:", error);
     }
 };
 

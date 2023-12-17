@@ -1,8 +1,8 @@
-const mongoose = require("mongoose")
-const validator = require('validator')
-const bcrypt = require("bcryptjs")
-const jwt = require("jsonwebtoken")
-const crypto = require('crypto')
+const mongoose = require('mongoose');
+const validator = require('validator');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken'); // Assuming Jwt was a typo and should be jwt
+const crypto = require('crypto');
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -22,10 +22,6 @@ const userSchema = new mongoose.Schema({
         required: [true, "Please Enter Your Password"],
         minLength: [8, "Password should be more than 8 characters"],
         select: false
-    },
-    role: {
-        type: String,
-        default: "user"
     },
     createdAt: { 
         type: Date,
@@ -79,3 +75,7 @@ userSchema.methods.getResetPasswordToken = function () {
 
 
 module.exports = mongoose.model("User", userSchema)
+
+
+
+

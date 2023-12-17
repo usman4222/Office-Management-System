@@ -1,28 +1,42 @@
-const User = require('../models/userModel')
-const ErrorHandler = require('../utils/errorHandler')
+const User = require('../models/userModel');
+const ErrorHandler = require('../utils/errorHanlder');
 const catchAsyncError = require('../middleware/catchAsyncError');
-const sendToken = require('../utils/jwtToken')
-const cloudinary = require("cloudinary")
+const sendToken = require('../utils/jwtToken');
+
 
 
 //register user
-exports.registerUser = catchAsyncError(async (req, res) => {
-    const { name, email, password } = req.body;
-
+exports.registerUser = async (req, res, next) => {
     try {
-        const user = await User.create({
-            name,
-            email,
-            password,
-        });
+        const { name, email, password } = req.body;
 
-        sendToken(user, 201, res);
+        // Check if user with the email already exists
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return res.status(400).json({ message: "Email is already registered" });
+        }
+
+        // Create a new user (you might want to hash the password here)
+        const newUser = await User.create({ name, email, password });
+
+        // Send token upon successful registration
+        // sendToken(
+        //     newUser,
+        //     201,
+        //     res,
+        //     res.send({"User Created Successfully")}
+        // );
+        res.status(201).json({ 
+            success: true,
+            message: "User Created Successfully"
+         });
     } catch (error) {
-        // Handle any error that might occur during upload or user creation
-        console.error(error);
-        return res.status(500).json({ success: false, message: 'Error uploading avatar or creating user.' });
+        // Pass the error to the error-handling middleware using next
+        next(error);
     }
-});
+};
+
+
 
 
 //login user
@@ -50,4 +64,5 @@ exports.loginUser = catchAsyncError(async (req, res, next) => {
 
     sendToken(user, 200, res)
 })
+
 

@@ -1,41 +1,40 @@
-import express from 'express';
-import { PORT, MONGO } from './config.js';
-import mongoose from 'mongoose';
-const app = express();
+const express = require('express');
+const { PORT, MONGO } = require('./config.js');
+const app = require('./app.js');
+const mongoose = require('mongoose');
 
+let server; // Define the server variable
 
 mongoose
-    .connect(MONGO)
-    .then(() => {
-        console.log("Mongo is connected...");
-    })
-    .catch((error) => {
-        console.log("Error while connecting MongoDB", error);
+  .connect(MONGO)
+  .then(() => {
+    console.log("MongoDB is connected...");
+    // Start the server once the MongoDB connection is established
+    server = app.listen(PORT, () => {
+      console.log(`Server is running on port: ${PORT}`);
     });
+  })
+  .catch((error) => {
+    console.error("Error while connecting to MongoDB:", error);
+  });
 
-
-//handling uncatch exception
-// console.log(you) {this type of error}
-
+// Handling uncaught exceptions
 process.on("uncaughtException", (error) => {
-    console.log(`Error: ${error.message}`)
-    console.log(`Server is close due to Uncatch Exception Error`)
-    process.exit(1);
-
-})
-
-
-app.listen(PORT, () => {
-    console.log(`Server is running on port:${PORT}`);
+  console.error(`Error: ${error.message}`);
+  console.error("Server is closed due to an uncaught exception");
+  process.exit(1);
 });
 
-
-//unhandle promise rejection
+// Handling unhandled promise rejections
 process.on("unhandledRejection", (error) => {
-    console.log(`Error: ${error.message}`)
-    console.log(`Shutting down the server dueto unhandled promise rejection`)
-
+  console.error(`Error: ${error.message}`);
+  console.error("Shutting down the server due to an unhandled promise rejection");
+  
+  if (server) {
     server.close(() => {
-        process.exit(1)
-    })
-})
+      process.exit(1);
+    });
+  } else {
+    process.exit(1);
+  }
+});

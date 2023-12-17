@@ -1,10 +1,10 @@
 const express = require('express');
 const cors = require('cors');
-const app = express();
 const dotenv = require('dotenv');
-const errorMiddleware = require('./middleware/error');
 const cookieParser = require('cookie-parser');
-const bodyParser = require("body-parser")
+const errorMiddleware = require('./middleware/error');
+const bodyParser = require('body-parser');
+const app = express();
 
 // Load environment variables
 dotenv.config({ path: "backend/config/config.env" });
@@ -14,17 +14,15 @@ app.use(cors());
 app.use(express.json()); // Use express.json() instead of bodyParser.json()
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
-app.use(bodyParser.urlencoded({extended:true}))
-app.use(fileUpload());
+app.use(bodyParser.urlencoded({ extended: true }))
 
 
 // Routes
-const user = require('./routes/userRoute');
+const user = require("./routes/userRoute.js")
 
 app.use('/api/v1', user);
-
 
 // Error handling middleware
 app.use(errorMiddleware);
 
-module.exports = app;
+module.exports = app

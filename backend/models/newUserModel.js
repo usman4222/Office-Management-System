@@ -3,11 +3,15 @@ const mongoose = require('mongoose');
 const newUserSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: [true, "Please Enter your Name..."]
+        required: [true, "Please Enter your Name..."],
+        maxLength: [20, "Name should'nt exceed more than 20 characters"],
+        minLength: [4, "Name Should be more than 4 character"]
     },
     fatherName: {
         type: String,
-        required: [true, "Please Enter Father Name"]
+        required: [true, "Please Enter Father Name"],
+        maxLength: [20, "Name should'nt exceed more than 20 characters"],
+        minLength: [4, "Name Should be more than 4 character"]
     },
     phone: {
         type: Number,
@@ -17,9 +21,14 @@ const newUserSchema = new mongoose.Schema({
         type: String,
         required: [true, "Please Enter your Address"]
     },
-    role: String,
-    desigination: String,
-    userType: String,
+    role: {
+        type: String,
+        required: [true, "Please define user role"]
+    },
+    userType: {
+        type: String,
+        required: [true, "Please define user userType"]
+    },
     createdAt: {
         type: Date,
         default: Date.now

@@ -22,7 +22,7 @@ const Sidebar = () => {
                     <DashboardIcon /> Dashboard
                 </p>
             </Link>
-            <Link to="/">
+            <Link to="/adduser">
                 <p>
                 <PeopleIcon />Add New 
                 </p>

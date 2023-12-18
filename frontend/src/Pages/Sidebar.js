@@ -19,12 +19,12 @@ const Sidebar = () => {
             </Link>
             <Link to="/user">
                 <p>
-                    <DashboardIcon /> New 
+                    <DashboardIcon /> Dashboard
                 </p>
             </Link>
             <Link to="/">
                 <p>
-                    <ListAltIcon />  New 
+                <PeopleIcon />Add New 
                 </p>
             </Link>
             <Link to="/">

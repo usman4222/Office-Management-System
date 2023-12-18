@@ -1,61 +1,134 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import './AddUser.css'
+import { useDispatch, useSelector } from 'react-redux';
+import { useSnackbar } from 'notistack'
+import { ADD_USER_RESET } from '../../constants/addUserContant';
+import { addNewUser, clearErrors } from '../../actions/addUserAction';
+import { useNavigate } from 'react-router-dom';
 
 const AddUser = () => {
+
+    const [name, setName] = useState("")
+    const [fatherName, setFatherName] = useState("")
+    const [address, setAddress] = useState("")
+    const [phone, setPhone] = useState("")
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const { enqueueSnackbar } = useSnackbar();
+    const [role, setRole] = useState("");
+    const [skill, setSkill] = useState("");
+    const { error, success } = useSelector((state) => state.newUser)
+
+    const roleCategories = [
+        "Employe",
+        "Admin"
+    ]
+
+    const skillCategories = [
+        "Web Deveploper",
+        "Mobile App Developer",
+        "WorldPress Developer",
+        "SEO",
+        "HR Manager",
+        "Project Manager",
+        "Video Editor",
+        "Content Writer",
+        "Digital Marketer"
+    ]
+
+    const addUserHandler = (e) => {
+        e.preventDefault();
+
+        const myForm = new FormData();
+
+        myForm.set("name", name);
+        myForm.set("fatherName", fatherName);
+        myForm.set("address", address);
+        myForm.set("phone", phone);
+        myForm.set("role", role); // Ensure 'role' is correctly set
+        myForm.set("userType", skill); // Ensure 'userType' (or 'skill') is correctly set
+        dispatch(addNewUser(myForm));
+    };
+
+  
+
+
+
+    useEffect(() => {
+        if (error) {
+            alert.error(error)
+            enqueueSnackbar(error, { variant: 'success' });
+            dispatch(clearErrors())
+        }
+        if (success) {
+            enqueueSnackbar('User created Successfully', { variant: 'success' });
+            navigate('/')
+            dispatch({ type: ADD_USER_RESET })
+        }
+    }, [dispatch, error, success])
+
+
     return (
         <Fragment>
             <div className='main-form'>
                 <div className='login'>
                     <div className='login'>
-                        <form >
-                            <h2 >Log In</h2>
+                        <form
+                            className='createProductForm'
+                            encType='multipart/form-data'
+                            onSubmit={addUserHandler}
+                        >
                             <h2 >Add User</h2>
                             <input
                                 type='text'
                                 placeholder='Name'
                                 required
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
                             />
                             <input
                                 type='text'
                                 placeholder='Father Name'
                                 required
+                                value={fatherName}
+                                onChange={(e) => setFatherName(e.target.value)}
                             />
                             <input
                                 type='text'
                                 placeholder='Address'
                                 required
+                                value={address}
+                                onChange={(e) => setAddress(e.target.value)}
                             />
                             <input
                                 type='text'
                                 placeholder='Phone'
                                 pattern='[0-9]*'
                                 required
+                                value={phone}
+                                onChange={(e) => setPhone(e.target.value)}
                             />
-                            <select>
-                                <option>Role</option>
-                                <option value="Employe">Employe</option>
-                                <option value="Admin">Admin</option>
+                            <select onChange={(e) => setRole(e.target.value)}>
+                                <option value="">Choose Role</option>
+                                {roleCategories.map((cate) => (
+                                    <option key={cate} value={cate}>
+                                        {cate}
+                                    </option>
+                                ))}
                             </select>
-                            <select>
-                                <option>Skill</option>
-                                <option value="Employe">Web Developer</option>
-                                <option value="Admin">Mobile App Developer</option>
-                                <option value="Admin">Worldpress Developer</option>
-                                <option value="Admin">Content Writer</option>
-                                <option value="Admin">Video Editor</option>
-                                <option value="Admin">HR Manager</option>
-                                <option value="Admin">SEO</option>
-                                <option value="Admin">Project Manager</option>
-                                <option value="Admin">Digital Marketer</option>
+                            <select onChange={(e) => setSkill(e.target.value)}>
+                                <option value="">Choose Skill</option>
+                                {skillCategories.map((cate) => (
+                                    <option key={cate} value={cate}>
+                                        {cate}
+                                    </option>
+                                ))}
                             </select>
-
                             <div className='submitBtn'>
                                 <button type='submit'>Add User</button>
                             </div>
                         </form>
-
                     </div>
-
                 </div>
             </div>
         </Fragment>
@@ -65,54 +138,3 @@ const AddUser = () => {
 export default AddUser;
 
 
-{/* <div className='main-form'>
-                <div className='login'>
-                    <div className="Login">
-                        <form >
-                            <h2 >Add User</h2>
-                            <input
-                                type='text'
-                                placeholder='Name'
-                                required
-                            />
-                            <input
-                                type='text'
-                                placeholder='Father Name'
-                                required
-                            />
-                            <input
-                                type='text'
-                                placeholder='Address'
-                                required
-                            />
-                            <input
-                                type='text'
-                                placeholder='Phone'
-                                pattern='[0-9]*'
-                                required
-                            />
-                            <select>
-                                <option>Choose Category</option>
-                                <option value="Employe">Employe</option>
-                                <option value="Admin">Admin</option>
-                            </select>
-                            <select>
-                                <option>Choose Category</option>
-                                <option value="Employe">Web Developer</option>
-                                <option value="Admin">Mobile App Developer</option>
-                                <option value="Admin">Worldpress Developer</option>
-                                <option value="Admin">Content Writer</option>
-                                <option value="Admin">Video Editor</option>
-                                <option value="Admin">HR Manager</option>
-                                <option value="Admin">SEO</option>
-                                <option value="Admin">Project Manager</option>
-                                <option value="Admin">Digital Marketer</option>
-                            </select>
-                            <div className='submitBtn'>
-                                <button type='submit'>Create</button>
-                            </div>
-                        </form>
-
-                    </div>
-                </div>
-            </div> */}

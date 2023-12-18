@@ -22,9 +22,9 @@
     color: #fff;
     font-weight: 600;
     font-size: 30px;
+    margin-top: 70px;
     text-align: center;
     transition: .8s ease all;
-    margin-bottom: -20px;
 }
 
 .login form {
@@ -53,7 +53,6 @@ select {
     background: #392068;
     padding: 10px 60px;
     border-radius: 10px;
-    margin-top: 10px;
 }
 
 .login a{

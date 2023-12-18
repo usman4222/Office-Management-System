@@ -28,7 +28,6 @@ const RegisterLogin = () => {
     const { name, email, password } = user
 
     const registerDataChange = (e) => {
-        console.log("Input changed!"); // Add this line to check if the function is triggered
         setUser(prevUser => {
             const updatedUser = { ...prevUser, [e.target.name]: e.target.value };
             console.log("Updated User State:", updatedUser);

@@ -21,7 +21,7 @@ const AddUser = () => {
 
     const roleCategories = [
         "Employe",
-        "Admin"
+        "Intern"
     ]
 
     const skillCategories = [
@@ -78,7 +78,7 @@ const AddUser = () => {
                             encType='multipart/form-data'
                             onSubmit={addUserHandler}
                         >
-                            <h2 >Add User</h2>
+                            <h2 >Add New Employee</h2>
                             <input
                                 type='text'
                                 placeholder='Name'
@@ -117,7 +117,7 @@ const AddUser = () => {
                                 ))}
                             </select>
                             <select onChange={(e) => setSkill(e.target.value)}>
-                                <option value="">Choose Skill</option>
+                                <option value="">Choose Desigination</option>
                                 {skillCategories.map((cate) => (
                                     <option key={cate} value={cate}>
                                         {cate}
@@ -125,7 +125,7 @@ const AddUser = () => {
                                 ))}
                             </select>
                             <div className='submitBtn'>
-                                <button type='submit'>Add User</button>
+                                <button type='submit'>Add</button>
                             </div>
                         </form>
                     </div>

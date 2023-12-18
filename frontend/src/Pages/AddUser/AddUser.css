@@ -4,9 +4,9 @@
     justify-content: center;
     padding: 40px 0;
 }
-.login {
+.addUser {
     width: 350px;
-    height: 700px;
+    /* height: 700px; */
     background: #573b8a;
     border-radius: 5%;
     display: flex;
@@ -18,17 +18,13 @@
     cursor: pointer;
     transition: .8s ease-in-out all;
 }
-.login h2 {
+.addUser h2 {
     color: #fff;
     font-weight: 600;
     font-size: 30px;
-    margin-top: 70px;
+    padding: 30px 0;
     text-align: center;
     transition: .8s ease all;
-}
-
-.login form {
-    margin-bottom: 160px;
 }
 select {
     display: flex;
@@ -39,7 +35,7 @@ select {
     outline: none;
     margin: 30px 0;
 }
-.login input, select {
+.addUser input, select {
     display: flex;
     flex-direction: column;
     padding: 10px 30px;
@@ -47,7 +43,7 @@ select {
     outline: none;
     margin: 30px 0;
 }
-.login button {
+.addUser button {
     color: #fff;
     font-size: 15px;
     background: #392068;
@@ -55,15 +51,7 @@ select {
     border-radius: 10px;
 }
 
-.login a{
+.addUser a{
     color: #fff;
     text-align: center;
 }
-/* .nameInput{
-    position: relative;
-}
-.nameInput svg{
-    position: absolute;
-    margin-top: 10px;
-    margin-left: 10px;
-} */

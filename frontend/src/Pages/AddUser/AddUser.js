@@ -71,8 +71,8 @@ const AddUser = () => {
     return (
         <Fragment>
             <div className='main-form'>
-                <div className='login'>
-                    <div className='login'>
+                <div className='addUser'>
+                    <div className='addUser'>
                         <form
                             className='createProductForm'
                             encType='multipart/form-data'

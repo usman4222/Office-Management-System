@@ -4,7 +4,7 @@ const catchAsyncError = require('../middleware/catchAsyncError');
 const sendToken = require('../utils/jwtToken');
 
 //register user
-exports.registerUser = async (req, res, next) => {
+exports.registerUser = catchAsyncError(async (req, res, next) => {
     try {
         const { name, email, password } = req.body;
         console.log("Received Data:", req.body);
@@ -32,7 +32,7 @@ exports.registerUser = async (req, res, next) => {
         next(error)
         console.error("Registration Error:", error);
     }
-};
+})
 
 
 

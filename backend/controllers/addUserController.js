@@ -1,7 +1,8 @@
+const catchAsyncError = require("../middleware/catchAsyncError");
 const newUser = require("../models/newUserModel")
 
 
-exports.addUser = async (req, res) => {
+exports.addUser = catchAsyncError(async (req, res, next) => {
     try {
         const { name, fatherName, phone, address, role, designation, userType } = req.body;
 
@@ -21,4 +22,4 @@ exports.addUser = async (req, res) => {
     } catch (error) {
         res.status(400).json({ success: false, error: error.message,  });
     }
-};
+})

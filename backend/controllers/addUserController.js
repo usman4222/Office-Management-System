@@ -88,3 +88,20 @@ exports.updateUser = catchAsyncError(async (req, res, next) => {
         user
     })
 })
+
+
+//get one user Details
+exports.getOneUserDetails = catchAsyncError(async (req, res, next) => {
+
+    const user = await newUser.findById(req.params.id)
+
+    if (!user) {
+        return next(new ErrorHandler("User Not found", 404));
+    }
+
+    res.status(200).json({
+        success: true,
+        user
+    })
+
+})

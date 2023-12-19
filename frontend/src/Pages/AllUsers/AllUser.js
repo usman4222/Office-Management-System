@@ -99,7 +99,7 @@ const AllUser = ( ) => {
             renderCell: (params) => {
                 return (
                     <Fragment>
-                        <Link to={`/admin/user/${params.getValue(params.id, "id")}`}>
+                        <Link to={`/updateuser/${params.getValue(params.id, "id")}`}>
                             <EditIcon />
                         </Link>
                         <Button onClick={() => deleteUserHandler(params.getValue(params.id, "id"))}>

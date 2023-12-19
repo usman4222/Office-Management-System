@@ -9,39 +9,38 @@ import { Button } from '@material-ui/core'
 // import { Metadata } from '@stripe/stripe-js'
 import EditIcon from "@material-ui/icons/Edit"
 import DeleteIcon from "@material-ui/icons/Delete"
-// import Sidebar from './Sidebar'
-import { getAllUsers, clearErrors } from '../../actions/addUserAction'
+import { useSnackbar } from 'notistack'
+import { getAllUsers, clearErrors, } from '../../actions/addUserAction'
+import { deleteUser } from '../../actions/deleteUser'
+import { DELETE_USER_RESET } from '../../constants/deleteUserConstant'
 
-const AllUser = ({ history }) => {
+const AllUser = ( ) => {
 
     const dispatch = useDispatch()
-    // const alert = useAlert()
+    const { enqueueSnackbar } = useSnackbar();
     const { error, users } = useSelector((state) => state.allUser)
+    const { error: deleteError, isDeleted, message } = useSelector((state) => state.delUser)
 
     useEffect(() => {
         if (error) {
-            alert.error(error);
+            enqueueSnackbar(error, { variant: 'error' });
             dispatch(clearErrors());
         }
-        // if (deleteError) {
-        //     alert.error(deleteError);
-        //     dispatch(clearErrors());
-        // }
-        // if (isDeleted) {
-        //     alert.success(message)
-        //     // history.push('/admin/users')
-        //     // dispatch({ type: USER_DELETE_RESET })
-        // }
+        if (deleteError) {
+            enqueueSnackbar(deleteError, { variant: 'error' });
+            dispatch(clearErrors());
+        }
+        if (isDeleted) {
+            // history.push('/admin/users')
+            enqueueSnackbar('User deleted Successfully', { variant: 'success' });
+            dispatch({ type: DELETE_USER_RESET })
+        }
         dispatch(getAllUsers());
-    }, [alert, error, dispatch, 
-        // deleteError, isDeleted, 
-        history,
-        //  message
-        ]);
+    }, [alert, error, dispatch, deleteError, isDeleted, message]);
 
-    // const deleteUserHandler = (id) => {
-    //     dispatch(deleteUser(id))
-    // }
+    const deleteUserHandler = (id) => {
+        dispatch(deleteUser(id))
+    }
 
     const columns = [
         {
@@ -103,9 +102,9 @@ const AllUser = ({ history }) => {
                         <Link to={`/admin/user/${params.getValue(params.id, "id")}`}>
                             <EditIcon />
                         </Link>
-                        {/* <Button onClick={() => deleteUserHandler(params.getValue(params.id, "id"))}> */}
+                        <Button onClick={() => deleteUserHandler(params.getValue(params.id, "id"))}>
                             <DeleteIcon />
-                        {/* </Button> */}
+                        </Button>
 
                     </Fragment>
                 )

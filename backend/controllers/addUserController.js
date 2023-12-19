@@ -49,7 +49,6 @@ exports.getAllUsers = catchAsyncError(async (req, res, next) => {
 });
 
 //delete employee
-//Delete user by admin
 exports.deleteEmployee = catchAsyncError(async (req, res, next) => {
     const user = await newUser.findByIdAndDelete(req.params.id);
 
@@ -67,3 +66,25 @@ exports.deleteEmployee = catchAsyncError(async (req, res, next) => {
         message: "User Deleted successfully"
     });
 });
+
+
+//edit employee
+exports.updateUser = catchAsyncError(async (req, res, next) => {
+
+    let user = newUser.findById(req.params.id)
+
+    if (!user) {
+        return next(new ErrorHandler("User Not found", 404));
+    }
+
+    user = await newUser.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false
+    })
+
+    res.status(200).json({
+        success: true,
+        user
+    })
+})

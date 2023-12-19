@@ -6,7 +6,7 @@ const newUser = require("../models/newUserModel")
 //Add New Employee
 exports.addUser = catchAsyncError(async (req, res, next) => {
     try {
-        const { name, fatherName, phone, address, role, designation, userType } = req.body;
+        const { name, fatherName, phone, address, role, designation } = req.body;
 
         const user = new newUser({
             name,
@@ -14,8 +14,7 @@ exports.addUser = catchAsyncError(async (req, res, next) => {
             phone,
             address,
             role,
-            designation,
-            userType
+            designation
         });
 
         await user.save();

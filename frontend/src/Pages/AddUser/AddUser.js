@@ -16,7 +16,7 @@ const AddUser = () => {
     const navigate = useNavigate()
     const { enqueueSnackbar } = useSnackbar();
     const [role, setRole] = useState("");
-    const [skill, setSkill] = useState("");
+    const [designation, setDesignation] = useState("");
     const { error, success } = useSelector((state) => state.newUser)
 
     const roleCategories = [
@@ -45,8 +45,8 @@ const AddUser = () => {
         myForm.set("fatherName", fatherName);
         myForm.set("address", address);
         myForm.set("phone", phone);
-        myForm.set("role", role); // Ensure 'role' is correctly set
-        myForm.set("userType", skill); // Ensure 'userType' (or 'skill') is correctly set
+        myForm.set("role", role); 
+        myForm.set("designation", designation); 
         dispatch(addNewUser(myForm));
     };
 
@@ -116,7 +116,7 @@ const AddUser = () => {
                                     </option>
                                 ))}
                             </select>
-                            <select onChange={(e) => setSkill(e.target.value)}>
+                            <select onChange={(e) => setDesignation(e.target.value)}>
                                 <option value="">Choose Desigination</option>
                                 {skillCategories.map((cate) => (
                                     <option key={cate} value={cate}>

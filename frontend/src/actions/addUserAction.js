@@ -5,6 +5,7 @@ import {
     CLEAR_ERRORS
 } from "../constants/addUserContant"
 import axios from "axios"
+import { ALL_USERS_FAIL, ALL_USERS_REQUEST, ALL_USERS_SUCCESS } from "../constants/allUserConstant";
 
 
 export const addNewUser = (userData) => async (dispatch) => {
@@ -36,6 +37,22 @@ export const addNewUser = (userData) => async (dispatch) => {
     }
 };
 
+
+export const getAllUsers = () => async (dispatch) => {
+
+    try {
+        dispatch({ type: ALL_USERS_REQUEST })
+
+        const { data } = await axios.get(`http://localhost:4000/api/v1/allusers`)
+
+        dispatch({ type: ALL_USERS_SUCCESS, payload: data.users })
+    } catch (error) {
+        dispatch({
+            type: ALL_USERS_FAIL,
+            payload: error.response.data.message
+        })
+    }
+}
 
 
 export const clearErrors = () => async (dispatch) => {

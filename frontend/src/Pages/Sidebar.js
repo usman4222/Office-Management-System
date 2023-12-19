@@ -27,9 +27,9 @@ const Sidebar = () => {
                 <PeopleIcon />Add New 
                 </p>
             </Link>
-            <Link to="/">
+            <Link to="allusers">
                 <p>
-                    <ListAltIcon />New 
+                    <ListAltIcon />All Users 
                 </p>
             </Link>
             <Link to="/">

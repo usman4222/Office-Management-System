@@ -25,9 +25,9 @@ const newUserSchema = new mongoose.Schema({
         type: String,
         required: [true, "Please define user role"]
     },
-    userType: {
+    designation: {
         type: String,
-        required: [true, "Please define user userType"]
+        required: [true, "Please define user designation"]
     },
     createdAt: {
         type: Date,

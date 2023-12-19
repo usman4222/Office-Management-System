@@ -1,5 +1,6 @@
 const catchAsyncError = require("../middleware/catchAsyncError");
-const newUser = require("../models/newUserModel")
+const newUser = require("../models/newUserModel");
+const ErrorHandler = require("../utils/errorHanlder");
 
 
 
@@ -47,3 +48,22 @@ exports.getAllUsers = catchAsyncError(async (req, res, next) => {
     }
 });
 
+//delete employee
+//Delete user by admin
+exports.deleteEmployee = catchAsyncError(async (req, res, next) => {
+    const user = await newUser.findByIdAndDelete(req.params.id);
+
+    if (!user) {
+        return next(new ErrorHandler(`No User exists with this ID: ${req.params.id}`, 404));
+    }
+
+    // If you're managing images with cloud services like Cloudinary, 
+    // uncomment the code below to delete associated images.
+    // const imageId = user.avatar.public_id
+    // await cloudinary.v2.uploader.destroy(imageId)
+
+    res.status(200).json({
+        success: true,
+        message: "User Deleted successfully"
+    });
+});

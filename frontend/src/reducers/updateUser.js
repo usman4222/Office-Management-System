@@ -47,7 +47,7 @@ export const updateUserDetails = (state = {}, action) => {
 
 
 
-export const getUserReducer = (state = { product: {} }, action) => {
+export const getUserReducer = (state = { user: {} }, action) => {
 
     switch (action.type) {
         case GET_USER_REQUEST:
@@ -58,7 +58,7 @@ export const getUserReducer = (state = { product: {} }, action) => {
         case GET_USER_SUCCESS:
             return {
                 loading: false,
-                product: action.payload
+                user: action.payload
             };
         case GET_USER_FAIL:
             return {

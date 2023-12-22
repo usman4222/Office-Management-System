@@ -55,6 +55,7 @@ export const getUserDetails = (id) => async (dispatch) => {
             payload: error.response.data.message,
             message: "Error while getting details"
         })
+        console.log("this is get user details", error)
     }
 }
 

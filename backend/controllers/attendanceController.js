@@ -1,22 +1,31 @@
-const Attendance = require('../models/userAttendence')
+const catchAsyncError = require('../middleware/catchAsyncError');
+const newUser = require('../models/newUserModel');
+const ErrorHandler = require('../utils/errorHanlder');
 
-// Create an attendance record
-exports.createAttendance = async (req, res) => {
-  try {
-    const { userId, date, status } = req.body; // Assuming these fields come from the request body
+exports.updateAttendanceStatus = catchAsyncError(async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const { attendanceStatus } = req.body;
 
-    // Create a new attendance record
-    const attendance = new Attendance({
-      userId,
-      date,
-      status,
-    });
+        console.log('ID:', id);
+        console.log('Attendance Status:', attendanceStatus);
 
-    // Save the attendance record to the database
-    const newAttendance = await attendance.save();
+        if (!attendanceStatus || attendanceStatus.length === 0) {
+            return res.status(400).json({ success: false, message: 'Attendance status is missing or empty' });
+        }
 
-    res.status(201).json(newAttendance); // Send back the newly created attendance record
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-};
+        const user = await newUser.findByIdAndUpdate(
+            id,
+            { attendance: attendanceStatus }, // Update the 'attendance' field with the provided status
+            { new: true } // To receive the updated document
+        );
+
+        if (!user) {
+            return next(new ErrorHandler('User Not found', 404));
+        }
+
+        return res.status(200).json({ success: true, message: 'Attendance status updated successfully', user });
+    } catch (error) {
+        return res.status(500).json({ success: false, message: 'Internal Server Error', error });
+    }
+});

@@ -20,6 +20,7 @@ const AllUser = ( ) => {
     const { enqueueSnackbar } = useSnackbar();
     const { error, users } = useSelector((state) => state.allUser)
     const { error: deleteError, isDeleted, message } = useSelector((state) => state.delUser)
+    
 
     useEffect(() => {
         if (error) {
@@ -121,7 +122,6 @@ const AllUser = ( ) => {
         phone: item.phone,
         address: item.address,
     }));
-
 
     return (
         <Fragment>

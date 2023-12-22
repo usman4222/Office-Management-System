@@ -32,9 +32,9 @@ const Sidebar = () => {
                     <ListAltIcon />All Users 
                 </p>
             </Link>
-            <Link to="/">
+            <Link to="/attendance">
                 <p>
-                    <PeopleIcon /> New 
+                    <PeopleIcon /> Attendance 
                 </p>
             </Link>
             <Link to="/">

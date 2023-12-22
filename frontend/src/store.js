@@ -6,6 +6,7 @@ import { addUserReducer } from './reducers/addUserReducer';
 import { allUsersReducer } from './reducers/allUserReducer';
 import { deleteReducer } from './reducers/deleteUser';
 import { getUserReducer, updateUserDetails } from './reducers/updateUser';
+import { userUpdateReducer } from './reducers/attendanceReducer';
 
 const rootReducer = combineReducers({
     user: userReducer,
@@ -13,7 +14,8 @@ const rootReducer = combineReducers({
     allUser: allUsersReducer,
     delUser: deleteReducer,
     getUser: getUserReducer,
-    updateUser: updateUserDetails
+    updateUser: updateUserDetails,
+    editUser: userUpdateReducer
 });
 
 const middleware = [thunk];

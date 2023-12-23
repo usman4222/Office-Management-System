@@ -4,36 +4,46 @@ import {
     UPDATE_USER_SUCCESS,
     UPDATE_USER_FAIL,
     CLEAR_ERRORS
-} from '../constants/attendanceConstant'; // Importing the action constants
+} from '../constants/attendanceConstant';
 
-// Action to create an attendance record
-export const updateUserCon = (id, user) => async (dispatch) => {
-
+export const updateUserCon = (id, attendanceData) => async (dispatch) => {
     try {
-        dispatch({ type: UPDATE_USER_REQUEST, })
+        dispatch({ type: UPDATE_USER_REQUEST });
+
         const config = {
             headers: {
-                "Content-Type": "application/json"
+                'Content-Type': 'application/json'
             }
-        }
-        const { data } = await axios.put(`http://localhost:4000/api/v1/attendance/${id}`, user, config)
+        };
+
+        const payload = {
+            attendance: [
+                {
+                    status: attendanceData.status,
+                    date: attendanceData.date
+                }
+            ]
+        };
+
+        const { data } = await axios.put(`http://localhost:4000/api/v1/attendance/${id}`, payload, config);
+
         dispatch({
             type: UPDATE_USER_SUCCESS,
             payload: data.success
-        })
-        console.log("user update successfully", user.data)
+        });
+
+        console.log('User updated successfully:', payload);
     } catch (error) {
         dispatch({
             type: UPDATE_USER_FAIL,
             payload: error.response.data.message
-        })
-        console.log("this is update error", error)
-
+        });
+        console.log('Update error:', error.response || error.message || error);
     }
-}
+};
 
-
-// Action to clear errors
 export const clearErrors = () => async (dispatch) => {
     dispatch({ type: CLEAR_ERRORS });
 };
+
+

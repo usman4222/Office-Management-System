@@ -61,9 +61,11 @@ const Attendance = () => {
       minWidth: 10,
       flex: 0.8,
       renderCell: (params) => (
-        <Button component={Link} to={`/user/${params.row.id}`} color="primary" >
-          Mark Attendance
-        </Button>
+        <Link to={`/attendance/${params.getValue(params.id, "id")}`}>
+          <Button>
+            Mark Attendance
+          </Button>
+        </Link>
       ),
     },
     {
@@ -83,9 +85,11 @@ const Attendance = () => {
       sortable: false,
       flex: 0.5,
       renderCell: (params) => (
-        <Button onClick={() => deleteUserHandler(params.getValue(params.id, "id"))}>
-          <DeleteIcon />
-        </Button>
+        <Link to={`/attendance/view/${params.getValue(params.id, "id")}`}>
+          <Button>
+            View Attendance
+          </Button>
+        </Link>
       ),
     },
   ];

@@ -7,6 +7,7 @@ import AddUser from "./Pages/AddUser/AddUser";
 import AllUser from "./Pages/AllUsers/AllUser";
 import UpdateUser from "./Pages/UpdateUser/UpateUser";
 import Attendance from "./Pages/employeeAttendance.js/Attendance";
+import UserAttendance from "./Pages/employeeAttendance.js/UserAttendance";
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
         <Route path="/allusers" element={<AllUser />} />
         <Route path="/updateuser/:id" element={<UpdateUser />} />
         <Route path="/attendance" element={<Attendance />} />
+        <Route path="/attendance/:id" element={<UserAttendance />} />
       </Routes>
     </BrowserRouter>
   );

@@ -8,6 +8,7 @@ import AllUser from "./Pages/AllUsers/AllUser";
 import UpdateUser from "./Pages/UpdateUser/UpateUser";
 import Attendance from "./Pages/employeeAttendance.js/Attendance";
 import UserAttendance from "./Pages/employeeAttendance.js/UserAttendance";
+import AttendanceDetails from "./Pages/employeeAttendance.js/AttendanceDetails";
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
         <Route path="/updateuser/:id" element={<UpdateUser />} />
         <Route path="/attendance" element={<Attendance />} />
         <Route path="/attendance/:id" element={<UserAttendance />} />
+        <Route path="/attendance/view/:id" element={<AttendanceDetails />} />
       </Routes>
     </BrowserRouter>
   );

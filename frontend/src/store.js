@@ -15,7 +15,7 @@ const rootReducer = combineReducers({
     delUser: deleteReducer,
     getUser: getUserReducer,
     updateUser: updateUserDetails,
-    editUser: userUpdateReducer
+    editUser: userUpdateReducer,
 });
 
 const middleware = [thunk];

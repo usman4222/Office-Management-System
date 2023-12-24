@@ -3,6 +3,9 @@ import {
     UPDATE_USER_REQUEST,
     UPDATE_USER_SUCCESS,
     UPDATE_USER_FAIL,
+    USER_ATTENDANCE_DETAILS_REQUEST,
+    USER_ATTENDANCE_DETAILS_SUCCESS,
+    USER_ATTENDANCE_DETAILS_FAIL,
     CLEAR_ERRORS
 } from '../constants/attendanceConstant';
 
@@ -41,6 +44,8 @@ export const updateUserCon = (id, attendanceData) => async (dispatch) => {
         console.log('Update error:', error.response || error.message || error);
     }
 };
+
+
 
 export const clearErrors = () => async (dispatch) => {
     dispatch({ type: CLEAR_ERRORS });

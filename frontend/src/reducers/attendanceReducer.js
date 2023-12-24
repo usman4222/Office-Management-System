@@ -3,7 +3,7 @@ import {
   UPDATE_USER_SUCCESS,
   UPDATE_USER_FAIL,
   UPDATE_USER_RESET,
-  CLEAR_ERRORS
+  CLEAR_ERRORS,
 } from '../constants/attendanceConstant';
 
 // Attendance reducer function
@@ -40,5 +40,4 @@ export const userUpdateReducer = (state = { users: [] }, action) => {
     default:
       return state
   }
-
 }

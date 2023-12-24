@@ -56,19 +56,6 @@ const Attendance = () => {
       flex: 0.5,
     },
     {
-      field: 'Attendance',
-      headerName: 'Employee Attendance',
-      minWidth: 10,
-      flex: 0.8,
-      renderCell: (params) => (
-        <Link to={`/attendance/${params.getValue(params.id, "id")}`}>
-          <Button>
-            Mark Attendance
-          </Button>
-        </Link>
-      ),
-    },
-    {
       field: "role",
       headerName: "Role",
       minWidth: 10,
@@ -78,15 +65,58 @@ const Attendance = () => {
       },
     },
     {
+      field: 'Attendance',
+      headerName: 'Employee Attendance',
+      minWidth: 10,
+      flex: 0.8,
+      renderCell: (params) => (
+        <Link to={`/attendance/${params.getValue(params.id, "id")}`}>
+          <Button
+            variant="contained"
+            style={{
+              backgroundColor: '#2196f3',
+              color: '#ffffff',
+              padding: '10px 20px',
+              borderRadius: '5px',
+              textTransform: 'none',
+              fontWeight: 'bold',
+              boxShadow: 'none',
+              transition: 'background-color 0.3s ease',
+              marginTop: '-20px',
+              '&:hover': {
+                backgroundColor: '#0d47a1',
+              },
+            }}
+          >
+            Mark Attendance
+          </Button>
+        </Link>
+      ),
+    },
+    {
       field: "action",
       headerName: "Action",
       minWidth: 100,
-      type: "number",
-      sortable: false,
       flex: 0.5,
       renderCell: (params) => (
         <Link to={`/attendance/view/${params.getValue(params.id, "id")}`}>
-          <Button>
+          <Button
+            variant="contained"
+            style={{
+              backgroundColor: '#2196f3',
+              color: '#ffffff',
+              padding: '10px 20px',
+              borderRadius: '5px',
+              textTransform: 'none',
+              fontWeight: 'bold',
+              boxShadow: 'none',
+              transition: 'background-color 0.3s ease',
+              marginTop: '-20px',
+              '&:hover': {
+                backgroundColor: '#0d47a1',
+              },
+            }}
+          >
             View Attendance
           </Button>
         </Link>

@@ -45,7 +45,7 @@ const UpdateUser = () => {
         }
         if (isUpdated) {
             enqueueSnackbar("Attendance Updated Successfully", { variant: 'success' });
-            navigate('/')
+            navigate('/attendance')
             dispatch({ type: UPDATE_USER_RESET })
         }
     }, [dispatch, enqueueSnackbar, updateError, isUpdated, userId, user])

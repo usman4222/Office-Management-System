@@ -15,8 +15,8 @@ const UpdateUser = () => {
     const { id } = useParams()
     const { error: updateError, isUpdated } = useSelector((state) => state.updateUser)
     const { user } = useSelector((state) => state.getUser)
+    console.log("this is user", user)
 
-    console.log("This is get user state", user)
 
     const [name, setName] = useState("")
     const [fatherName, setFatherName] = useState("")

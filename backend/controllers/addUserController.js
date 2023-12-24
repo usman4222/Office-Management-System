@@ -103,5 +103,4 @@ exports.getOneUserDetails = catchAsyncError(async (req, res, next) => {
         success: true,
         user
     })
-
 })

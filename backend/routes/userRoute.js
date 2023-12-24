@@ -1,7 +1,7 @@
 const express = require('express');
 const { registerUser, loginUser } = require('../controllers/userController');
 const { addUser, getAllUsers, deleteEmployee, updateUser, getOneUserDetails } = require('../controllers/addUserController');
-const { updateAttendanceStatus } = require('../controllers/attendanceController');
+const { updateAttendanceStatus, getUserAttendanceDetails } = require('../controllers/attendanceController');
 const router = express.Router()
 
 router.route('/register').post(registerUser)

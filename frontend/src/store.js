@@ -7,7 +7,7 @@ import { allUsersReducer } from './reducers/allUserReducer';
 import { deleteReducer } from './reducers/deleteUser';
 import { getUserReducer, updateUserDetails } from './reducers/updateUser';
 import { userUpdateReducer } from './reducers/attendanceReducer';
-import { financeReducer } from './reducers/financeReducer';
+import { allExpensesReducer, financeReducer } from './reducers/financeReducer';
 
 const rootReducer = combineReducers({
     user: userReducer,
@@ -17,7 +17,8 @@ const rootReducer = combineReducers({
     getUser: getUserReducer,
     updateUser: updateUserDetails,
     editUser: userUpdateReducer,
-    finance: financeReducer
+    finance: financeReducer,
+    allExpenses: allExpensesReducer
 });
 
 const middleware = [thunk];

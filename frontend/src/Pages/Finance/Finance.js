@@ -1,7 +1,8 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { addNewExpense, clearErrors } from '../../actions/financeController'
 import { useDispatch, useSelector } from 'react-redux'
 import { useSnackbar } from 'notistack'
+import { getAllExpenses } from '../../actions/financeController'
 
 const Finance = () => {
 
@@ -11,7 +12,7 @@ const Finance = () => {
     const [date, setDate] = useState("")
     const { enqueueSnackbar } = useSnackbar();
 
-    const { error, success } = useSelector((state) => state.finance)
+    const { error, success, expenses } = useSelector((state) => state.allExpenses)
 
     const addExpenseHandler = async (e) => {
         e.preventDefault();
@@ -22,7 +23,7 @@ const Finance = () => {
             }
 
             const expenseData = {
-                text: name,
+                text: expense,
                 name: name,
                 date: date
             };
@@ -33,6 +34,15 @@ const Finance = () => {
             console.error(error.message);
         }
     };
+
+
+    useEffect(() => {
+        if (error) {
+            enqueueSnackbar(error, { variant: 'error' });
+            dispatch(clearErrors());
+        }
+        dispatch(getAllExpenses());
+    }, [error, dispatch]);
 
 
     return (
@@ -73,6 +83,27 @@ const Finance = () => {
                         </form>
                     </div>
                 </div>
+            </div>
+            <div style={{ marginTop: '20px' }}>
+                <h2 className="text-center text-2xl font-bold mb-4">All Expenses</h2>
+                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                    <thead>
+                        <tr style={{ backgroundColor: '#f0f0f0' }}>
+                            <th style={{ padding: '10px' }}>Name</th>
+                            <th style={{ padding: '10px' }}>Date</th>
+                            <th style={{ padding: '10px' }}>Expenses</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {expenses.map((expense, index) => (
+                            <tr key={index} style={{ backgroundColor: index % 2 === 0 ? '#ffffff' : '#f9f9f9' }}>
+                                <td style={{ padding: '10px', textAlign: 'center' }}>{expense.name}</td>
+                                <td style={{ padding: '10px', textAlign: 'center' }}>{expense.date}</td>
+                                <td style={{ padding: '10px', textAlign: 'center' }}>{expense.text}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             </div>
         </Fragment>
     )

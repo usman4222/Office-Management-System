@@ -3,11 +3,14 @@ import {
     FINANCE_REQUEST,
     FINANCE_SUCCESS,
     FINANCE_FAIL,
-    CLEAR_ERRORS
+    CLEAR_ERRORS,
+    GET_ALL_EXPENSES_REQUEST,
+    GET_ALL_EXPENSES_SUCCESS,
+    GET_ALL_EXPENSES_FAIL
 } from "../constants/financeConstant";
 import axios from "axios";
 
-export const addNewExpense = ({ text, name, date }) => async (dispatch) => {
+export const addNewExpense = (expense) => async (dispatch) => {
     try {
         dispatch({
             type: FINANCE_REQUEST
@@ -15,36 +18,47 @@ export const addNewExpense = ({ text, name, date }) => async (dispatch) => {
 
         const config = {
             headers: { "Content-Type": "application/json" }
-        };
-
-        // Validate that all required fields are present before making the request
-        if (!text || !name || !date) {
-            throw new Error('Missing required fields');
         }
 
-        const payload = {
-            name,
-            text,
-            date
-        };
-
-        const { data } = await axios.post(`http://localhost:4000/api/v1/finance`, payload, config);
+        const { data } = await axios.post(`http://localhost:4000/api/v1/finance`, expense, config);
 
         dispatch({
             type: FINANCE_SUCCESS,
             payload: data
         });
 
+        dispatch(getAllExpenses());
+
         return data;
     } catch (error) {
         dispatch({
             type: FINANCE_FAIL,
-            payload: error.response ? error.response.data.message : error.message
+            payload: error.response.data.message
         });
 
         throw error;
     }
 };
+
+
+
+
+export const getAllExpenses = () => async (dispatch) => {
+    try {
+        dispatch({ type: GET_ALL_EXPENSES_REQUEST });
+
+        const { data } = await axios.get(`http://localhost:4000/api/v1/allexpenses`);
+
+        dispatch({ type: GET_ALL_EXPENSES_SUCCESS, payload: data.expenses });
+    } catch (error) {
+        dispatch({
+            type: GET_ALL_EXPENSES_FAIL,
+            payload: error.response ? error.response.data.message : error.message
+        });
+    }
+};
+
+
 
 export const clearErrors = () => async (dispatch) => {
     dispatch({

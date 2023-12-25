@@ -5,7 +5,6 @@ import { useSnackbar } from 'notistack'
 
 const Finance = () => {
 
-
     const dispatch = useDispatch()
     const [name, setName] = useState("")
     const [expense, setExpense] = useState("")
@@ -13,7 +12,6 @@ const Finance = () => {
     const { enqueueSnackbar } = useSnackbar();
 
     const { error, success } = useSelector((state) => state.finance)
-
 
     const addExpenseHandler = async (e) => {
         e.preventDefault();

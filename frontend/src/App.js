@@ -9,6 +9,7 @@ import UpdateUser from "./Pages/UpdateUser/UpateUser";
 import Attendance from "./Pages/employeeAttendance.js/Attendance";
 import UserAttendance from "./Pages/employeeAttendance.js/UserAttendance";
 import AttendanceDetails from "./Pages/employeeAttendance.js/AttendanceDetails";
+import Finance from "./Pages/Finance/Finance";
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
         <Route path="/attendance" element={<Attendance />} />
         <Route path="/attendance/:id" element={<UserAttendance />} />
         <Route path="/attendance/view/:id" element={<AttendanceDetails />} />
+        <Route path="/finance" element={<Finance />} />
       </Routes>
     </BrowserRouter>
   );

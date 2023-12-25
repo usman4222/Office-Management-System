@@ -37,8 +37,8 @@ const Sidebar = () => {
                     <PeopleIcon /> Attendance 
                 </p>
             </Link>
-            <Link to="/">
-                <RateReviewIcon /> New 
+            <Link to="/finance">
+                <RateReviewIcon /> Add Expenses 
             </Link>
         </div>
     )

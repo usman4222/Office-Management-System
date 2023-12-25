@@ -6,13 +6,13 @@ const ErrorHandler = require("../utils/errorHanlder");
 
 exports.financeController = catchAsyncError(async (req, res, next) => {
     try {
-        const { text } = req.body;
+        const { text, name, date } = req.body;
 
         if (!text || typeof text !== 'string' || text.trim() === '') {
             return next(new ErrorHandler("Text is required.", 400));
         }
 
-        const expense = new spend({ text });
+        const expense = new spend({ text, name, date });
 
         const savedExpense = await expense.save();
 

@@ -8,9 +8,9 @@ exports.financeController = catchAsyncError(async (req, res, next) => {
     try {
         const { text, name, date } = req.body;
 
-        if (!text || typeof text !== 'string' || text.trim() === '') {
-            return next(new ErrorHandler("Text is required.", 400));
-        }
+        // if (!text || typeof text !== 'string' || text.trim() === '') {
+        //     return next(new ErrorHandler("Text is required.", 400));
+        // }
 
         const expense = new spend({ text, name, date });
 

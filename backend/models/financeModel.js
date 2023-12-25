@@ -3,7 +3,8 @@ const mongoose = require('mongoose')
 const expensesSchema = new mongoose.Schema({
     text: {
         type: String,
-        required: true
+        required: [true, "Please Enter Text"]
+
     },
     name: {
         type: String,

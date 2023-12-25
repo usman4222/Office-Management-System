@@ -1,5 +1,6 @@
 export const FINANCE_REQUEST = "FINANCE_REQUEST" 
 export const FINANCE_SUCCESS = "FINANCE_SUCCESS" 
+export const FINANCE_RESET = "FINANCE_RESET" 
 export const FINANCE_FAIL = "FINANCE_FAIL"
 
 export const CLEAR_ERRORS = "CLEAR_ERRORS" 

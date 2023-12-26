@@ -1,14 +1,21 @@
 const mongoose = require('mongoose')
 
 const expensesSchema = new mongoose.Schema({
-    text: {
+    title: {
         type: String,
-        required: [true, "Please Enter Text"]
-
+        required: [true, "Please Enter Expense Title"]
     },
-    name: {
+    ref: {
         type: String,
-        required: [true, "Please Enter Your Name"]
+        required: [true, "Please Enter Ref"]
+    },
+    amount: {
+        type: Number,
+        required: [true, "Please Enter amount"]
+    },
+    description: {
+        type: String,
+        required: [true, "Please Enter description"]
     },
     date: {
         type: Date,

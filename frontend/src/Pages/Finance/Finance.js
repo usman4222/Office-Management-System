@@ -7,8 +7,10 @@ import { getAllExpenses } from '../../actions/financeController'
 const Finance = () => {
 
     const dispatch = useDispatch()
-    const [name, setName] = useState("")
-    const [expense, setExpense] = useState("")
+    const [title, setTitle] = useState("")
+    const [ref, setRef] = useState("")
+    const [amount, setAmount] = useState("")
+    const [description, setDescription] = useState("")
     const [date, setDate] = useState("")
     const { enqueueSnackbar } = useSnackbar();
 
@@ -18,13 +20,15 @@ const Finance = () => {
         e.preventDefault();
 
         try {
-            if (!name || !expense || !date) {
-                throw new Error('Missing required fields');
-            }
+            // if (!ref || !amount || !date || !title || ) {
+            //     throw new Error('Missing required fields');
+            // }
 
             const expenseData = {
-                text: expense,
-                name: name,
+                title: title,
+                ref: ref,
+                amount: amount,
+                description: description,
                 date: date
             };
 
@@ -58,17 +62,31 @@ const Finance = () => {
                             <h2 >Add Expenses</h2>
                             <input
                                 type='text'
-                                placeholder='Name'
+                                placeholder='Expense Title'
                                 required
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
+                                value={title}
+                                onChange={(e) => setTitle(e.target.value)}
                             />
                             <input
                                 type='text'
-                                placeholder='Expense'
+                                placeholder='Ref'
                                 required
-                                value={expense}
-                                onChange={(e) => setExpense(e.target.value)}
+                                value={ref}
+                                onChange={(e) => setRef(e.target.value)}
+                            />
+                            <input
+                                type='text'
+                                placeholder='Amount'
+                                required
+                                value={amount}
+                                onChange={(e) => setAmount(e.target.value)}
+                            />
+                            <input
+                                type='text'
+                                placeholder='Description'
+                                required
+                                value={description}
+                                onChange={(e) => setDescription(e.target.value)}
                             />
                             <input
                                 type='date'
@@ -89,17 +107,21 @@ const Finance = () => {
                 <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                     <thead>
                         <tr style={{ backgroundColor: '#f0f0f0' }}>
-                            <th style={{ padding: '10px' }}>Name</th>
+                            <th style={{ padding: '10px' }}>Title</th>
+                            <th style={{ padding: '10px' }}>Ref</th>
                             <th style={{ padding: '10px' }}>Date</th>
-                            <th style={{ padding: '10px' }}>Expenses</th>
+                            <th style={{ padding: '10px' }}>Amount</th>
+                            <th style={{ padding: '10px' }}>Description</th>
                         </tr>
                     </thead>
                     <tbody>
                         {expenses.map((expense, index) => (
                             <tr key={index} style={{ backgroundColor: index % 2 === 0 ? '#ffffff' : '#f9f9f9' }}>
-                                <td style={{ padding: '10px', textAlign: 'center' }}>{expense.name}</td>
+                                <td style={{ padding: '10px', textAlign: 'center' }}>{expense.title}</td>
+                                <td style={{ padding: '10px', textAlign: 'center' }}>{expense.ref}</td>
                                 <td style={{ padding: '10px', textAlign: 'center' }}>{expense.date}</td>
-                                <td style={{ padding: '10px', textAlign: 'center' }}>{expense.text}</td>
+                                <td style={{ padding: '10px', textAlign: 'center' }}>{expense.amount}</td>
+                                <td style={{ padding: '10px', textAlign: 'center' }}>{expense.description}</td>
                             </tr>
                         ))}
                     </tbody>

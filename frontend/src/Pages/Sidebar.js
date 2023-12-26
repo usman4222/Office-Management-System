@@ -9,6 +9,7 @@ import ListAltIcon from '@material-ui/icons/ListAlt'
 import DashboardIcon from '@material-ui/icons/Dashboard'
 import PeopleIcon from '@material-ui/icons/People'
 import RateReviewIcon from '@material-ui/icons/RateReview'
+import { FaUser } from 'react-icons/fa';
 import './Sidebar.css'
 
 const Sidebar = () => {
@@ -24,7 +25,7 @@ const Sidebar = () => {
             </Link>
             <Link to="/adduser">
                 <p>
-                <PeopleIcon />Add New 
+                <FaUser />Add New 
                 </p>
             </Link>
             <Link to="allusers">

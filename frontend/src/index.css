@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* body {
+    background-color: #C7DFEA;
+    margin: 0;
+  }
+  #root {
+    padding: 10px; 
+  } */

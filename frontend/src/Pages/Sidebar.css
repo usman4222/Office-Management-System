@@ -13,7 +13,6 @@
     color: #fff;
     padding: 5px 0;
     transition: all ease .3s;
-    /* Additional reset for text decoration */
     -webkit-text-decoration: none;
     text-decoration: none;
 }

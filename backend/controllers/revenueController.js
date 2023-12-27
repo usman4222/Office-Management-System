@@ -1,18 +1,18 @@
 const catchAsyncError = require("../middleware/catchAsyncError");
-const spend = require("../models/financeModel");
+const revenue = require("../models/revenueModel");
 
 
 exports.createRevenue = catchAsyncError(async (req, res, next) => {
     try {
         const { ref, amount, date, description, month } = req.body
 
-        const salary = new revenue({ ref, amount, date, description, month })
+        const Revenue = new revenue({ ref, amount, date, description, month })
 
-        const savedSalary = await salary.save()
+        const revenueSalary = await Revenue.save()
 
         res.status(200).json({
             success: true,
-            data: savedSalary,
+            data: revenueSalary,
             message: "Revenue Created Successfully"
         })
 

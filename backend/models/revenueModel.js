@@ -11,15 +11,21 @@ const revenueSchema = new mongoose.Schema({
     },
     date: {
         type: Date,
-        required: Date.now()
+        required: true
     },
     description: {
         type: String,
         required: [true, "Please Enter description"]
     },
     month: {
-        type: Number,
-        required: [true, "Please Enter month"]
+        name: {
+            type: String,
+            required: [true, "Please Enter month name"]
+        },
+        year: {
+            type: Number,
+            required: [true, "Please Enter year"]
+        }
     }
 })
 

@@ -13,8 +13,9 @@ const Finance = () => {
     const [description, setDescription] = useState("")
     const [date, setDate] = useState("")
     const { enqueueSnackbar } = useSnackbar();
-
     const { error, success, expenses } = useSelector((state) => state.allExpenses)
+
+    
 
     const addExpenseHandler = async (e) => {
         e.preventDefault();
@@ -48,6 +49,13 @@ const Finance = () => {
         dispatch(getAllExpenses());
     }, [error, dispatch]);
 
+    // const currentDate = new Date();
+    // const lastDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
+
+    
+    // if (currentDate.getDate() === lastDayOfMonth) {
+    //     console.log("this is update logic of the currnet years")
+    //   }
 
     return (
         <Fragment>

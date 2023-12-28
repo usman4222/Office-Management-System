@@ -14,17 +14,14 @@ const Finance = () => {
     const [date, setDate] = useState("")
     const { enqueueSnackbar } = useSnackbar();
     const { error, success, expenses } = useSelector((state) => state.allExpenses)
+    const [totalCurrentMonthExpenses, setTotalCurrentMonthExpenses] = useState(0);
 
-    
+
 
     const addExpenseHandler = async (e) => {
         e.preventDefault();
 
         try {
-            // if (!ref || !amount || !date || !title || ) {
-            //     throw new Error('Missing required fields');
-            // }
-
             const expenseData = {
                 title: title,
                 ref: ref,
@@ -40,6 +37,27 @@ const Finance = () => {
         }
     };
 
+    const calculateTotalCurrentMonthExpenses = () => {
+        const currentDate = new Date();
+        const currentMonth = currentDate.getMonth() + 1;
+        const currentYear = currentDate.getFullYear();
+
+        const expensesForCurrentMonth = expenses.filter((expense) => {
+            const expenseDate = new Date(expense.date);
+            return (
+                expenseDate.getMonth() + 1 === currentMonth &&
+                expenseDate.getFullYear() === currentYear
+            );
+        });
+
+        const totalExpenses = expensesForCurrentMonth.reduce(
+            (total, expense) => total + parseFloat(expense.amount),
+            0
+        );
+
+        setTotalCurrentMonthExpenses(totalExpenses);
+    };
+
 
     useEffect(() => {
         if (error) {
@@ -47,15 +65,8 @@ const Finance = () => {
             dispatch(clearErrors());
         }
         dispatch(getAllExpenses());
+        calculateTotalCurrentMonthExpenses();
     }, [error, dispatch]);
-
-    // const currentDate = new Date();
-    // const lastDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
-
-    
-    // if (currentDate.getDate() === lastDayOfMonth) {
-    //     console.log("this is update logic of the currnet years")
-    //   }
 
     return (
         <Fragment>
@@ -134,6 +145,10 @@ const Finance = () => {
                         ))}
                     </tbody>
                 </table>
+                <div style={{ marginTop: '20px' }}>
+                    <h2 className="text-center text-2xl font-bold mb-4">Total Expenses for Current Month</h2>
+                    <p>Total: ${totalCurrentMonthExpenses}</p>
+                </div>
             </div>
         </Fragment>
     )

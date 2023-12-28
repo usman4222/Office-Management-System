@@ -2,7 +2,7 @@ const express = require('express');
 const { registerUser, loginUser } = require('../controllers/userController');
 const { addUser, getAllUsers, deleteEmployee, updateUser, getOneUserDetails } = require('../controllers/addUserController');
 const { updateAttendanceStatus, getUserAttendanceDetails } = require('../controllers/attendanceController');
-const { financeController, getAllExpenses } = require('../controllers/financeController');
+const { financeController, getAllExpenses, getMonthlyExpenses, getCurrentMonthExpenses } = require('../controllers/financeController');
 const { createRevenue } = require('../controllers/revenueController');
 const router = express.Router()
 
@@ -17,5 +17,7 @@ router.route('/attendance/:id').put(updateAttendanceStatus)
 router.route('/finance').post(financeController)
 router.route('/allexpenses').get(getAllExpenses)
 router.route('/revenue').post(createRevenue)
+// router.route('/getExpenses').get(getMonthlyExpenses)
+router.route('/getExpenses').get(getCurrentMonthExpenses)
 
 module.exports = router;

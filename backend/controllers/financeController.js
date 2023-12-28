@@ -8,7 +8,7 @@ exports.financeController = catchAsyncError(async (req, res, next) => {
     try {
         const { title, ref, amount, description, date } = req.body;
 
-        const expense = new spend({ title, ref, amount, description, date  });
+        const expense = new spend({ title, ref, amount, description, date });
 
         const savedExpense = await expense.save();
 
@@ -30,9 +30,78 @@ exports.getAllExpenses = catchAsyncError(async (req, res, next) => {
         res.status(200).json({
             success: true,
             expenses,
-            error: { message: "This is an error while getting all expenses" } 
+            error: { message: "This is an error while getting all expenses" }
         });
     } catch (error) {
-        return next(new ErrorHandler("Error getting expenses", 500)); 
+        return next(new ErrorHandler("Error getting expenses", 500));
+    }
+});
+
+
+// exports.getMonthlyExpenses = catchAsyncError(async (req, res, next) => {
+//     try {
+//         const { month, year } = req.query;
+
+//         const expenses = await spend.find({
+//             $expr: {
+//                 $and: [
+//                     { $eq: [{ $month: "$date" }, parseInt(month)] },
+//                     { $eq: [{ $year: "$date" }, parseInt(year)] },
+//                 ],
+//             },
+//         });
+
+//         if (expenses.length === 0) {
+//             return next(new ErrorHandler("No Expenses Found for this month", 404));
+//         }
+
+//         const totalMonthlyExpenses = expenses.reduce(
+//             (total, expense) => total + parseFloat(expense.amount),
+//             0
+//         );
+
+//         res.status(200).json({
+//             success: true,
+//             totalMonthlyExpenses,
+//             expenses,
+//         });
+//     } catch (error) {
+//         return next(new ErrorHandler("Error getting monthly expenses", 500));
+//     }
+// });
+
+
+exports.getCurrentMonthExpenses = catchAsyncError(async (req, res, next) => {
+    try {
+        const currentDate = new Date();
+        const currentMonth = currentDate.getMonth() + 1; // Get current month
+        const currentYear = currentDate.getFullYear(); // Get current year
+
+        const expenses = await spend.find({
+            $expr: {
+                $and: [
+                    { $eq: [{ $month: "$date" }, currentMonth] }, // Filter by current month
+                    { $eq: [{ $year: "$date" }, currentYear] }, // Filter by current year
+                ],
+            },
+        });
+
+        if (expenses.length === 0) {
+            return next(new ErrorHandler("No Expenses Found for this month", 404));
+        }
+
+        // Calculate total expenses for the current month
+        const totalCurrentMonthExpenses = expenses.reduce(
+            (total, expense) => total + parseFloat(expense.amount),
+            0
+        );
+
+        res.status(200).json({
+            success: true,
+            totalCurrentMonthExpenses,
+            expenses,
+        });
+    } catch (error) {
+        return next(new ErrorHandler("Error getting current month expenses", 500));
     }
 });

@@ -1,58 +1,71 @@
 @font-face {
     font-family: 'Lemon';
-    src: url('../fonts/Lemon/Lemon-Regular.ttf') format('truetype'); 
-  }
-.sidebar{
+    src: url('../fonts/Lemon/Lemon-Regular.ttf') format('truetype');
+}
+
+.sidebar {
     background: #000;
     width: 17vmax;
     background: url('../img//pexels-fauxels-3182834.jpg');
     background-color: #cccccc;
-    height: 600px; 
-    background-position: center; 
-    background-repeat: no-repeat; 
-    background-size: cover; 
+    height: 640px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
     position: relative;
 }
-.sidebar > :first-child{
+
+.sidebar> :first-child {
     position: absolute;
     background: #2B4162;
     opacity: .9;
     width: 100%;
     height: 100%;
 }
-.logo{
+
+.logo {
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 20px 0;
 }
+
 .line::after {
     content: '';
-    display: block; 
+    display: block;
     background: #fff;
     width: 100%;
     height: 1px;
     margin-top: -20px;
-  }
-.actions{
+}
+
+.actions {
     margin-top: 20px;
 }
-.logo p{
+
+.logo p {
     color: #fff;
     font-size: 2vmax;
     font-family: 'Lemon', sans-serif;
 }
-.icon{
+
+.icon {
     display: flex;
     align-items: center;
     padding: 10px 0;
     width: 100%;
 }
+
+.icon a {
+    text-decoration: none;
+}
+
 .icon:hover {
-    background: rgb(149, 165, 166); 
+    background: rgb(149, 165, 166);
     cursor: pointer;
-  }
-.icon p{
+}
+
+.icon p {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -62,7 +75,7 @@
     font-size: 1.2vmax;
 }
 
-.icon p > svg{
+.icon p>svg {
     margin-right: 20px;
     color: #fff;
     font-size: 1.8vmax;

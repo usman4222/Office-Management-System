@@ -20,13 +20,12 @@ const Home = () => {
       dispatch(getCurrentMonthExpenses())
     }, [dispatch, enqueueSnackbar, error])
 
-  console.log("this is curent month expenes", currentMonthTotal)
 
 
   return (
     <div>
       <div className='home'>
-        <Sidebar />
+        {/* <Sidebar /> */}
       </div>
       {/* <div className='box'>
         <div className='inner-box'>

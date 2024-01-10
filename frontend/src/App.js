@@ -10,12 +10,13 @@ import Attendance from "./Pages/employeeAttendance.js/Attendance";
 import UserAttendance from "./Pages/employeeAttendance.js/UserAttendance";
 import AttendanceDetails from "./Pages/employeeAttendance.js/AttendanceDetails";
 import Finance from "./Pages/Finance/Finance";
+import DashBoard from "./Pages/DashBoard/DashBoard";
 
 function App() {
 
   return (
     <BrowserRouter>
-      <Header />
+      {/* <Header /> */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
@@ -27,6 +28,7 @@ function App() {
         <Route path="/attendance/:id" element={<UserAttendance />} />
         <Route path="/attendance/view/:id" element={<AttendanceDetails />} />
         <Route path="/finance" element={<Finance />} />
+        <Route path="/dash" element={<DashBoard />} />
       </Routes>
     </BrowserRouter>
   );

@@ -16,34 +16,6 @@ import './Sidebar.css'
 
 const Sidebar = () => {
     return (
-        // <div className='sidebar'>
-        //     <Link to="/">
-        //         {/* <img src={logo} alt='Ecommerce'/> */}
-        //     </Link>
-        //     <Link to="/user">
-        //         <p>
-        //             <DashboardIcon /> Dashboard
-        //         </p>
-        //     </Link>
-        //     <Link to="/adduser">
-        //         <p>
-        //         <FaUser />Add New 
-        //         </p>
-        //     </Link>
-        //     <Link to="allusers">
-        //         <p>
-        //             <ListAltIcon />All Users 
-        //         </p>
-        //     </Link>
-        //     <Link to="/attendance">
-        //         <p>
-        //             <PeopleIcon /> Attendance 
-        //         </p>
-        //     </Link>
-        //     <Link to="/finance">
-        //         <RateReviewIcon /> Add Expenses 
-        //     </Link>
-        // </div>
         <Fragment>
             <div className='sidebar'>
                 <div>
@@ -51,7 +23,6 @@ const Sidebar = () => {
                         <div className='logo'>
                             <p>Soriic</p>
                         </div>
-                        <br />
                     </div>
                     <div>
                         <div className='actions'>
@@ -77,7 +48,7 @@ const Sidebar = () => {
                                 </Link>
                             </div>
                             <div className='icon'>
-                                <Link to='/'>
+                                <Link to='/' >
                                     <p>
                                         <PiUsersThreeFill />Attendance
                                     </p>

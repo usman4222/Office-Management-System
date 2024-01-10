@@ -1,6 +1,8 @@
 const catchAsyncError = require("../middleware/catchAsyncError");
 const spend = require("../models/financeModel");
 const ErrorHandler = require("../utils/errorHanlder");
+const QRCode = require('qrcode');
+const { createCanvas, loadImage } = require('canvas');
 
 
 
@@ -99,7 +101,6 @@ exports.getCurrentMonthExpenses = catchAsyncError(async (req, res, next) => {
         res.status(200).json({
             success: true,
             totalCurrentMonthExpenses,
-            expenses,
         });
     } catch (error) {
         return next(new ErrorHandler("Error getting current month expenses", 500));

@@ -17,7 +17,7 @@ router.route('/attendance/:id').put(updateAttendanceStatus)
 router.route('/finance').post(financeController)
 router.route('/allexpenses').get(getAllExpenses)
 router.route('/revenue').post(createRevenue)
-// router.route('/getExpenses').get(getMonthlyExpenses)
-router.route('/getExpenses').get(getCurrentMonthExpenses)
+// router.route('/getExpenses').get(getMonthlyExpenses)router.get('/generateQRCode'
+// router.route('/getExpenses').get(getCurrentMonthExpenses)
 
 module.exports = router;

@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react'
-import { addNewExpense, clearErrors } from '../../actions/financeController'
+import { addNewExpense, clearErrors, getCurrentMonthExpenses } from '../../actions/financeController'
 import { useDispatch, useSelector } from 'react-redux'
 import { useSnackbar } from 'notistack'
 import { getAllExpenses } from '../../actions/financeController'
@@ -14,8 +14,24 @@ const Finance = () => {
     const [date, setDate] = useState("")
     const { enqueueSnackbar } = useSnackbar();
     const { error, success, expenses } = useSelector((state) => state.allExpenses)
-    const [totalCurrentMonthExpenses, setTotalCurrentMonthExpenses] = useState(0);
+    // const [totalCurrentMonthExpenses, setTotalCurrentMonthExpenses] = useState(0);
 
+    const { error: currentMonthError, success: currentMonthSuccess, currentMonthTotal } = useSelector((state) => state.currentMonthTotal)
+
+
+    useEffect(() => {
+        if (currentMonthError) {
+            enqueueSnackbar(error, { variant: 'error' });
+            dispatch(clearErrors());
+        }
+        if (currentMonthSuccess) {
+            enqueueSnackbar(error, { variant: 'success' });
+            dispatch(clearErrors());
+        }
+        dispatch(getCurrentMonthExpenses())
+    }, [dispatch, enqueueSnackbar, error])
+
+    console.log("this is curent month expenes", currentMonthTotal)
 
 
     const addExpenseHandler = async (e) => {
@@ -37,26 +53,26 @@ const Finance = () => {
         }
     };
 
-    const calculateTotalCurrentMonthExpenses = () => {
-        const currentDate = new Date();
-        const currentMonth = currentDate.getMonth() + 1;
-        const currentYear = currentDate.getFullYear();
+    // const calculateTotalCurrentMonthExpenses = () => {
+    //     const currentDate = new Date();
+    //     const currentMonth = currentDate.getMonth() + 1;
+    //     const currentYear = currentDate.getFullYear();
 
-        const expensesForCurrentMonth = expenses.filter((expense) => {
-            const expenseDate = new Date(expense.date);
-            return (
-                expenseDate.getMonth() + 1 === currentMonth &&
-                expenseDate.getFullYear() === currentYear
-            );
-        });
+    //     const expensesForCurrentMonth = expenses.filter((expense) => {
+    //         const expenseDate = new Date(expense.date);
+    //         return (
+    //             expenseDate.getMonth() + 1 === currentMonth &&
+    //             expenseDate.getFullYear() === currentYear
+    //         );
+    //     });
 
-        const totalExpenses = expensesForCurrentMonth.reduce(
-            (total, expense) => total + parseFloat(expense.amount),
-            0
-        );
+    //     const totalExpenses = expensesForCurrentMonth.reduce(
+    //         (total, expense) => total + parseFloat(expense.amount),
+    //         0
+    //     );
 
-        setTotalCurrentMonthExpenses(totalExpenses);
-    };
+    //     setTotalCurrentMonthExpenses(totalExpenses);
+    // };
 
 
     useEffect(() => {
@@ -65,7 +81,7 @@ const Finance = () => {
             dispatch(clearErrors());
         }
         dispatch(getAllExpenses());
-        calculateTotalCurrentMonthExpenses();
+        // calculateTotalCurrentMonthExpenses();
     }, [error, dispatch]);
 
     return (
@@ -147,7 +163,8 @@ const Finance = () => {
                 </table>
                 <div style={{ marginTop: '20px' }}>
                     <h2 className="text-center text-2xl font-bold mb-4">Total Expenses for Current Month</h2>
-                    <p>Total: ${totalCurrentMonthExpenses}</p>
+                    {/* <p>Total: ${totalCurrentMonthExpenses}</p> */}
+                    {/* <p>Total: ${currentMonthTotal}</p> */}
                 </div>
             </div>
         </Fragment>

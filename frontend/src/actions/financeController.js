@@ -6,7 +6,13 @@ import {
     CLEAR_ERRORS,
     GET_ALL_EXPENSES_REQUEST,
     GET_ALL_EXPENSES_SUCCESS,
-    GET_ALL_EXPENSES_FAIL
+    GET_ALL_EXPENSES_FAIL,
+    GET_CURRENT_MONTH_TOTAL_REQUEST,
+    GET_CURRENT_MONTH_TOTAL_SUCCESS,
+    GET_CURRENT_MONTH_TOTAL_FAIL,
+    QR_REQUEST,
+    QR_SUCCESS,
+    QR_FAIL
 } from "../constants/financeConstant";
 import axios from "axios";
 
@@ -58,6 +64,27 @@ export const getAllExpenses = () => async (dispatch) => {
     }
 };
 
+
+export const getCurrentMonthExpenses = () => async (dispatch) => {
+    try {
+        dispatch({ type: GET_CURRENT_MONTH_TOTAL_REQUEST });
+
+        const currentDate = new Date();
+        const month = currentDate.getMonth() + 1; // Adding 1 since getMonth() returns 0-indexed months
+        const year = currentDate.getFullYear();
+
+        const { data } = await axios.get(`http://localhost:4000/api/v1/getExpenses`, {
+            params: { month, year }
+        });
+
+        dispatch({ type: GET_CURRENT_MONTH_TOTAL_SUCCESS, payload: data.totalMonthlyExpenses });
+    } catch (error) {
+        dispatch({
+            type: GET_CURRENT_MONTH_TOTAL_FAIL,
+            payload: error.response ? error.response.data.message : error.message
+        });
+    }
+};;
 
 
 export const clearErrors = () => async (dispatch) => {

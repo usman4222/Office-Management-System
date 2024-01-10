@@ -1,46 +1,69 @@
+@font-face {
+    font-family: 'Lemon';
+    src: url('../fonts/Lemon/Lemon-Regular.ttf') format('truetype'); 
+  }
 .sidebar{
-    background: #392068;
-    width: 20vmax;
-    display: flex;
-    flex-direction: column;
-    padding: 4rem 0;
+    background: #000;
+    width: 17vmax;
+    background: url('../img//pexels-fauxels-3182834.jpg');
+    background-color: #cccccc;
+    height: 600px; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    background-size: cover; 
     position: relative;
 }
-.sidebar > a:first-child{
-    padding: 0;
-}
-.all p {
-    text-decoration: none !important;
-    color: #fff;
-    padding: 5px 0;
-    transition: all ease .3s;
-    -webkit-text-decoration: none;
-    text-decoration: none;
-}
-.sidebar > a > img{
+.sidebar > :first-child{
+    position: absolute;
+    background: #2B4162;
+    opacity: .9;
     width: 100%;
-    transition: all ease .3s;
+    height: 100%;
 }
-.sidebar > a > img:hover{
-    filter: drop-shadow(0 0 10px tomato);
-}
-.sidebar > a{
-    text-decoration: none;
-    transition: all ease .3s;
-    color: #fff;
-    padding: 2rem;
-    font: 200 1rem "Roboto";
-}
-.sidebar > a:hover{
-    transform: scale(1.1);
-}
-.sidebar a > p{
+.logo{
     display: flex;
     align-items: center;
+    justify-content: center;
+    padding: 20px 0;
 }
-.sidebar a > p > svg{
-    margin-right: 0.5rem;
+.line::after {
+    content: '';
+    display: block; 
+    background: #fff;
+    width: 100%;
+    height: 1px;
+    margin-top: -20px;
+  }
+.actions{
+    margin-top: 20px;
 }
-.MuiTypography-root{
-    background: #fff !important;
+.logo p{
+    color: #fff;
+    font-size: 2vmax;
+    font-family: 'Lemon', sans-serif;
+}
+.icon{
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    width: 100%;
+}
+.icon:hover {
+    background: rgb(149, 165, 166); 
+    cursor: pointer;
+  }
+.icon p{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 40px;
+    padding: 20px 0;
+    color: #fff;
+    font-size: 1.2vmax;
+}
+
+.icon p > svg{
+    margin-right: 20px;
+    color: #fff;
+    font-size: 1.8vmax;
 }

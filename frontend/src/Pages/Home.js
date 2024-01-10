@@ -28,11 +28,11 @@ const Home = () => {
       <div className='home'>
         <Sidebar />
       </div>
-      <div className='box'>
+      {/* <div className='box'>
         <div className='inner-box'>
           December Expenses{currentMonthTotal}
         </div>
-      </div>
+      </div> */}
     </div>
   )
 }

@@ -9,6 +9,8 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import { getAllUsers, clearErrors } from '../../actions/addUserAction';
 import { deleteUser } from '../../actions/deleteUser';
 import { DELETE_USER_RESET } from '../../constants/deleteUserConstant';
+import Sidebar from '../Sidebar';
+import Header from '../../components/Header';
 
 const Attendance = () => {
   const dispatch = useDispatch();
@@ -37,12 +39,12 @@ const Attendance = () => {
   };
 
   const columns = [
-    {
-      field: "id",
-      headerName: "Empolyee ID",
-      minWidth: 10,
-      flex: 0.8,
-    },
+    // {
+    //   field: "id",
+    //   headerName: "Empolyee ID",
+    //   minWidth: 10,
+    //   flex: 0.8,
+    // },
     {
       field: "name",
       headerName: "Name",
@@ -105,7 +107,7 @@ const Attendance = () => {
             style={{
               backgroundColor: '#2196f3',
               color: '#ffffff',
-              padding: '10px 20px',
+              padding: '10px ',
               borderRadius: '5px',
               textTransform: 'none',
               fontWeight: 'bold',
@@ -136,19 +138,31 @@ const Attendance = () => {
 
   return (
     <Fragment>
-      {/* <MetaData title="ALL USERS -- ADMIN" /> */}
-      <div className='dashboard'>
-        {/* <Sidebar /> */}
-        <div className='productsListContainer'>
-          <h1 className='productListHeading'>Employee Attendance</h1>
-          <DataGrid
-            rows={rows}
-            columns={columns}
-            pageSize={10}
-            disableSelectionOnClick
-            className='productsListTable'
-            autoHeight
-          />
+      <div className='main'>
+        <div className='row w-full'>
+          <div className='col-lg-2'>
+            <Sidebar />
+          </div>
+          <div className='col-lg-10'>
+            <div className='row'>
+              <div className='col-lg-12'>
+                <Header />
+              </div>
+            </div>
+            <div className='dashboard'>
+              <div className='productsListContainer'>
+                <h1 className='productListHeading'>Employee Attendance</h1>
+                <DataGrid
+                  rows={rows}
+                  columns={columns}
+                  pageSize={10}
+                  disableSelectionOnClick
+                  className='productsListTable'
+                  autoHeight
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </Fragment>

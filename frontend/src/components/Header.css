@@ -2,7 +2,6 @@
     /* background: #774E2A; */
 }
 .header ul{
-    /* background: salmon; */
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -13,6 +12,7 @@
     padding: 19px 50px;
     color: #888;
     margin-top: 5px;
+    font-family: Montserrat;
 }
 .header::after {
     content: '';

@@ -5,6 +5,9 @@
     padding: 40px 0;
     background: #F0F1F4;
 }
+.main{
+    background: #F0F1F4;
+}
 .addUser {
     width: 350px;
     /* height: 700px; */
@@ -19,6 +22,7 @@
     position: relative;
     cursor: pointer;
     transition: .8s ease-in-out all;
+    font-family: Montserrat;
 }
 .addUser h2 {
     color: #fff;
@@ -53,7 +57,9 @@ select {
     padding: 10px 60px;
     border-radius: 10px;
 }
-
+.rol{
+    margin-bottom: 28px;
+}
 .addUser a{
     color: #fff;
     text-align: center;

@@ -72,7 +72,7 @@ const AddUser = () => {
 
     return (
         <Fragment>
-            <div>
+            <div className='main'>
                 <div className='row w-full main1-r1'>
                     <div className='col-lg-2 main1-r1-b1'>
                         <Sidebar />
@@ -121,7 +121,7 @@ const AddUser = () => {
                                                     value={phone}
                                                     onChange={(e) => setPhone(e.target.value)}
                                                 />
-                                                <select onChange={(e) => setRole(e.target.value)}>
+                                                <select className='rol' onChange={(e) => setRole(e.target.value)}>
                                                     <option value="">Choose Role</option>
                                                     {roleCategories.map((cate) => (
                                                         <option key={cate} value={cate}>

@@ -3,107 +3,36 @@
     margin: 0px;
     box-sizing: border-box;
 }
-
-/* .dash{
-    display: flex;
-}
-
-.header{
-    background: red;
-    height: 60px;
-    width: 83vmax;
-}
-.header::after{
-    content: '';
-    display: block; 
-    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
-}
-.header ul{
-    display: flex;
-    align-content: center;
-    justify-content: space-between;
-}
-.header ul li{
-    padding: 17px 50px;
-    color: #888;
-    font-size: 17px;
-}
-.main{
-    background: red;
-    height: 200px;
-    display: flex;
-    flex-wrap: wrap;
-}
-.main-box{
-    display: flex;
-    flex-grow: 1;
-    flex-basis: 200;
-}
-.main-box-1{
-    background: slateblue;
-    width: 100px;
-    height: 100px;;
-} */
 .main {
     /* background: #F7F7F8; */
     background: #F0F1F4;
 }
-/* F0F1F4 */
-
 .main-r1 {
     /* background: saddlebrown; */
     display: flex;
     width: 100%;
 }
-
-/* .header {
-    background: red;
-    width: 100%;
-} */
-/* 
-.header::after {
-    content: '';
-    display: block;
-    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
-} */
-
-/* .header ul {
-    display: flex;
-    align-content: center;
-    justify-content: space-between;
-}
-
-.header ul li {
-    padding: 17px 50px;
-    color: #888;
-    font-size: 17px;
-} */
-
 .main-r3 {
     /* background: khaki; */
     display: flex;
     justify-content: space-around;
 }
-
 .main-r3-b1 {
     width: 250px;
     padding: 20px;
     /* background: sandybrown; */
 }
-
 .main-r3-b1-r1 {
     /* background: gold; */
     padding: 40px 0;
     /* border: 2px solid red; */
     box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
-
     display: flex;
     justify-content: space-around;
     align-items: center;
     background: #fff;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
-
 .main-r3-b1-r1-b1 {
     /* background: palegreen; */
     width: 30px;
@@ -111,21 +40,17 @@
     border-radius: 20px;
     font-size: 30px;
 }
-
 .main-r3-b1-r1-b1 svg {
     font-size: 50px;
 }
-
 .main-r3-b1-r1-b2 {
     /* background: green; */
     font-size: 20px;
 }
-
 .main-r4-b1 {
     box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
     /* padding: 170px; */
 }
-
 .count {
     font-size: 30px;
 }

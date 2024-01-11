@@ -13,14 +13,16 @@ import { useSnackbar } from 'notistack'
 import { getAllUsers, clearErrors, } from '../../actions/addUserAction'
 import { deleteUser } from '../../actions/deleteUser'
 import { DELETE_USER_RESET } from '../../constants/deleteUserConstant'
+import Sidebar from '../Sidebar'
+import Header from '../../components/Header'
 
-const AllUser = ( ) => {
+const AllUser = () => {
 
     const dispatch = useDispatch()
     const { enqueueSnackbar } = useSnackbar();
     const { error, users } = useSelector((state) => state.allUser)
     const { error: deleteError, isDeleted, message } = useSelector((state) => state.delUser)
-    
+
 
     useEffect(() => {
         if (error) {
@@ -100,7 +102,7 @@ const AllUser = ( ) => {
             renderCell: (params) => {
                 return (
                     <Fragment>
-                        <Link to={`/updateuser/${params.getValue(params.id, "id")}`}>
+                        <Link to={`/updateuser/${params.getValue(params.id, "id")}`} className='edit'>
                             <EditIcon />
                         </Link>
                         <Button onClick={() => deleteUserHandler(params.getValue(params.id, "id"))}>
@@ -118,26 +120,38 @@ const AllUser = ( ) => {
         name: item.name,
         role: item.role,
         fatherName: item.fatherName,
-        designation: item.designation, 
+        designation: item.designation,
         phone: item.phone,
         address: item.address,
     }));
 
     return (
         <Fragment>
-            {/* <MetaData title="ALL USERS -- ADMIN" /> */}
-            <div className='dashboard'>
-                {/* <Sidebar /> */}
-                <div className='productsListContainer'>
-                    <h1 className='productListHeading'>All Employee</h1>
-                    <DataGrid
-                        rows={rows}
-                        columns={columns}
-                        pageSize={10}
-                        disableSelectionOnClick
-                        className='productsListTable'
-                        autoHeight
-                    />
+            <div className='main'>
+                <div className='row w-full main1-r1'>
+                    <div className='col-lg-2 main1-r1-b1'>
+                        <Sidebar />
+                    </div>
+                    <div className='col-lg-10 main1-r1-b2'>
+                        <div className='row'>
+                            <div className='col-lg-12'>
+                                <Header/>
+                            </div>
+                        </div>
+                        <div className='dashboard'>
+                            <div className='productsListContainer'>
+                                <h1 className='productListHeading'>All Employee</h1>
+                                <DataGrid
+                                    rows={rows}
+                                    columns={columns}
+                                    pageSize={10}
+                                    disableSelectionOnClick
+                                    className='productsListTable'
+                                    autoHeight
+                                />
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </Fragment>

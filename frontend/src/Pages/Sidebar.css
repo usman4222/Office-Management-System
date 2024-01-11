@@ -13,6 +13,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     position: fixed;
+    z-index: 100;
 }
 
 .sidebar> :first-child {
@@ -58,6 +59,7 @@
 
 .icon a {
     text-decoration: none;
+    font-family: Montserrat;
 }
 
 .icon:hover {

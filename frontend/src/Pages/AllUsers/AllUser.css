@@ -6,6 +6,8 @@
     border: 1px solid rgba(0, 0, 0, 0.158);
     height: 100vh;
     flex-direction: column;
+    background: #F0F1F4;
+
 }
 .productListHeading{
     font-weight: 400;
@@ -16,10 +18,14 @@
     margin: 2rem;
     color: rgba(0, 0, 0, 0.637);
     transition: all ease .3s;
+    font-family: Montserrat;
 }
 .productsListTable{
     background: #fff;
     border: none !important;
+    background: #F0F1F4;
+    margin-left: 20px;
+
 }
 .productsListTable > div{
     font: 300 1vmax;
@@ -28,12 +34,18 @@
 } 
 .productsListTable a{
     margin-top: 1.3vmax;
+    font-family: Montserrat;
 }
 .productsListTable a,
 .productsListTable button{
     color: rgba(0, 0, 0, 0.527);
     transition: all ease .3s;
     padding: 1vmax;
+    font-family: Montserrat;
+
+}
+.edit{
+    margin-bottom: 13px;
 }
 .productsListTable button:hover{
     color:  #573b8a;

@@ -7,6 +7,8 @@ import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { getUserDetails, updateUserDetails } from '../../actions/updateUser';
 import { UPDATE_USER_RESET } from '../../constants/updateUser';
+import Header from '../../components/Header';
+import Sidebar from '../Sidebar';
 
 const UpdateUser = () => {
 
@@ -15,7 +17,6 @@ const UpdateUser = () => {
     const { id } = useParams()
     const { error: updateError, isUpdated } = useSelector((state) => state.updateUser)
     const { user } = useSelector((state) => state.getUser)
-    console.log("this is user", user)
 
 
     const [name, setName] = useState("")
@@ -56,7 +57,7 @@ const UpdateUser = () => {
         } else {
             dispatch(getUserDetails(userId))
         }
-    
+
         if (updateError) {
             enqueueSnackbar(updateError, { variant: 'success' });
             dispatch(clearErrors())
@@ -67,8 +68,8 @@ const UpdateUser = () => {
             dispatch({ type: UPDATE_USER_RESET })
         }
     }, [dispatch, enqueueSnackbar, updateError, isUpdated, userId, user])
-    
-    
+
+
 
     const updateUserHandler = (e) => {
         e.preventDefault()
@@ -87,56 +88,70 @@ const UpdateUser = () => {
 
     return (
         <Fragment>
-            <div className='main-form'>
-                <div className='addUser'>
-                    <div className='addUser'>
-                        <form
-                            className='createProductForm'
-                            encType='multipart/form-data'
-                            onSubmit={updateUserHandler}
-                        >
-                            <h2 >Update Employee</h2>
-                            <input
-                                type='text'
-                                placeholder='Name'
-                                required
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
-                            />
-                            <input
-                                type='text'
-                                placeholder='Father Name'
-                                required
-                                value={fatherName}
-                                onChange={(e) => setFatherName(e.target.value)}
-                            />
-                            <input
-                                type='text'
-                                placeholder='Address'
-                                required
-                                value={address}
-                                onChange={(e) => setAddress(e.target.value)}
-                            />
-                            <input
-                                type='text'
-                                placeholder='Phone'
-                                pattern='[0-9]*'
-                                required
-                                value={phone}
-                                onChange={(e) => setPhone(e.target.value)}
-                            />
-                            <select onChange={(e) => setRole(e.target.value)}>
-                                <option value="">Choose Role</option>
-                                {roleCategories.map((cate) => (
-                                    <option key={cate} value={cate}>
-                                        {cate}
-                                    </option>
-                                ))}
-                            </select>
-                            <div className='submitBtn'>
-                                <button type='submit'>Add</button>
+            <div className='main'>
+                <div className='row w-full'>
+                    <div className='col-lg-2'>
+                        <Sidebar/>
+                    </div>
+                    <div className='col-lg-10'>
+                        <div className='row'>
+                            <div className='col-lg-12'>
+                                <Header />
                             </div>
-                        </form>
+                        </div>
+                        <div className='main-form'>
+                            <div className='addUser'>
+                                <div className='addUser'>
+                                    <form
+                                        className='createProductForm'
+                                        encType='multipart/form-data'
+                                        onSubmit={updateUserHandler}
+                                    >
+                                        <h2 >Update Employee</h2>
+                                        <input
+                                            type='text'
+                                            placeholder='Name'
+                                            required
+                                            value={name}
+                                            onChange={(e) => setName(e.target.value)}
+                                        />
+                                        <input
+                                            type='text'
+                                            placeholder='Father Name'
+                                            required
+                                            value={fatherName}
+                                            onChange={(e) => setFatherName(e.target.value)}
+                                        />
+                                        <input
+                                            type='text'
+                                            placeholder='Address'
+                                            required
+                                            value={address}
+                                            onChange={(e) => setAddress(e.target.value)}
+                                        />
+                                        <input
+                                            type='text'
+                                            placeholder='Phone'
+                                            pattern='[0-9]*'
+                                            required
+                                            value={phone}
+                                            onChange={(e) => setPhone(e.target.value)}
+                                        />
+                                        <select onChange={(e) => setRole(e.target.value)}>
+                                            <option value="">Choose Role</option>
+                                            {roleCategories.map((cate) => (
+                                                <option key={cate} value={cate}>
+                                                    {cate}
+                                                </option>
+                                            ))}
+                                        </select>
+                                        <div className='submitBtn'>
+                                            <button type='submit'>Add</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

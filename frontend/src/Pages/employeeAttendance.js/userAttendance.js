@@ -8,6 +8,9 @@ import { useNavigate } from 'react-router-dom';
 import { getUserDetails, updateUserDetails } from '../../actions/updateUser';
 import { UPDATE_USER_RESET } from '../../constants/updateUser';
 import { updateUserCon } from '../../actions/attendanceAction';
+import Header from '../../components/Header';
+import Sidebar from '../Sidebar';
+import './UserAttendance.css'
 
 const UpdateUser = () => {
 
@@ -65,35 +68,49 @@ const UpdateUser = () => {
 
     return (
         <Fragment>
-            <div className='main-form'>
-                <div className='addUser'>
-                    <div className='addUser'>
-                        <form
-                            className='createProductForm'
-                            encType='multipart/form-data'
-                            onSubmit={(e) => updateUserHandler(e, userId)}
-                        >
-                            <h2 >{user.name}'s Attendance</h2>
-                            <input
-                                type='date'
-                                placeholder='Name'
-                                required
-                                value={date}
-                                onChange={(e) => setDate(e.target.value)}
-                            />
-                            <select onChange={(e) => setStatus(e.target.value)}>
-                                <option value="">Choose Status</option>
-                                {roleCategories.map((cate) => (
-                                    <option key={cate} value={cate}>
-                                        {cate}
-                                    </option>
-                                ))}
-                            </select>
-
-                            <div className='submitBtn'>
-                                <button type='submit'>Mark</button>
+            <div className='man'>
+                <div className='row w-full'>
+                    <div className='col-lg-2'>
+                        <Sidebar />
+                    </div>
+                    <div className='col-lg-10'>
+                        <div className='row'>
+                            <div className='col-lg-12'>
+                                <Header />
                             </div>
-                        </form>
+                        </div>
+                        <div className='main-form'>
+                            <div className='addUser'>
+                                <div className='addUser'>
+                                    <form
+                                        className='createProductForm'
+                                        encType='multipart/form-data'
+                                        onSubmit={(e) => updateUserHandler(e, userId)}
+                                    >
+                                        <h2 >{user.name}'s Attendance</h2>
+                                        <input
+                                            type='date'
+                                            placeholder='Name'
+                                            required
+                                            value={date}
+                                            onChange={(e) => setDate(e.target.value)}
+                                        />
+                                        <select onChange={(e) => setStatus(e.target.value)}>
+                                            <option value="">Choose Status</option>
+                                            {roleCategories.map((cate) => (
+                                                <option key={cate} value={cate}>
+                                                    {cate}
+                                                </option>
+                                            ))}
+                                        </select>
+
+                                        <div className='submitBtn'>
+                                            <button type='submit'>Mark</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

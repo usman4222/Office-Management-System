@@ -7,7 +7,7 @@
 .login {
     width: 350px;
     height: 550px;
-    background: #573b8a;
+    background: #1C2B36;
     border-radius: 5%;
     display: flex;
     align-items: center;
@@ -41,7 +41,7 @@
 .login button {
     color: #fff;
     font-size: 15px;
-    background: #392068;
+    background: #344854;
     padding: 10px 60px;
     border-radius: 10px;
 }
@@ -73,7 +73,7 @@
     transition: .8s ease all;
 }
 .register h2 {
-    color: #392068;
+    color: #1C2B36;
     font-weight: 600;
     font-size: 30px;
     text-align: center;
@@ -90,7 +90,7 @@
 .register button {
     color: #fff;
     font-size: 15px;
-    background: #392068;
+    background: #344854;
     padding: 10px 60px;
     border-radius: 10px;
 }

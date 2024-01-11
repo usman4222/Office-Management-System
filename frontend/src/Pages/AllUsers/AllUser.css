@@ -7,7 +7,6 @@
     height: 100vh;
     flex-direction: column;
     background: #F0F1F4;
-
 }
 .productListHeading{
     font-weight: 400;
@@ -49,10 +48,10 @@
     margin-bottom: 13px;
 }
 .productsListTable button:hover{
-    color:  #573b8a;
+    color:  #1C2B36;
 }
 .productsListTable a:hover{
-    color:  #573b8a;
+    color:  #1C2B36;
 }
 .MuiDataGrid-columnHeader div{
     color: #000;

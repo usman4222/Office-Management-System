@@ -79,6 +79,7 @@ const UpdateUser = () => {
                                 <Header />
                             </div>
                         </div>
+                        <h1 className='productListHeading'>Employee Attendance</h1>
                         <div className='main-form'>
                             <div className='addUser'>
                                 <div className='addUser'>

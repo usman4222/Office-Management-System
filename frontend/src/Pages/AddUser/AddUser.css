@@ -51,7 +51,7 @@ select {
 .addUser button {
     color: #fff;
     font-size: 15px;
-    background: #344854;
+    /* background: #344854; */
     padding: 10px 60px;
     border-radius: 10px;
 }

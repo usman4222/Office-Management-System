@@ -53,15 +53,8 @@ const DashBoard = () => {
                         <Sidebar />
                     </div>
                     <div className='col-lg-10  main-r1-b2'>
-                        <div className='row main-r2'>
-                            <div className='col-lg-12 main-r2-b1'>
-                                <div className='header'>
-                                    <ul>
-                                        <li>DashBoard</li>
-                                        <li>Login</li>
-                                    </ul>
-                                </div>
-                            </div>
+                         <div className='row main-r2'>
+                        <Header/>
                         </div>
                         <div className='row main-r3'>
                             <div className='col-lg-3  main-r3-b1'>

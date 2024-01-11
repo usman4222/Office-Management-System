@@ -1,36 +1,30 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { FaSearch } from "react-icons/fa"
 import { Link } from "react-router-dom"
-
+import './Header.css'
 
 
 
 const Header = () => {
     return (
-        <header className='bg-slate-200 shadow-md w-full'>
-            <div className='flex justify-between items-center max-w-6xl mx-auto p-4'>
-                <Link to="/">
-                    <h1 className='font-bold text-sm sm:text-xl flex flex-wrap'>
-                        <span className='text-slate-500'>Soriic</span>
-                    </h1>
-                </Link>
-                {/* <form className='bg-slate-100 p-3 rounded-lg items-center flex'>
-          <input type='search' placeholder='Search...' className='bg-transparent focus:outline-none w-24 sm:w-64' />
-          <FaSearch className="text-slate-600 ms-2" />
-        </form> */}
-                <ul className='flex gap-4'>
-                    <Link to="/">
-                        <li className='hidden sm:inline text-slate-700 hover:underline cursor-pointer'>Home</li>
-                    </Link>
-                    <Link to="/about">
-                        <li className='hidden sm:inline text-slate-700 hover:underline cursor-pointer'>About</li>
-                    </Link>
-                    <Link to="/login">
-                        <li className=' text-slate-700 hover:underline cursor-pointer'>Login</li>
-                    </Link>
-                </ul>
-            </div >
-        </header >
+        <Fragment>
+            <div>
+                <div className='row main-r2'>
+                    <div className='col-lg-12 main-r2-b1'>
+                        <div className='header'>
+                            <ul>
+                                <Link to='/dash'>
+                                    <p>DashBoard</p>
+                                </Link>
+                                <Link  to='/login'>
+                                    <p>Login</p>
+                                </Link>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </Fragment>
     )
 }
 

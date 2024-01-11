@@ -27,35 +27,35 @@ const Sidebar = () => {
                     <div>
                         <div className='actions'>
                             <div className='icon'>
-                                <Link to='/'>
+                                <Link to='/dash'>
                                     <p>
                                         <DashboardIcon />Dashboard
                                     </p>
                                 </Link>
                             </div>
                             <div className='icon'>
-                                <Link to='/'>
+                                <Link to='/adduser'>
                                     <p>
                                         <FaUser />Add Employee
                                     </p>
                                 </Link>
                             </div>
                             <div className='icon'>
-                                <Link to='/'>
+                                <Link to='/allusers'>
                                     <p>
                                         <PeopleIcon />All Employees
                                     </p>
                                 </Link>
                             </div>
                             <div className='icon'>
-                                <Link to='/' >
+                                <Link to='/attendance' >
                                     <p>
                                         <PiUsersThreeFill />Attendance
                                     </p>
                                 </Link>
                             </div>
                             <div className='icon'>
-                                <Link to='/'>
+                                <Link to='/finance'>
                                     <p>
                                         <HiCurrencyRupee />Finance
                                     </p>

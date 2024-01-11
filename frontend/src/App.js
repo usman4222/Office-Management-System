@@ -11,6 +11,7 @@ import UserAttendance from "./Pages/employeeAttendance.js/UserAttendance";
 import AttendanceDetails from "./Pages/employeeAttendance.js/AttendanceDetails";
 import Finance from "./Pages/Finance/Finance";
 import DashBoard from "./Pages/DashBoard/DashBoard";
+import './index.css'
 
 function App() {
 

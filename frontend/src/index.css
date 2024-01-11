@@ -1,11 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-/* body {
-    background-color: #C7DFEA;
+body {
+    background: #1C2B36;
     margin: 0;
   }
-  #root {
+  /* #root {
     padding: 10px; 
   } */
   @font-face {

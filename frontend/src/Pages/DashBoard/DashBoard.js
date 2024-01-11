@@ -53,15 +53,15 @@ const DashBoard = () => {
                         <Sidebar />
                     </div>
                     <div className='col-lg-10  main-r1-b2'>
-                         <div className='row main-r2'>
-                        <Header/>
+                        <div className='row main-r2'>
+                            <Header />
                         </div>
                         <div className='row main-r3'>
                             <div className='col-lg-3  main-r3-b1'>
                                 <div>
                                     <div className='row main-r3-b1-r1'>
                                         <div className='col-lg-6 main-r3-b1-r1-b1'>
-                                            <div><PeopleIcon /></div>
+                                            <div className='people'><PeopleIcon /></div>
                                         </div>
                                         <div className='col-lg-6 main-r3-b1-r1-b2'>
                                             <div className="tsp-countUp col-md-2 col-sm-4 col-xs-6 tsp-full-xs tsp-no-padding-left tsp-item-1">
@@ -81,7 +81,7 @@ const DashBoard = () => {
                                 <div>
                                     <div className='row main-r3-b1-r1'>
                                         <div className='col-lg-6 main-r3-b1-r1-b1'>
-                                            <div><PeopleIcon /></div>
+                                            <div className='revenue'><PeopleIcon /></div>
                                         </div>
                                         <div className='col-lg-6 main-r3-b1-r1-b2'>
                                             <div className="tsp-countUp col-md-2 col-sm-4 col-xs-6 tsp-full-xs tsp-no-padding-left tsp-item-1">
@@ -101,7 +101,7 @@ const DashBoard = () => {
                                 <div>
                                     <div className='row main-r3-b1-r1'>
                                         <div className='col-lg-6 main-r3-b1-r1-b1'>
-                                            <div><PeopleIcon /></div>
+                                            <div className='att'><PeopleIcon /></div>
                                         </div>
                                         <div className='col-lg-6 main-r3-b1-r1-b2'>
                                             <div className="tsp-countUp col-md-2 col-sm-4 col-xs-6 tsp-full-xs tsp-no-padding-left tsp-item-1">
@@ -118,27 +118,36 @@ const DashBoard = () => {
                                 </div>
                             </div>
                         </div>
-                        {/* <div>
-                            <h2>Expenses Graph</h2>
-                            <Bar
-                                data={data}
-                                options={{
-                                    indexAxis: 'x', // Use 'x' for horizontal bar chart or 'y' for vertical bar chart
-                                    scales: {
-                                        x: {
-                                            type: 'category',
-                                            beginAtZero: true,
-                                        },
-                                        y: {
-                                            type: 'linear',
-                                            beginAtZero: true,
-                                        },
-                                    },
-                                }}
-                            />
-                        </div> */}
+
+                        <div className='row main-r4 '>
+                            <div className='col-lg-12'>
+                                <div>
+                                    {/* <Bar
+    data={data}
+    options={{
+        indexAxis: 'x', // Use 'x' for horizontal bar chart or 'y' for vertical bar chart
+        scales: {
+            x: {
+                type: 'category',
+                beginAtZero: true,
+            },
+            y: {
+                type: 'linear',
+                beginAtZero: true,
+            },
+        },
+    }}
+/> */}
+                                </div>
+                            </div>
+                        </div>
+
+
+
                     </div>
+
                 </div>
+
             </div>
         </Fragment>
     );

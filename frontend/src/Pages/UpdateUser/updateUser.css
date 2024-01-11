@@ -6,7 +6,6 @@
 }
 .addUser {
     width: 350px;
-    /* height: 700px; */
     background: #1C2B36;
     border-radius: 5%;
     display: flex;
@@ -48,7 +47,6 @@ select {
     color: #fff;
     font-size: 15px;
     background: #344854;
-    /* background: #392068; */
     padding: 10px 60px;
     border-radius: 10px;
 }

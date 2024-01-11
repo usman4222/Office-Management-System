@@ -10,7 +10,8 @@
 }
 .addUser {
     width: 350px;
-    background: #1C2B36;
+    /* background: #1C2B36; */
+    background: red;
     border-radius: 5%;
     display: flex;
     align-items: center;
@@ -21,6 +22,7 @@
     cursor: pointer;
     transition: .8s ease-in-out all;
     font-family: Montserrat;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 .addUser h2 {
     color: #fff;

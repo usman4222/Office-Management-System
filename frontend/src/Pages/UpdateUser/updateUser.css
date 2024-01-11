@@ -7,7 +7,7 @@
 .addUser {
     width: 350px;
     /* height: 700px; */
-    background: #573b8a;
+    background: #1C2B36;
     border-radius: 5%;
     display: flex;
     align-items: center;
@@ -47,7 +47,8 @@ select {
 .addUser button {
     color: #fff;
     font-size: 15px;
-    background: #392068;
+    background: #344854;
+    /* background: #392068; */
     padding: 10px 60px;
     border-radius: 10px;
 }

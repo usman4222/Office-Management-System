@@ -39,12 +39,6 @@ const Attendance = () => {
   };
 
   const columns = [
-    // {
-    //   field: "id",
-    //   headerName: "Empolyee ID",
-    //   minWidth: 10,
-    //   flex: 0.8,
-    // },
     {
       field: "name",
       headerName: "Name",
@@ -76,7 +70,7 @@ const Attendance = () => {
           <Button
             variant="contained"
             style={{
-              backgroundColor: '#2196f3',
+              backgroundColor: '#344854',
               color: '#ffffff',
               padding: '10px 20px',
               borderRadius: '5px',
@@ -105,7 +99,7 @@ const Attendance = () => {
           <Button
             variant="contained"
             style={{
-              backgroundColor: '#2196f3',
+              backgroundColor: '#344854',
               color: '#ffffff',
               padding: '10px ',
               borderRadius: '5px',

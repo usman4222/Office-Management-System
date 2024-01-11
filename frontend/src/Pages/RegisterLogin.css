@@ -17,6 +17,7 @@
     position: relative;
     cursor: pointer;
     transition: .8s ease-in-out all;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 .login h2 {
     color: #fff;

@@ -6,6 +6,9 @@ import { getUserDetails } from '../../actions/updateUser';
 import { useParams } from 'react-router-dom';
 import Header from '../../components/Header';
 import Sidebar from '../Sidebar';
+import { Doughnut, Line } from 'react-chartjs-2';
+import './Attendance.css'
+
 
 
 const AttendanceDetails = () => {
@@ -16,6 +19,9 @@ const AttendanceDetails = () => {
     const [showAttendance, setShowAttendance] = useState(false);
     const [attendanceDetails, setAttendanceDetails] = useState([]);
     const [presentPercentage, setPresentPercentage] = useState(0);
+    const [presentCount, setPresentCount] = useState(0);
+    const [absentCount, setAbsentCount] = useState(0);
+    const [leaveCount, setLeaveCount] = useState(0);
 
     const userId = id;
 
@@ -56,6 +62,9 @@ const AttendanceDetails = () => {
 
             const percentage = (presentCount / totalEntries) * 100;
             setPresentPercentage(percentage);
+            setPresentCount(presentCount);
+            setAbsentCount(absentCount);
+            setLeaveCount(leaveCount);
 
             setRows([
                 {
@@ -72,27 +81,26 @@ const AttendanceDetails = () => {
         }
     }, [user]);
 
+    const DoughnutChart = ({ presentCount, absentCount, leaveCount }) => {
+        const data = {
+            labels: ["Present", "Absent", "Leave"],
+            datasets: [
+                {
+                    label: "Views",
+                    data: [presentCount, absentCount, leaveCount],
+                    borderColor: ["rgb(62,12, 171)", "rgb(214, 44, 129)"],
+                    backgroundColor: ["rgba(62,12, 171, 0.3)", "rgba(214, 44, 129, 0.3)"],
+                    borderWidth: 1
+                }
+            ]
+        };
+
+        return <Doughnut data={data} />;
+    };
+
 
 
     const columns = [
-
-        {
-            field: "designation",
-            headerName: "Designation",
-            minWidth: 10,
-            flex: 0.5
-        },
-        {
-            field: "role",
-            headerName: "Role",
-            minWidth: 10,
-            flex: 0.5,
-            cellClassName: (params) => {
-                return params.getValue(params.id, "role") === "admin"
-                    ? "greenColor" : "redColor"
-            }
-        },
-
         {
             field: "presentCount",
             headerName: "Present",
@@ -139,7 +147,7 @@ const AttendanceDetails = () => {
         <div className='main'>
             <div className='row w-full'>
                 <div className='col-lg-2'>
-                    <Sidebar/>
+                    <Sidebar />
                 </div>
                 <div className='col-lg-10'>
                     <div className='row'>
@@ -158,7 +166,7 @@ const AttendanceDetails = () => {
                                 className='productsListTable'
                                 autoHeight
                             />
-                            {showAttendance && (
+                            {/* {showAttendance && (
                                 <div style={{ marginTop: '20px' }}>
                                     <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                                         <thead>
@@ -177,7 +185,14 @@ const AttendanceDetails = () => {
                                         </tbody>
                                     </table>
                                 </div>
-                            )}
+                            )} */}
+
+                        </div>
+                        <div className='row'>
+                            <div className='col-lg-4 doughnut'>
+                                <DoughnutChart presentCount={presentCount} absentCount={absentCount} leaveCount={leaveCount} />
+                            </div>
+                            <div className='col-lg-6'></div>
                         </div>
                     </Fragment>
                 </div>

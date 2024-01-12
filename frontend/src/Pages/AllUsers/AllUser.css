@@ -4,7 +4,7 @@
     display: flex;
     background: #fff;
     border: 1px solid rgba(0, 0, 0, 0.158);
-    height: 100vh;
+    /* height: 100vh; */
     flex-direction: column;
     background: #F0F1F4;
 }

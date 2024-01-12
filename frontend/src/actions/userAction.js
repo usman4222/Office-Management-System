@@ -37,16 +37,18 @@ export const login = (email, password) => async (dispatch) => {
 
 
 export const register = (userData) => async (dispatch) => {
+    
 
     try {
         dispatch({ type: REGISTER_REQUEST })
 
-        const config = { headers: { "Content-Type": "multipart/form-data" } }
+        const config = { headers: { "Content-Type": "application/json" } }
+        // const userData = { name: 'John', email: 'john@gmail.com', password: '12345678' };
         const { data } = await axios.post(
             `http://localhost:4000/api/v1/register`,
             userData,
             config
-        )
+        );
         dispatch({
             type: REGISTER_SUCCESS,
             payload: data.user

@@ -5,6 +5,7 @@ import Header from '../../components/Header';
 import PeopleIcon from '@material-ui/icons/People'
 import { Bar } from 'react-chartjs-2';
 import { DoughnutChart, LineChart } from './Chart';
+import DateChart from './DateChart';
 
 
 const DashBoard = () => {
@@ -121,8 +122,9 @@ const DashBoard = () => {
                         </div>
                         <div className='row'>
                             <div className='col-lg-12'>
-                            <LineChart/>
-                            <DoughnutChart/>
+                            {/* <LineChart/> */}
+                            {/* <DoughnutChart/> */}
+                            <DateChart/>
                             </div>
                         </div> 
                     </div>

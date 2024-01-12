@@ -30,13 +30,9 @@ const RegisterLogin = () => {
     const registerDataChange = (e) => {
         setUser(prevUser => {
             const updatedUser = { ...prevUser, [e.target.name]: e.target.value };
-            console.log("Updated User State:", updatedUser);
             return updatedUser;
         });
     };
-
-
-    // console.log("this is user", user)
 
     const regClick = () => {
         setTrans(true);
@@ -60,7 +56,7 @@ const RegisterLogin = () => {
         }
         if (isAuthenticated) {
             enqueueSnackbar('Successfully Logged In', { variant: 'success' });
-            navigate("/");
+            navigate("/allusers");
         }
     }, [dispatch, error, isAuthenticated, navigate]);
 
@@ -83,20 +79,6 @@ const RegisterLogin = () => {
         myForm.set("name", name);
         myForm.set("email", email);
         myForm.set("password", password);
-
-        try {
-            // Log the formData before making the API call
-            console.log("Request Body:", Object.fromEntries(myForm));
-
-            const response = await dispatch(register(myForm));
-
-            // Log the response from the server
-             console.log("Response from Server:", response);
-
-        } catch (error) {
-            console.error('Registration Error:', error);
-            enqueueSnackbar('Error occurred during registration', { variant: 'error' });
-        }
     };
 
 

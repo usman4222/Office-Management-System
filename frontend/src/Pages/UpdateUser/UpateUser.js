@@ -145,7 +145,7 @@ const UpdateUser = () => {
                                         ))}
                                     </select>
                                     <div className='submitBtn'>
-                                        <button type='submit'>Add</button>
+                                        <button type='submit'>Update</button>
                                     </div>
                                 </form>
                             </div>

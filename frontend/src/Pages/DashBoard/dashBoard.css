@@ -44,6 +44,7 @@
     justify-content: space-around;
     align-items: center;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    /* background: red; */
 }
 
 .main-r3-b1-r1-b1 {
@@ -91,11 +92,15 @@
 
 .main-r3-b1-r1-b2 {
     font-size: 20px;
-    display: flex;
+    /* display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: center; */
+    /* background: #000; */
 }
-
+.tsp-count {
+    /* background: green; */
+    width: 100%;
+}
 .main-r4 {
     position: relative;
     overflow: hidden;

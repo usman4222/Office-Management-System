@@ -9,6 +9,7 @@ import DateChart from './DateChart';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllUsers } from '../../actions/addUserAction';
 import { getAllExpenses, getCurrentMonthExpenses } from '../../actions/financeController';
+import ReactApexChart from 'react-apexcharts';
 
 
 const DashBoard = () => {
@@ -17,6 +18,30 @@ const DashBoard = () => {
     const { users } = useSelector((state) => state.allUser);
     const { totalMonthlyExpenses } = useSelector((state) => state.currentMonthTotal);
     const { expenses } = useSelector((state) => state.allExpenses);
+    const [chartData, setChartData] = useState({
+        series: [44, 55, 13, 43, 22],
+        options: {
+            chart: {
+                width: 380,
+                type: 'pie',
+            },
+            labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
+            responsive: [
+                {
+                    breakpoint: 480,
+                    options: {
+                        chart: {
+                            width: 200,
+                        },
+                        legend: {
+                            position: 'bottom',
+                        },
+                    },
+                },
+            ],
+        },
+    });
+
 
     // console.log(currentMonthTotal);
 
@@ -56,6 +81,7 @@ const DashBoard = () => {
         return () => clearInterval(interval);
     }, []);
 
+
     // const data = {
     //     labels: ['January', 'February', 'March', 'April', 'May', 'June'],
     //     datasets: [
@@ -70,6 +96,7 @@ const DashBoard = () => {
     //         },
     //     ],
     // };
+    
 
     return (
         <Fragment>
@@ -126,10 +153,10 @@ const DashBoard = () => {
                             <div className='col-lg-3  main-r3-b1'>
                                 <div>
                                     <div className='row main-r3-b1-r1'>
-                                        <div className='col-lg-6 main-r3-b1-r1-b1'>
+                                        <div className='col-lg-4 main-r3-b1-r1-b1'>
                                             <div className='att'><PeopleIcon /></div>
                                         </div>
-                                        <div className='col-lg-6 main-r3-b1-r1-b2'>
+                                        <div className='col-lg-8 main-r3-b1-r1-b2'>
                                             <div className="tsp-countUp col-md-2 col-sm-4 col-xs-6 tsp-full-xs tsp-no-padding-left tsp-item-1">
                                                 <div className="tsp-box-counter">
                                                     <i className="fa fa-suitcase"></i>
@@ -148,7 +175,10 @@ const DashBoard = () => {
                             <div className='col-lg-12'>
                                 {/* <LineChart/> */}
                                 {/* <DoughnutChart/> */}
-                                <DateChart />
+                                {/* <DateChart /> */}
+                                <div id='chart'>
+                                    <ReactApexChart options={chartData.options} series={chartData.series} type='pie' width={380} />
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -159,6 +189,3 @@ const DashBoard = () => {
 };
 
 export default DashBoard;
-
-
-

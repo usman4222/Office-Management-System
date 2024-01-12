@@ -8,6 +8,7 @@ import Header from '../../components/Header';
 import Sidebar from '../Sidebar';
 import { Doughnut, Line } from 'react-chartjs-2';
 import './Attendance.css'
+import { LineChart } from '../DashBoard/Chart';
 
 
 
@@ -161,7 +162,7 @@ const AttendanceDetails = () => {
                             <DataGrid
                                 rows={rows}
                                 columns={columns}
-                                pageSize={10}
+                                pageSize={1}
                                 disableSelectionOnClick
                                 className='productsListTable'
                                 autoHeight
@@ -192,7 +193,9 @@ const AttendanceDetails = () => {
                             <div className='col-lg-4 doughnut'>
                                 <DoughnutChart presentCount={presentCount} absentCount={absentCount} leaveCount={leaveCount} />
                             </div>
-                            <div className='col-lg-6'></div>
+                            <div className='col-lg-6'>
+                            {/* <LineChart/> */}
+                            </div>
                         </div>
                     </Fragment>
                 </div>

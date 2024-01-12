@@ -2,23 +2,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    /* padding: 40px 0; */
-    /* background: #F0F1F4; */
 }
 .main{
     background: #F0F1F4;
 }
 .addUser {
-    /* width: 350px; */
     background: #1C2B36;
     border-radius: 5%;
-    /* display: flex;
-    align-items: center;
-    justify-content: center; */
-    /* flex-direction: column; */
-    /* overflow: hidden;
-    position: relative; */
-    /* cursor: pointer; */
     padding: 0 30px;
     transition: .8s ease-in-out all;
     font-family: Montserrat;

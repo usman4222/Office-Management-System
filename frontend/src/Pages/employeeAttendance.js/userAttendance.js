@@ -82,34 +82,32 @@ const UpdateUser = () => {
                         <h1 className='productListHeading'>Employee Attendance</h1>
                         <div className='main-form'>
                             <div className='addUser'>
-                                <div className='addUser'>
-                                    <form
-                                        className='createProductForm'
-                                        encType='multipart/form-data'
-                                        onSubmit={(e) => updateUserHandler(e, userId)}
-                                    >
-                                        <h2 >{user.name}'s Attendance</h2>
-                                        <input
-                                            type='date'
-                                            placeholder='Name'
-                                            required
-                                            value={date}
-                                            onChange={(e) => setDate(e.target.value)}
-                                        />
-                                        <select onChange={(e) => setStatus(e.target.value)}>
-                                            <option value="">Choose Status</option>
-                                            {roleCategories.map((cate) => (
-                                                <option key={cate} value={cate}>
-                                                    {cate}
-                                                </option>
-                                            ))}
-                                        </select>
+                                <form
+                                    className='createProductForm'
+                                    encType='multipart/form-data'
+                                    onSubmit={(e) => updateUserHandler(e, userId)}
+                                >
+                                    <h2 >{user.name}'s Attendance</h2>
+                                    <input
+                                        type='date'
+                                        placeholder='Name'
+                                        required
+                                        value={date}
+                                        onChange={(e) => setDate(e.target.value)}
+                                    />
+                                    <select onChange={(e) => setStatus(e.target.value)}>
+                                        <option value="">Choose Status</option>
+                                        {roleCategories.map((cate) => (
+                                            <option key={cate} value={cate}>
+                                                {cate}
+                                            </option>
+                                        ))}
+                                    </select>
 
-                                        <div className='submitBtn'>
-                                            <button type='submit'>Mark</button>
-                                        </div>
-                                    </form>
-                                </div>
+                                    <div className='submitBtn'>
+                                        <button type='submit'>Mark</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>

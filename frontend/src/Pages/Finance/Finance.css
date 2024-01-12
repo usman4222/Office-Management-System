@@ -1,6 +1,4 @@
-/* Attendance.css */
-
-/* Container styles */
+/* 
 .attendance-container {
     max-width: 400px;
     margin: 20px auto;
@@ -11,17 +9,15 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
   
-  /* Form label styles */
   label {
     display: block;
     margin-bottom: 8px;
     font-weight: bold;
   }
   
-  /* Input styles */
   input[type="text"],
   input[type="date"] {
-    width: calc(100% - 20px); /* Adjust the width and styling as needed */
+    width: calc(100% - 20px); 
     padding: 8px;
     margin-top: 5px;
     margin-bottom: 15px;
@@ -29,7 +25,6 @@
     border-radius: 4px;
   }
   
-  /* Button styles */
   button[type="submit"],
   button {
     padding: 10px 15px;
@@ -44,4 +39,4 @@
   button:hover {
     background-color: #0056b3;
   }
-  
+   */

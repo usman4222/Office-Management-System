@@ -80,7 +80,7 @@ const Finance = () => {
             <div className='main'>
                 <div className='row w-full'>
                     <div className='col-lg-2'>
-                        <Sidebar/>
+                        <Sidebar />
                     </div>
                     <div className='col-lg-10'>
                         <div className='row'>
@@ -90,53 +90,51 @@ const Finance = () => {
                         </div>
                         <div className='main-form'>
                             <div className='addUser'>
-                                <div className='addUser'>
-                                    <form
-                                        className='createProductForm'
-                                        encType='multipart/form-data'
-                                        onSubmit={addExpenseHandler}
-                                    >
-                                        <h2 >Add Expenses</h2>
-                                        <input
-                                            type='text'
-                                            placeholder='Expense Title'
-                                            required
-                                            value={title}
-                                            onChange={(e) => setTitle(e.target.value)}
-                                        />
-                                        <input
-                                            type='text'
-                                            placeholder='Ref'
-                                            required
-                                            value={ref}
-                                            onChange={(e) => setRef(e.target.value)}
-                                        />
-                                        <input
-                                            type='text'
-                                            placeholder='Amount'
-                                            required
-                                            value={amount}
-                                            onChange={(e) => setAmount(e.target.value)}
-                                        />
-                                        <input
-                                            type='text'
-                                            placeholder='Description'
-                                            required
-                                            value={description}
-                                            onChange={(e) => setDescription(e.target.value)}
-                                        />
-                                        <input
-                                            type='date'
-                                            placeholder='Date'
-                                            required
-                                            value={date}
-                                            onChange={(e) => setDate(e.target.value)}
-                                        />
-                                        <div className='submitBtn'>
-                                            <button type='submit'>Add</button>
-                                        </div>
-                                    </form>
-                                </div>
+                                <form
+                                    className='createProductForm'
+                                    encType='multipart/form-data'
+                                    onSubmit={addExpenseHandler}
+                                >
+                                    <h2 >Add Expenses</h2>
+                                    <input
+                                        type='text'
+                                        placeholder='Expense Title'
+                                        required
+                                        value={title}
+                                        onChange={(e) => setTitle(e.target.value)}
+                                    />
+                                    <input
+                                        type='text'
+                                        placeholder='Ref'
+                                        required
+                                        value={ref}
+                                        onChange={(e) => setRef(e.target.value)}
+                                    />
+                                    <input
+                                        type='text'
+                                        placeholder='Amount'
+                                        required
+                                        value={amount}
+                                        onChange={(e) => setAmount(e.target.value)}
+                                    />
+                                    <input
+                                        type='text'
+                                        placeholder='Description'
+                                        required
+                                        value={description}
+                                        onChange={(e) => setDescription(e.target.value)}
+                                    />
+                                    <input
+                                        type='date'
+                                        placeholder='Date'
+                                        required
+                                        value={date}
+                                        onChange={(e) => setDate(e.target.value)}
+                                    />
+                                    <div className='submitBtn'>
+                                        <button type='submit'>Add</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                         <div style={{ marginTop: '20px' }}>

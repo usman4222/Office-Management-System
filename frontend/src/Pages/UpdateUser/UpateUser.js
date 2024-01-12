@@ -91,7 +91,7 @@ const UpdateUser = () => {
             <div className='main'>
                 <div className='row w-full'>
                     <div className='col-lg-2'>
-                        <Sidebar/>
+                        <Sidebar />
                     </div>
                     <div className='col-lg-10'>
                         <div className='row'>
@@ -101,55 +101,53 @@ const UpdateUser = () => {
                         </div>
                         <div className='main-form'>
                             <div className='addUser'>
-                                <div className='addUser'>
-                                    <form
-                                        className='createProductForm'
-                                        encType='multipart/form-data'
-                                        onSubmit={updateUserHandler}
-                                    >
-                                        <h2 >Update Employee</h2>
-                                        <input
-                                            type='text'
-                                            placeholder='Name'
-                                            required
-                                            value={name}
-                                            onChange={(e) => setName(e.target.value)}
-                                        />
-                                        <input
-                                            type='text'
-                                            placeholder='Father Name'
-                                            required
-                                            value={fatherName}
-                                            onChange={(e) => setFatherName(e.target.value)}
-                                        />
-                                        <input
-                                            type='text'
-                                            placeholder='Address'
-                                            required
-                                            value={address}
-                                            onChange={(e) => setAddress(e.target.value)}
-                                        />
-                                        <input
-                                            type='text'
-                                            placeholder='Phone'
-                                            pattern='[0-9]*'
-                                            required
-                                            value={phone}
-                                            onChange={(e) => setPhone(e.target.value)}
-                                        />
-                                        <select onChange={(e) => setRole(e.target.value)}>
-                                            <option value="">Choose Role</option>
-                                            {roleCategories.map((cate) => (
-                                                <option key={cate} value={cate}>
-                                                    {cate}
-                                                </option>
-                                            ))}
-                                        </select>
-                                        <div className='submitBtn'>
-                                            <button type='submit'>Add</button>
-                                        </div>
-                                    </form>
-                                </div>
+                                <form
+                                    className='createProductForm'
+                                    encType='multipart/form-data'
+                                    onSubmit={updateUserHandler}
+                                >
+                                    <h2 >Update Employee</h2>
+                                    <input
+                                        type='text'
+                                        placeholder='Name'
+                                        required
+                                        value={name}
+                                        onChange={(e) => setName(e.target.value)}
+                                    />
+                                    <input
+                                        type='text'
+                                        placeholder='Father Name'
+                                        required
+                                        value={fatherName}
+                                        onChange={(e) => setFatherName(e.target.value)}
+                                    />
+                                    <input
+                                        type='text'
+                                        placeholder='Address'
+                                        required
+                                        value={address}
+                                        onChange={(e) => setAddress(e.target.value)}
+                                    />
+                                    <input
+                                        type='text'
+                                        placeholder='Phone'
+                                        pattern='[0-9]*'
+                                        required
+                                        value={phone}
+                                        onChange={(e) => setPhone(e.target.value)}
+                                    />
+                                    <select onChange={(e) => setRole(e.target.value)}>
+                                        <option value="">Choose Role</option>
+                                        {roleCategories.map((cate) => (
+                                            <option key={cate} value={cate}>
+                                                {cate}
+                                            </option>
+                                        ))}
+                                    </select>
+                                    <div className='submitBtn'>
+                                        <button type='submit'>Add</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>

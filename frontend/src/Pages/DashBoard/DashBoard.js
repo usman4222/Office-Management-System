@@ -6,10 +6,34 @@ import PeopleIcon from '@material-ui/icons/People'
 import { Bar } from 'react-chartjs-2';
 import { DoughnutChart, LineChart } from './Chart';
 import DateChart from './DateChart';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllUsers } from '../../actions/addUserAction';
+import { getAllExpenses, getCurrentMonthExpenses } from '../../actions/financeController';
 
 
 const DashBoard = () => {
     const [count, setCount] = useState(0);
+    const dispatch = useDispatch()
+    const { users } = useSelector((state) => state.allUser);
+    const { totalMonthlyExpenses } = useSelector((state) => state.currentMonthTotal);
+    const { expenses } = useSelector((state) => state.allExpenses);
+
+    // console.log(currentMonthTotal);
+
+
+    useEffect(() => {
+        dispatch(getAllUsers());
+        dispatch(getAllExpenses());
+        dispatch(getCurrentMonthExpenses())
+        console.log(totalMonthlyExpenses);
+    }, [dispatch, totalMonthlyExpenses]);
+
+    // Calculate total expenses
+    const calculateTotalExpenses = () => {
+        return expenses.reduce((accumulator, expense) => {
+            return accumulator + parseFloat(expense.amount);
+        }, 0);
+    };
 
     useEffect(() => {
         const startCount = 0; // Starting count
@@ -70,8 +94,8 @@ const DashBoard = () => {
                                                 <div className="tsp-box-counter">
                                                     <i className="fa fa-suitcase"></i>
                                                     <div className="tsp-count">
-                                                        <p className="count">{count}</p>
-                                                        <p className="tsp-section">Users</p>
+                                                        <p className="count">{calculateTotalExpenses()}</p>
+                                                        <p className="tsp-section">Current</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -90,7 +114,7 @@ const DashBoard = () => {
                                                 <div className="tsp-box-counter">
                                                     <i className="fa fa-suitcase"></i>
                                                     <div className="tsp-count">
-                                                        <p className="count">{count}</p>
+                                                        <p className="count">{users.length}</p>
                                                         <p className="tsp-section">Users</p>
                                                     </div>
                                                 </div>
@@ -110,8 +134,8 @@ const DashBoard = () => {
                                                 <div className="tsp-box-counter">
                                                     <i className="fa fa-suitcase"></i>
                                                     <div className="tsp-count">
-                                                        <p className="count">{count}</p>
-                                                        <p className="tsp-section">Users</p>
+                                                        <p className="count">{totalMonthlyExpenses}</p>
+                                                        <p className="tsp-section">Total </p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -122,11 +146,11 @@ const DashBoard = () => {
                         </div>
                         <div className='row'>
                             <div className='col-lg-12'>
-                            {/* <LineChart/> */}
-                            {/* <DoughnutChart/> */}
-                            <DateChart/>
+                                {/* <LineChart/> */}
+                                {/* <DoughnutChart/> */}
+                                <DateChart />
                             </div>
-                        </div> 
+                        </div>
                     </div>
                 </div>
             </div>

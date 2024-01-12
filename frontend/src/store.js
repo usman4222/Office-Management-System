@@ -8,6 +8,7 @@ import { deleteReducer } from './reducers/deleteUser';
 import { getUserReducer, updateUserDetails } from './reducers/updateUser';
 import { userUpdateReducer } from './reducers/attendanceReducer';
 import { allExpensesReducer, currentMonthTotalReducer, financeReducer } from './reducers/financeReducer';
+import { useSelector } from 'react-redux';
 
 const rootReducer = combineReducers({
     user: userReducer,
@@ -22,11 +23,14 @@ const rootReducer = combineReducers({
     currentMonthTotal: currentMonthTotalReducer,
 });
 
+
 const middleware = [thunk];
 
 const store = createStore(
     rootReducer,
-    composeWithDevTools(applyMiddleware(...middleware))
+    composeWithDevTools(applyMiddleware(...middleware)),
 );
+
+
 
 export default store;

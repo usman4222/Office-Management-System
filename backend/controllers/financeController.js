@@ -2,7 +2,6 @@ const catchAsyncError = require("../middleware/catchAsyncError");
 const spend = require("../models/financeModel");
 const ErrorHandler = require("../utils/errorHanlder");
 const QRCode = require('qrcode');
-const { createCanvas, loadImage } = require('canvas');
 
 
 

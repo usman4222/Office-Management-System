@@ -8,7 +8,8 @@ import {
     GET_ALL_EXPENSES_SUCCESS,
     GET_ALL_EXPENSES_FAIL,
     GET_CURRENT_MONTH_TOTAL_REQUEST,
-    GET_CURRENT_MONTH_TOTAL_FAIL
+    GET_CURRENT_MONTH_TOTAL_FAIL,
+    GET_CURRENT_MONTH_TOTAL_SUCCESS
 } from '../constants/financeConstant';
 
 // financeReducer function
@@ -77,9 +78,8 @@ export const allExpensesReducer = (state = { expenses: [] }, action) => {
             return state
     }
 }
-
-
-export const currentMonthTotalReducer = (state = { currentMonthTotal: [] }, action) => {
+  
+  export const currentMonthTotalReducer = (state = { currentMonthTotal: [] }, action) => {
 
     switch (action.type) {
         case GET_CURRENT_MONTH_TOTAL_REQUEST:
@@ -87,7 +87,7 @@ export const currentMonthTotalReducer = (state = { currentMonthTotal: [] }, acti
                 ...state,
                 loading: true,
             }
-        case GET_ALL_EXPENSES_SUCCESS:
+        case GET_CURRENT_MONTH_TOTAL_SUCCESS:
             return {
                 ...state,
                 loading: false,

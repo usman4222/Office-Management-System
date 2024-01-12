@@ -8,18 +8,18 @@ import Sidebar from '../Sidebar'
 
 const Finance = () => {
 
-    const dispatch = useDispatch()
-    const [title, setTitle] = useState("")
-    const [ref, setRef] = useState("")
-    const [amount, setAmount] = useState("")
-    const [description, setDescription] = useState("")
-    const [date, setDate] = useState("")
+    const dispatch = useDispatch();
     const { enqueueSnackbar } = useSnackbar();
-    const { error, success, expenses } = useSelector((state) => state.allExpenses)
-    // const [totalCurrentMonthExpenses, setTotalCurrentMonthExpenses] = useState(0);
+    const { error, success, expenses } = useSelector((state) => state.allExpenses);
+    const { error: currentMonthError, success: currentMonthSuccess, currentMonthTotal } = useSelector(
+        (state) => state.currentMonthTotal
+    );
 
-    const { error: currentMonthError, success: currentMonthSuccess, currentMonthTotal } = useSelector((state) => state.currentMonthTotal)
-
+    const [title, setTitle] = useState('');
+    const [ref, setRef] = useState('');
+    const [amount, setAmount] = useState('');
+    const [description, setDescription] = useState('');
+    const [date, setDate] = useState('');
 
     useEffect(() => {
         if (currentMonthError) {
@@ -30,11 +30,16 @@ const Finance = () => {
             enqueueSnackbar(error, { variant: 'success' });
             dispatch(clearErrors());
         }
-        dispatch(getCurrentMonthExpenses())
-    }, [dispatch, enqueueSnackbar, error])
+        dispatch(getCurrentMonthExpenses());
+    }, [dispatch, enqueueSnackbar, error]);
 
-    console.log("this is curent month expenes", currentMonthTotal)
-
+    useEffect(() => {
+        if (error) {
+            enqueueSnackbar(error, { variant: 'error' });
+            dispatch(clearErrors());
+        }
+        dispatch(getAllExpenses());
+    }, [error, dispatch]);
 
     const addExpenseHandler = async (e) => {
         e.preventDefault();
@@ -45,7 +50,7 @@ const Finance = () => {
                 ref: ref,
                 amount: amount,
                 description: description,
-                date: date
+                date: date,
             };
 
             await dispatch(addNewExpense(expenseData));
@@ -55,36 +60,20 @@ const Finance = () => {
         }
     };
 
-    // const calculateTotalCurrentMonthExpenses = () => {
-    //     const currentDate = new Date();
-    //     const currentMonth = currentDate.getMonth() + 1;
-    //     const currentYear = currentDate.getFullYear();
+    // Calculate total expenses
+    const calculateTotalExpenses = () => {
+        const total = expenses.reduce((accumulator, expense) => {
+            return accumulator + parseFloat(expense.amount);
+        }, 0);
+        return total;
+    };
 
-    //     const expensesForCurrentMonth = expenses.filter((expense) => {
-    //         const expenseDate = new Date(expense.date);
-    //         return (
-    //             expenseDate.getMonth() + 1 === currentMonth &&
-    //             expenseDate.getFullYear() === currentYear
-    //         );
-    //     });
-
-    //     const totalExpenses = expensesForCurrentMonth.reduce(
-    //         (total, expense) => total + parseFloat(expense.amount),
-    //         0
-    //     );
-
-    //     setTotalCurrentMonthExpenses(totalExpenses);
-    // };
-
-
+    // Display total expenses in the console
     useEffect(() => {
-        if (error) {
-            enqueueSnackbar(error, { variant: 'error' });
-            dispatch(clearErrors());
-        }
-        dispatch(getAllExpenses());
-        // calculateTotalCurrentMonthExpenses();
-    }, [error, dispatch]);
+        const totalExpenses = calculateTotalExpenses();
+        // console.log('Total Expenses:', totalExpenses);
+    }, [expenses]);
+
 
     return (
         <Fragment>

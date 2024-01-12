@@ -69,13 +69,13 @@ export const getCurrentMonthExpenses = () => async (dispatch) => {
     try {
         dispatch({ type: GET_CURRENT_MONTH_TOTAL_REQUEST });
 
-        const currentDate = new Date();
-        const month = currentDate.getMonth() + 1; // Adding 1 since getMonth() returns 0-indexed months
-        const year = currentDate.getFullYear();
+        // const currentDate = new Date();
+        // const month = currentDate.getMonth() + 1; // Adding 1 since getMonth() returns 0-indexed months
+        // const year = currentDate.getFullYear();
 
-        const { data } = await axios.get(`http://localhost:4000/api/v1/getExpenses`, {
-            params: { month, year }
-        });
+        const { data } = await axios.get(`http://localhost:4000/api/v1/getExpenses`);
+
+        console.log(data)
 
         dispatch({ type: GET_CURRENT_MONTH_TOTAL_SUCCESS, payload: data.totalMonthlyExpenses });
     } catch (error) {
@@ -84,7 +84,7 @@ export const getCurrentMonthExpenses = () => async (dispatch) => {
             payload: error.response ? error.response.data.message : error.message
         });
     }
-};;
+};
 
 
 export const clearErrors = () => async (dispatch) => {

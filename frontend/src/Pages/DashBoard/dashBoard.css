@@ -6,9 +6,11 @@
 
 .main {
     background: #F0F1F4;
+    /* background: #000; */
 }
 
 .main-r1 {
+    /* background: red; */
     display: flex;
     width: 100%;
 }
@@ -32,7 +34,10 @@
     width: 250px;
     padding: 20px;
 }
-
+.main-r1-b2{
+    /* background: #000; */
+    height: 600vh;
+}
 .main-r3-b1-r1 {
     padding: 40px 0;    
     display: flex;

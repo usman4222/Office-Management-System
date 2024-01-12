@@ -4,6 +4,7 @@ import './dashBoard.css';
 import Header from '../../components/Header';
 import PeopleIcon from '@material-ui/icons/People'
 import { Bar } from 'react-chartjs-2';
+import { DoughnutChart, LineChart } from './Chart';
 
 
 const DashBoard = () => {
@@ -118,39 +119,20 @@ const DashBoard = () => {
                                 </div>
                             </div>
                         </div>
-
-                        <div className='row main-r4 '>
+                        <div className='row'>
                             <div className='col-lg-12'>
-                                <div>
-                                    {/* <Bar
-    data={data}
-    options={{
-        indexAxis: 'x', // Use 'x' for horizontal bar chart or 'y' for vertical bar chart
-        scales: {
-            x: {
-                type: 'category',
-                beginAtZero: true,
-            },
-            y: {
-                type: 'linear',
-                beginAtZero: true,
-            },
-        },
-    }}
-/> */}
-                                </div>
+                            <LineChart/>
+                            <DoughnutChart/>
                             </div>
-                        </div>
-
-
-
+                        </div> 
                     </div>
-
                 </div>
-
             </div>
         </Fragment>
     );
 };
 
 export default DashBoard;
+
+
+

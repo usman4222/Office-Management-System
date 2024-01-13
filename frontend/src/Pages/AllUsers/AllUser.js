@@ -38,7 +38,7 @@ const AllUser = () => {
             enqueueSnackbar('User deleted Successfully', { variant: 'success' });
             dispatch({ type: DELETE_USER_RESET })
         }
-        // dispatch(getAllUsers());
+        dispatch(getAllUsers());
     }, [alert, error, dispatch, deleteError, isDeleted, message]);
 
     const deleteUserHandler = (id) => {

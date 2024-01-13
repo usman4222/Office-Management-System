@@ -11,19 +11,17 @@ import EditIcon from "@material-ui/icons/Edit"
 import DeleteIcon from "@material-ui/icons/Delete"
 import { useSnackbar } from 'notistack'
 import { getAllUsers, clearErrors, } from '../../actions/addUserAction'
-import { deleteUser } from '../../actions/deleteUser'
-import { DELETE_USER_RESET } from '../../constants/deleteUserConstant'
 import Sidebar from '../Sidebar'
 import Header from '../../components/Header'
-import { getAllAdminUsers } from '../../actions/userAction'
+import { deleteUser, getAllAdminUsers } from '../../actions/userAction'
+import { USER_DELETE_RESET } from '../../constants/userConstant'
 
 const Admin = () => {
 
     const dispatch = useDispatch()
     const { enqueueSnackbar } = useSnackbar();
-    // const { error, users } = useSelector((state) => state.allUser)
     const { error, users } = useSelector((state) => state.adminUsers)
-    const { error: deleteError, isDeleted, message } = useSelector((state) => state.delUser)
+    const { error: deleteError, isDeleted, message } = useSelector((state) => state.deleteUser)
 
 
     useEffect(() => {
@@ -36,11 +34,9 @@ const Admin = () => {
             dispatch(clearErrors());
         }
         if (isDeleted) {
-            // history.push('/admin/users')
             enqueueSnackbar('User deleted Successfully', { variant: 'success' });
-            dispatch({ type: DELETE_USER_RESET })
+            dispatch({ type: USER_DELETE_RESET })
         }
-        dispatch(getAllUsers());
         dispatch(getAllAdminUsers())
     }, [alert, error, dispatch, deleteError, isDeleted, message]);
 

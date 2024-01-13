@@ -56,7 +56,7 @@ const RegisterLogin = () => {
         }
         if (isAuthenticated) {
             enqueueSnackbar('Successfully Logged In', { variant: 'success' });
-            navigate("/allusers");
+            navigate("/dash");
         }
     }, [dispatch, error, isAuthenticated, navigate]);
 
@@ -64,22 +64,26 @@ const RegisterLogin = () => {
 
     const registerSubmit = async (e) => {
         e.preventDefault();
-
+    
         if (password.length < 8) {
             enqueueSnackbar('Password should be at least 8 characters long', { variant: 'error' });
             return;
         }
-
+    
         if (name.length < 4) {
             enqueueSnackbar('Name should be at least 4 characters long', { variant: 'error' });
             return;
         }
-
-        const myForm = new FormData();
-        myForm.set("name", name);
-        myForm.set("email", email);
-        myForm.set("password", password);
+    
+        const formData = new FormData();
+        formData.append("name", name);
+        formData.append("email", email);
+        formData.append("password", password);
+    
+        dispatch(register(formData));
     };
+    
+    
 
 
 
@@ -136,7 +140,7 @@ const RegisterLogin = () => {
                                 type='email'
                                 placeholder='Email'
                                 value={user.email}
-                                name='email' // Ensure this matches the state key
+                                name='email'
                                 required
                                 onChange={registerDataChange}
                             />
@@ -147,7 +151,7 @@ const RegisterLogin = () => {
                                 type='password'
                                 placeholder='Password'
                                 value={user.password}
-                                name='password' // Ensure this matches the state key
+                                name='password'
                                 required
                                 onChange={registerDataChange}
                             />

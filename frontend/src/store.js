@@ -1,7 +1,7 @@
 import { combineReducers, applyMiddleware, createStore } from 'redux';
 import { thunk } from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { allAdminUsersReducer, userReducer } from './reducers/userReducer';
+import { allAdminUsersReducer, deleteUserReducer, userReducer } from './reducers/userReducer';
 import { addUserReducer } from './reducers/addUserReducer';
 import { allUsersReducer } from './reducers/allUserReducer';
 import { deleteReducer } from './reducers/deleteUser';
@@ -12,8 +12,9 @@ import { allExpensesReducer, currentMonthTotalReducer, financeReducer } from './
 const rootReducer = combineReducers({
     user: userReducer,
     adminUsers: allAdminUsersReducer,
+    deleteUser: deleteUserReducer,
     newUser: addUserReducer,
-    // allUser: allUsersReducer,
+    allUser: allUsersReducer,
     delUser: deleteReducer,
     getUser: getUserReducer,
     updateUser: updateUserDetails,

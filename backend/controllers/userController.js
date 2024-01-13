@@ -91,3 +91,18 @@ exports.getAllUsers = catchAsyncError(async (req, res, next) => {
         users
     })
 })
+
+
+exports.getUserDetails = catchAsyncError(async (req, res, next) => {
+
+    const user = await User.findById(req.params.id);
+
+    if (!user) {
+        return next(new ErrorHandler(`User does not Exist with this ID: ${req.params.id}`, 404))
+    }
+
+    res.status(200).json({
+        success: true,
+        user
+    })
+})

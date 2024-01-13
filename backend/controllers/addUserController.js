@@ -5,7 +5,7 @@ const ErrorHandler = require("../utils/errorHanlder");
 
 
 //Add New Employee
-exports.addUser = catchAsyncError(async (req, res, next) => {
+exports.addNewEmployee = catchAsyncError(async (req, res, next) => {
     try {
         const { name, fatherName, phone, address, role, designation } = req.body;
 
@@ -30,7 +30,7 @@ exports.addUser = catchAsyncError(async (req, res, next) => {
 //Get All Employee
 
 
-exports.getAllUsers = catchAsyncError(async (req, res, next) => {
+exports.getAllEmployees = catchAsyncError(async (req, res, next) => {
     try {
         const users = await newUser.find();
 
@@ -69,7 +69,7 @@ exports.deleteEmployee = catchAsyncError(async (req, res, next) => {
 
 
 //edit employee
-exports.updateUser = catchAsyncError(async (req, res, next) => {
+exports.updateEmployee = catchAsyncError(async (req, res, next) => {
 
     let user = newUser.findById(req.params.id)
 
@@ -90,8 +90,8 @@ exports.updateUser = catchAsyncError(async (req, res, next) => {
 })
 
 
-//get one user Details
-exports.getOneUserDetails = catchAsyncError(async (req, res, next) => {
+//get one employee Details
+exports.getOneEmployeeDetails = catchAsyncError(async (req, res, next) => {
 
     const user = await newUser.findById(req.params.id)
 

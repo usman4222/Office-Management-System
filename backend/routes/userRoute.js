@@ -1,5 +1,5 @@
 const express = require('express');
-const { registerUser, loginUser, logoutUser, getAllUsers, getUserDetails } = require('../controllers/userController');
+const { registerUser, loginUser, logoutUser, getAllUsers, getUserDetails, setUserRole } = require('../controllers/userController');
 const { deleteEmployee, addNewEmployee, updateEmployee, getAllEmployees, getOneEmployeeDetails } = require('../controllers/addUserController');
 const { updateAttendanceStatus, getUserAttendanceDetails } = require('../controllers/attendanceController');
 const { financeController, getAllExpenses, getMonthlyExpenses, getCurrentMonthExpenses } = require('../controllers/financeController');
@@ -12,6 +12,7 @@ router.route('/login').post(loginUser)
 router.route('/logout').get(logoutUser)
 router.route('/allusers').get(getAllUsers)
 router.route('/user/:id').get(getUserDetails)
+router.route('/setrole/:id').put(setUserRole)
 router.route('/newemployee').post( addNewEmployee)
 router.route('/allemployees').get( getAllEmployees)
 router.route('/delete/:id').delete(deleteEmployee)

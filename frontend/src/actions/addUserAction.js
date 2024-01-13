@@ -17,7 +17,7 @@ export const addNewUser = (userData) => async (dispatch) => {
         const config = {
             headers: { "Content-Type": "application/json" }
         }
-        const { data } = await axios.post(`http://localhost:4000/api/v1/newuser`, userData, config);
+        const { data } = await axios.post(`http://localhost:4000/api/v1/newemployee`, userData, config);
 
         dispatch({
             type: ADD_USER_SUCCESS,
@@ -43,7 +43,7 @@ export const getAllUsers = () => async (dispatch) => {
     try {
         dispatch({ type: ALL_USERS_REQUEST })
 
-        const { data } = await axios.get(`http://localhost:4000/api/v1/allusers`)
+        const { data } = await axios.get(`http://localhost:4000/api/v1/allemployees`)
 
         dispatch({ type: ALL_USERS_SUCCESS, payload: data.users })
     } catch (error) {

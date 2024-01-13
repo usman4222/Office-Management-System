@@ -12,6 +12,7 @@ import AttendanceDetails from "./Pages/employeeAttendance.js/AttendanceDetails";
 import Finance from "./Pages/Finance/Finance";
 import DashBoard from "./Pages/DashBoard/DashBoard";
 import './index.css'
+import Admin from "./Pages/Admin/Admin";
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
         <Route path="/attendance/view/:id" element={<AttendanceDetails />} />
         <Route path="/finance" element={<Finance />} />
         <Route path="/dash" element={<DashBoard />} />
+        <Route path="/admin" element={<Admin />} />
       </Routes>
     </BrowserRouter>
   );

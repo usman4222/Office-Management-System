@@ -12,6 +12,7 @@ import RateReviewIcon from '@material-ui/icons/RateReview'
 import { FaUser } from 'react-icons/fa';
 import { PiUsersThreeFill } from "react-icons/pi";
 import { HiCurrencyRupee } from "react-icons/hi2";
+import { MdAdminPanelSettings } from "react-icons/md";
 import './Sidebar.css'
 
 const Sidebar = () => {
@@ -58,6 +59,13 @@ const Sidebar = () => {
                                 <Link to='/finance'>
                                     <p>
                                         <HiCurrencyRupee />Finance
+                                    </p>
+                                </Link>
+                            </div>
+                            <div className='icon'>
+                                <Link to='/admin'>
+                                    <p>
+                                        <MdAdminPanelSettings />Admin
                                     </p>
                                 </Link>
                             </div>

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import './AllUser.css'
+import '../AllUsers/AllUser.css'
 import { Fragment, usseEffect } from 'react'
 import { DataGrid } from '@material-ui/data-grid'
 import { useSelector, useDispatch } from 'react-redux'
@@ -15,12 +15,14 @@ import { deleteUser } from '../../actions/deleteUser'
 import { DELETE_USER_RESET } from '../../constants/deleteUserConstant'
 import Sidebar from '../Sidebar'
 import Header from '../../components/Header'
+import { getAllAdminUsers } from '../../actions/userAction'
 
-const AllUser = () => {
+const Admin = () => {
 
     const dispatch = useDispatch()
     const { enqueueSnackbar } = useSnackbar();
-    const { error, users } = useSelector((state) => state.allUser)
+    // const { error, users } = useSelector((state) => state.allUser)
+    const { error, users } = useSelector((state) => state.adminUsers)
     const { error: deleteError, isDeleted, message } = useSelector((state) => state.delUser)
 
 
@@ -38,7 +40,8 @@ const AllUser = () => {
             enqueueSnackbar('User deleted Successfully', { variant: 'success' });
             dispatch({ type: DELETE_USER_RESET })
         }
-        // dispatch(getAllUsers());
+        dispatch(getAllUsers());
+        dispatch(getAllAdminUsers())
     }, [alert, error, dispatch, deleteError, isDeleted, message]);
 
     const deleteUserHandler = (id) => {
@@ -59,26 +62,8 @@ const AllUser = () => {
             flex: 0.5
         },
         {
-            field: "fatherName",
-            headerName: "F-Name",
-            minWidth: 10,
-            flex: 0.5
-        },
-        {
-            field: "phone",
-            headerName: "Phone",
-            minWidth: 10,
-            flex: 0.5
-        },
-        {
-            field: "address",
-            headerName: "Address",
-            minWidth: 10,
-            flex: 0.5
-        },
-        {
-            field: "designation",
-            headerName: "Designation",
+            field: "email",
+            headerName: "Email",
             minWidth: 10,
             flex: 0.5
         },
@@ -119,10 +104,7 @@ const AllUser = () => {
         id: item._id,
         name: item.name,
         role: item.role,
-        fatherName: item.fatherName,
-        designation: item.designation,
-        phone: item.phone,
-        address: item.address,
+        email: item.email,
     }));
 
 
@@ -141,7 +123,7 @@ const AllUser = () => {
                         </div>
                         <div className='dashboard'>
                             <div className='productsListContainer'>
-                                <h1 className='productListHeading'>All Employees</h1>
+                                <h1 className='productListHeading'>All Users</h1>
                                 <DataGrid
                                     rows={rows}
                                     columns={columns}
@@ -161,4 +143,4 @@ const AllUser = () => {
 
 
 
-export default AllUser
+export default Admin

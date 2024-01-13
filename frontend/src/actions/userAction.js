@@ -5,7 +5,10 @@ import {
     REGISTER_REQUEST,
     REGISTER_SUCCESS,
     REGISTER_FAIL,
-    CLEAR_ERRORS
+    CLEAR_ERRORS,
+    GET_ALL_USERS_REQUEST,
+    GET_ALL_USERS_SUCCESS,
+    GET_ALL_USERS_FAIL
 } from "../constants/userConstant"
 import axios from "axios"
 
@@ -37,7 +40,7 @@ export const login = (email, password) => async (dispatch) => {
 
 
 export const register = (userData) => async (dispatch) => {
-    
+
 
     try {
         dispatch({ type: REGISTER_REQUEST })
@@ -59,6 +62,41 @@ export const register = (userData) => async (dispatch) => {
             payload: error.data
         })
         console.log("This is error data", error);
+    }
+}
+
+
+// export const getAllAdminUsers = () => async (dispatch) => {
+
+//     try {
+//         dispatch({ type: GET_ALL_USERS_REQUEST })
+
+//         const { data } = await axios.get(`/api/v1/admin/allusers`)
+
+//         console.log("this is data", data)
+
+//         dispatch({ type: GET_ALL_USERS_SUCCESS, payload: data.users })
+//     } catch (error) {
+//         dispatch({
+//             type: GET_ALL_USERS_FAIL,
+//             payload: error.response.data.message
+//         })
+//     }
+// }
+
+export const getAllAdminUsers = () => async (dispatch) => {
+
+    try {
+        dispatch({ type: GET_ALL_USERS_REQUEST })
+
+        const { data } = await axios.get(`http://localhost:4000/api/v1/allusers`)
+
+        dispatch({ type: GET_ALL_USERS_SUCCESS, payload: data.users })
+    } catch (error) {
+        dispatch({
+            type: GET_ALL_USERS_FAIL,
+            payload: error.response.data.message
+        })
     }
 }
 

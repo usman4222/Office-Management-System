@@ -16,7 +16,7 @@ const DashBoard = () => {
     const [count, setCount] = useState(0);
     const dispatch = useDispatch()
     const { users } = useSelector((state) => state.allUser);
-    const { totalMonthlyExpenses } = useSelector((state) => state.currentMonthTotal);
+    const { totalMonthlyExpenses} = useSelector((state) => state.currentMonthTotal);
     const { expenses } = useSelector((state) => state.allExpenses);
     const [chartData, setChartData] = useState({
         series: [44, 55, 13, 43, 22],
@@ -42,18 +42,21 @@ const DashBoard = () => {
         },
     });
 
-
-    // console.log(currentMonthTotal);
+    // console.log("This is expenses", expenses)
+    // console.log("This is expenses", totalMonthlyExpenses)
 
 
     useEffect(() => {
         dispatch(getAllUsers());
         dispatch(getAllExpenses());
         dispatch(getCurrentMonthExpenses())
-        console.log(totalMonthlyExpenses);
-    }, [dispatch, totalMonthlyExpenses]);
+    }, [dispatch]);
 
-    // Calculate total expenses
+
+    useEffect(() => {
+        // console.log("This is ", totalMonthlyExpenses);
+    }, [totalMonthlyExpenses]);
+
     const calculateTotalExpenses = () => {
         return expenses.reduce((accumulator, expense) => {
             return accumulator + parseFloat(expense.amount);
@@ -61,10 +64,10 @@ const DashBoard = () => {
     };
 
     useEffect(() => {
-        const startCount = 0; // Starting count
-        const endCount = 123; // Ending count
-        const duration = 4000; // Animation duration in milliseconds
-        const intervalTime = 50; // Interval for updating count (milliseconds)
+        const startCount = 0; 
+        const endCount = 123; 
+        const duration = 4000; 
+        const intervalTime = 50; 
         const steps = Math.ceil(duration / intervalTime);
         const increment = Math.ceil((endCount - startCount) / steps);
 
@@ -81,22 +84,6 @@ const DashBoard = () => {
         return () => clearInterval(interval);
     }, []);
 
-
-    // const data = {
-    //     labels: ['January', 'February', 'March', 'April', 'May', 'June'],
-    //     datasets: [
-    //         {
-    //             label: 'Expenses',
-    //             backgroundColor: 'rgba(54, 162, 235, 0.6)',
-    //             borderColor: 'rgba(54, 162, 235, 1)',
-    //             borderWidth: 1,
-    //             hoverBackgroundColor: 'rgba(54, 162, 235, 0.8)',
-    //             hoverBorderColor: 'rgba(54, 162, 235, 1)',
-    //             data: [500, 750, 600, 900, 400, 650], // Replace with your expenses data
-    //         },
-    //     ],
-    // };
-    
 
     return (
         <Fragment>

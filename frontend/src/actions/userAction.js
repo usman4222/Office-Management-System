@@ -12,6 +12,7 @@ import {
     USER_DELETE_REQUEST,
     USER_DELETE_SUCCESS,
     USER_DELETE_FAIL,
+    UPDATE_USER_REQUEST,
 } from "../constants/userConstant"
 import axios from "axios"
 
@@ -49,7 +50,6 @@ export const register = (userData) => async (dispatch) => {
         dispatch({ type: REGISTER_REQUEST })
 
         const config = { headers: { "Content-Type": "application/json" } }
-        // const userData = { name: 'John', email: 'john@gmail.com', password: '12345678' };
         const { data } = await axios.post(
             `http://localhost:4000/api/v1/register`,
             userData,
@@ -64,7 +64,6 @@ export const register = (userData) => async (dispatch) => {
             type: REGISTER_FAIL,
             payload: error.data
         })
-        console.log("This is error data", error);
     }
 }
 
@@ -99,6 +98,28 @@ export const deleteUser = (id) => async (dispatch) => {
         dispatch({
             type: USER_DELETE_FAIL,
             payload: error.response.data.message,
+        });
+    }
+};
+
+
+export const updateUser = (id, userData) => async (dispatch) => {
+    try {
+        dispatch({ type: UPDATE_USER_REQUEST })
+
+        const config = { headers: { "Content-Type": "application/json" } }
+        const { data } = await axios.put(`http://localhost:4000/api/v1/user/${id}`, userData, config)
+        console.log(userData)
+        dispatch({
+            type: UPDATE_USER_SUCCESS,
+            payload: data.success
+        })
+    } catch (error) {
+
+        dispatch({
+            type: UPDATE_USER_FAIL,
+            payload: error.response.data.message,
+            message: "Error while getting update"
         });
     }
 };

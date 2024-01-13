@@ -78,33 +78,32 @@ export const allExpensesReducer = (state = { expenses: [] }, action) => {
             return state
     }
 }
-  
-  export const currentMonthTotalReducer = (state = { currentMonthTotal: [] }, action) => {
 
+export const currentMonthTotalReducer = (state = { totalMonthlyExpenses: [] }, action) => {
     switch (action.type) {
         case GET_CURRENT_MONTH_TOTAL_REQUEST:
             return {
                 ...state,
                 loading: true,
-            }
+            };
         case GET_CURRENT_MONTH_TOTAL_SUCCESS:
             return {
                 ...state,
                 loading: false,
-                currentMonthTotal: action.payload
-            }
+                totalMonthlyExpenses: action.payload
+            };
         case GET_CURRENT_MONTH_TOTAL_FAIL:
             return {
                 ...state,
                 loading: false,
-                error: action.payload
-            }
+                error: action.payload,
+            };
         case CLEAR_ERRORS:
             return {
                 ...state,
-                error: null
+                error: null,
             };
         default:
-            return state
+            return state;
     }
-}
+};

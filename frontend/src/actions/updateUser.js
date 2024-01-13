@@ -19,7 +19,7 @@ export const updateUserDetails = (id, userData) => async (dispatch) => {
         const config = {
             headers: { "Content-Type": "application/json" }
         }
-        const { data } = await axios.put(`http://localhost:4000/api/v1/updateuser/${id}`, userData, config);
+        const { data } = await axios.put(`http://localhost:4000/api/v1/updateemployee/${id}`, userData, config);
 
         dispatch({
             type: UPDATE_USER_SUCCESS,
@@ -55,7 +55,6 @@ export const getUserDetails = (id) => async (dispatch) => {
             payload: error.response.data.message,
             message: "Error while getting details"
         })
-        console.log("this is get user details", error)
     }
 }
 

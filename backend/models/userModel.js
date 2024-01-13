@@ -23,6 +23,10 @@ const userSchema = new mongoose.Schema({
         minLength: [8, "Password should be more than 8 characters"],
         select: false
     },
+    role: {
+        type: String,
+        default: "employee"
+    },
     createdAt: { 
         type: Date,
         default: Date.now

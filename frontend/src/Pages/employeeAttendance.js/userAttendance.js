@@ -1,5 +1,4 @@
 import React, { Fragment, useEffect, useState } from 'react';
-// import './updateUser.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSnackbar } from 'notistack';
 import { addNewUser, clearErrors } from '../../actions/addUserAction';
@@ -10,7 +9,6 @@ import { UPDATE_USER_RESET } from '../../constants/updateUser';
 import { updateUserCon } from '../../actions/attendanceAction';
 import Header from '../../components/Header';
 import Sidebar from '../Sidebar';
-import './UserAttendance.css'
 
 const UpdateUser = () => {
 
@@ -63,6 +61,11 @@ const UpdateUser = () => {
         }
         dispatch(updateUserCon(id, { status, date }));
     }
+    // useEffect(() => {
+    //     $('input[type=date]').each(function() {
+    //       $(this).clone().attr('type', 'text').insertAfter(this).datepicker().prev().remove();
+    //     });
+    //   }, []);
 
 
 
@@ -91,6 +94,7 @@ const UpdateUser = () => {
                                     <input
                                         type='date'
                                         placeholder='Name'
+                                        className='date-input'
                                         required
                                         value={date}
                                         onChange={(e) => setDate(e.target.value)}

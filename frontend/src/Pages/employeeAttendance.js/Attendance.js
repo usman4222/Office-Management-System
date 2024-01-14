@@ -149,7 +149,7 @@ const Attendance = () => {
                 <DataGrid
                   rows={rows}
                   columns={columns}
-                  pageSize={10}
+                  pageSize={100}
                   disableSelectionOnClick
                   className='productsListTable'
                   autoHeight

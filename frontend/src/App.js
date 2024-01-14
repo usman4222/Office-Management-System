@@ -13,6 +13,7 @@ import Finance from "./Pages/Finance/Finance";
 import DashBoard from "./Pages/DashBoard/DashBoard";
 import './index.css'
 import Admin from "./Pages/Admin/Admin";
+import AllExpenses from "./Pages/Finance/AllExpenses";
 
 function App() {
 
@@ -31,7 +32,7 @@ function App() {
         <Route path="/attendance/view/:id" element={<AttendanceDetails />} />
         <Route path="/finance" element={<Finance />} />
         <Route path="/dash" element={<DashBoard />} />
-        <Route path="/admin" element={<Admin />} />
+        <Route path="/allexpenses" element={<AllExpenses />} />
       </Routes>
     </BrowserRouter>
   );

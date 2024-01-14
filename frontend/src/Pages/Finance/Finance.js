@@ -126,6 +126,7 @@ const Finance = () => {
                                     />
                                     <input
                                         type='date'
+                                        className='date-input'
                                         placeholder='Date'
                                         required
                                         value={date}
@@ -135,36 +136,6 @@ const Finance = () => {
                                         <button type='submit'>Add</button>
                                     </div>
                                 </form>
-                            </div>
-                        </div>
-                        <div style={{ marginTop: '20px' }}>
-                            <h2 className="text-center text-2xl font-bold mb-4">All Expenses</h2>
-                            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-                                <thead>
-                                    <tr style={{ backgroundColor: '#f0f0f0' }}>
-                                        <th style={{ padding: '10px' }}>Title</th>
-                                        <th style={{ padding: '10px' }}>Ref</th>
-                                        <th style={{ padding: '10px' }}>Date</th>
-                                        <th style={{ padding: '10px' }}>Amount</th>
-                                        <th style={{ padding: '10px' }}>Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {expenses.map((expense, index) => (
-                                        <tr key={index} style={{ backgroundColor: index % 2 === 0 ? '#ffffff' : '#f9f9f9' }}>
-                                            <td style={{ padding: '10px', textAlign: 'center' }}>{expense.title}</td>
-                                            <td style={{ padding: '10px', textAlign: 'center' }}>{expense.ref}</td>
-                                            <td style={{ padding: '10px', textAlign: 'center' }}>{expense.date}</td>
-                                            <td style={{ padding: '10px', textAlign: 'center' }}>{expense.amount}</td>
-                                            <td style={{ padding: '10px', textAlign: 'center' }}>{expense.description}</td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                            <div style={{ marginTop: '20px' }}>
-                                <h2 className="text-center text-2xl font-bold mb-4">Total Expenses for Current Month</h2>
-                                {/* <p>Total: ${totalCurrentMonthExpenses}</p> */}
-                                {/* <p>Total: ${currentMonthTotal}</p> */}
                             </div>
                         </div>
                     </div>

@@ -58,14 +58,14 @@ const Sidebar = () => {
                             <div className='icon'>
                                 <Link to='/finance'>
                                     <p>
-                                        <HiCurrencyRupee />Finance
+                                        <HiCurrencyRupee />Add Expense
                                     </p>
                                 </Link>
                             </div>
                             <div className='icon'>
-                                <Link to='/admin'>
+                                <Link to='/allexpenses'>
                                     <p>
-                                        <MdAdminPanelSettings />Admin
+                                        <MdAdminPanelSettings />All Expenses
                                     </p>
                                 </Link>
                             </div>

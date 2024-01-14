@@ -14,6 +14,7 @@ import DashBoard from "./Pages/DashBoard/DashBoard";
 import './index.css'
 import Admin from "./Pages/Admin/Admin";
 import AllExpenses from "./Pages/Finance/AllExpenses";
+import NotFound from "./Pages/NotFound/NotFound";
 
 function App() {
 
@@ -33,6 +34,7 @@ function App() {
         <Route path="/finance" element={<Finance />} />
         <Route path="/dash" element={<DashBoard />} />
         <Route path="/allexpenses" element={<AllExpenses />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );

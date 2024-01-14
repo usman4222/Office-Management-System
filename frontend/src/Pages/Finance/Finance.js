@@ -126,7 +126,7 @@ const Finance = () => {
                                     />
                                     <input
                                         type='date'
-                                        className='date-input'
+                                        className='date-input cursor-pointer hover:bg-gray-100'
                                         placeholder='Date'
                                         required
                                         value={date}

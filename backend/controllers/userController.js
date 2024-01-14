@@ -6,28 +6,20 @@ const sendToken = require('../utils/jwtToken');
 //register user
 exports.registerUser = catchAsyncError(async (req, res, next) => {
     try {
-        const { name, email, password } = req.body;
-        console.log("Received Data:", req.body);
+        const { email, password } = req.body;
 
-        // Check if user with the email already exists
         const existingUser = await User.findOne({ email });
         if (existingUser) {
             return res.status(400).json({ message: "Email is already registered" });
         }
 
-        const newUser = await User.create({ name, email, password });
+        const newUser = await User.create({ email, password });
 
-        // sendToken(
-        //     newUser,
-        //     201,
-        //     res,
-        //     res.send({"User Created Successfully")}
-        // );
-        res.status(201).json({ 
+        res.status(201).json({
             success: true,
-            message: "User Created Successfully"
-         });
-         console.log("New User Created:", newUser); 
+            message: "User Created Successfully",
+            newUser
+        });
     } catch (error) {
         next(error)
         console.error("Registration Error:", error);
@@ -35,33 +27,61 @@ exports.registerUser = catchAsyncError(async (req, res, next) => {
 })
 
 
+// exports.loginUser = catchAsyncError(async (req, res, next) => {
 
+//     const { email, password } = req.body;
+//     try {
+//         if (!email || !password) {
+//             throw new ErrorHandler("Please enter Email and Password", 400);
+//         }
 
-//login user
+//         const user = await User.findOne({ email }).select("+password");
+
+//         if (!user) {
+//             throw new ErrorHandler("Invalid Credentials", 401);
+//         }
+
+//         const isPasswordMatched = await user.comparePassword(password);
+
+//         if (!isPasswordMatched) {
+//             throw new ErrorHandler("Invalid Credentials", 401);
+//         }
+//         console.log("login error:", user);
+
+//         sendToken(user, 200, res);
+//     } catch (error) {
+//         next(error);
+//         console.log("login error:", error);
+//     }
+// })
+
 
 exports.loginUser = catchAsyncError(async (req, res, next) => {
+    const { email, password } = req.body;
 
-    const { email, password } = req.body
-
-    //checking user have email and password already
     if (!email || !password) {
-        return next(new ErrorHandler("Please enter Email and Password", 400)) //bad req
+        return next(new ErrorHandler("Please enter Email and Password", 400));
     }
 
-    const user = await User.findOne({ email }).select("+password")
+    const user = await User.findOne({ email });
 
     if (!user) {
-        return next(new ErrorHandler("Invalid Credentials", 401)) // unauthorized
+        return next(new ErrorHandler("Invalid Credentials", 401));
     }
 
-    const isPasswordMatched = await user.comparePassword(password)
+    const storedPassword = user.password;
 
-    if (!isPasswordMatched) {
-        return next(new ErrorHandler("Invalid Credentials", 401))
+    if (!storedPassword) {
+        return next(new ErrorHandler("Invalid Credentials", 401));
     }
 
-    sendToken(user, 200, res)
-})
+    if (password === storedPassword) {
+        sendToken(user, 200, res);
+    } else {
+        return next(new ErrorHandler("Invalid Credentials", 401));
+    }
+});
+
 
 
 exports.logoutUser = catchAsyncError(async (req, res, next) => {
@@ -75,69 +95,3 @@ exports.logoutUser = catchAsyncError(async (req, res, next) => {
         message: "Logout Successfully"
     })
 })
-
-
-
-exports.getAllUsers = catchAsyncError(async (req, res, next) => {
-
-    const users = await User.find();
-
-    if (users.length === 0) {
-        return next(new ErrorHandler("No User Found", 400))
-    }
-
-    res.status(200).json({
-        success: true,
-        users
-    })
-})
-
-
-exports.getUserDetails = catchAsyncError(async (req, res, next) => {
-
-    const user = await User.findById(req.params.id);
-
-    if (!user) {
-        return next(new ErrorHandler(`User does not Exist with this ID: ${req.params.id}`, 404))
-    }
-
-    res.status(200).json({
-        success: true,
-        user
-    })
-})
-
-
-exports.setUserRole = catchAsyncError(async (req, res, next) => {
-
-    const userNewData = {
-        name: req.body.name,
-        email: req.body.email,
-        role: req.body.role
-    }
-
-    await User.findByIdAndUpdate(req.params.id, userNewData, {
-        new: true,
-        runValidators: true,
-        useFindAndModify: false
-    })
-
-    res.status(200).json({
-        success: true,
-        message: "User role Updated successfully",
-        userNewData
-    })
-})
-
-exports.deleteUser = catchAsyncError(async (req, res, next) => {
-    const user = await User.findByIdAndDelete(req.params.id);
-
-    if (!user) {
-        return next(new ErrorHandler(`No User exists with this ID: ${req.params.id}`, 404));
-    }
-
-    res.status(200).json({
-        success: true,
-        message: "User Deleted successfully"
-    });
-});

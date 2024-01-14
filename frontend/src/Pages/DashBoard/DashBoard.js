@@ -6,6 +6,7 @@ import PeopleIcon from '@material-ui/icons/People'
 import { Bar } from 'react-chartjs-2';
 import { DoughnutChart, LineChart } from './Chart';
 import DateChart from './DateChart';
+import { GiExpense } from "react-icons/gi";
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllUsers } from '../../actions/addUserAction';
 import { getAllExpenses, getCurrentMonthExpenses } from '../../actions/financeController';
@@ -101,7 +102,7 @@ const DashBoard = () => {
                                 <div>
                                     <div className='row main-r3-b1-r1'>
                                         <div className='col-lg-6 main-r3-b1-r1-b1'>
-                                            <div className='people'><PeopleIcon /></div>
+                                            <div className='people'><GiExpense /></div>
                                         </div>
                                         <div className='col-lg-6 main-r3-b1-r1-b2'>
                                             <div className="tsp-countUp col-md-2 col-sm-4 col-xs-6 tsp-full-xs tsp-no-padding-left tsp-item-1">
@@ -109,7 +110,7 @@ const DashBoard = () => {
                                                     <i className="fa fa-suitcase"></i>
                                                     <div className="tsp-count">
                                                         <p className="count">{calculateTotalExpenses()}</p>
-                                                        <p className="tsp-section">Current</p>
+                                                        <p className="tsp-section">Total Expenses</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -149,7 +150,7 @@ const DashBoard = () => {
                                                     <i className="fa fa-suitcase"></i>
                                                     <div className="tsp-count">
                                                         <p className="count">{totalMonthlyExpenses}</p>
-                                                        <p className="tsp-section">Total </p>
+                                                        <p className="tsp-section">Current Month Expenses </p>
                                                     </div>
                                                 </div>
                                             </div>

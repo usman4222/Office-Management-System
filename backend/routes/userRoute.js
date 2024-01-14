@@ -4,25 +4,20 @@ const { deleteEmployee, addNewEmployee, updateEmployee, getAllEmployees, getOneE
 const { updateAttendanceStatus, getUserAttendanceDetails } = require('../controllers/attendanceController');
 const { financeController, getAllExpenses, getMonthlyExpenses, getCurrentMonthExpenses } = require('../controllers/financeController');
 const { createRevenue } = require('../controllers/revenueController');
-const { isAuthenticatedAdmin } = require('../middleware/Authentication');
+const { isAuthenticatedAdmin, isAuthenticated, authorizeRole, isAuthenticatedUser } = require('../middleware/Authentication');
 const router = express.Router()
 
-router.route('/register').post(registerUser)
 router.route('/login').post(loginUser)
-router.route('/logout').get(logoutUser)
-router.route('/allusers').get(getAllUsers)
-router.route('/user/:id').get(getUserDetails)
-router.route('/setrole/:id').put(setUserRole)
-router.route('/deleteuser/:id').delete(deleteUser)
-router.route('/newemployee').post( addNewEmployee)
-router.route('/allemployees').get( getAllEmployees)
-router.route('/delete/:id').delete(deleteEmployee)
-router.route('/updateemployee/:id').put(updateEmployee)
-router.route('/employee/:id').get(getOneEmployeeDetails)
-router.route('/attendance/:id').put(updateAttendanceStatus)
-router.route('/finance').post(financeController)
-router.route('/allexpenses').get(getAllExpenses)
-router.route('/revenue').post(createRevenue)
-router.route('/getExpenses').get(getCurrentMonthExpenses)
+router.route('/logout').get(isAuthenticatedUser, logoutUser)
+router.route('/newemployee').post(isAuthenticatedUser, addNewEmployee)
+router.route('/allemployees').get(isAuthenticatedUser, getAllEmployees);
+router.route('/delete/:id').delete(isAuthenticatedUser, deleteEmployee)
+router.route('/updateemployee/:id').put(isAuthenticatedUser, updateEmployee)
+router.route('/employee/:id').get(isAuthenticatedUser, getOneEmployeeDetails)
+router.route('/attendance/:id').put(isAuthenticatedUser, updateAttendanceStatus)
+router.route('/finance').post(isAuthenticatedUser, financeController)
+router.route('/allexpenses').get(isAuthenticatedUser, getAllExpenses)
+router.route('/revenue').post(isAuthenticatedUser, createRevenue)
+router.route('/getExpenses').get(isAuthenticatedUser, getCurrentMonthExpenses)
 
 module.exports = router;

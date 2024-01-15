@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import RegisterLogin from "./Pages/RegisterLogin";
 import Header from "./components/Header";
 import Home from "./Pages/Home";
@@ -15,26 +15,40 @@ import './index.css'
 import Admin from "./Pages/Admin/Admin";
 import AllExpenses from "./Pages/Finance/AllExpenses";
 import NotFound from "./Pages/NotFound/NotFound";
+import ProtectedRoute from "./Pages/ProtectedRoute/ProtectedRoute";
+import { useSelector } from "react-redux";
 
 function App() {
+
+  // const { isAuthenticated } = useSelector((state) => state.user);
+
+  // const isAuthenticate = ({ element: Element, ...rest }) => (
+  //   <Route
+  //     {...rest}
+  //     element={(props) =>
+  //       isAuthenticated ? <Element {...props} /> : <Navigate to="/login" />
+  //     }
+  //   />
+
 
   return (
     <BrowserRouter>
       {/* <Header /> */}
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
         <Route path="/login" element={<RegisterLogin />} />
-        <Route path="/adduser" element={<AddUser />} />
-        <Route path="/allusers" element={<AllUser />} />
-        <Route path="/updateuser/:id" element={<UpdateUser />} />
-        <Route path="/attendance" element={<Attendance />} />
-        <Route path="/attendance/:id" element={<UserAttendance />} />
-        <Route path="/attendance/view/:id" element={<AttendanceDetails />} />
-        <Route path="/finance" element={<Finance />} />
-        <Route path="/dash" element={<DashBoard />} />
-        <Route path="/allexpenses" element={<AllExpenses />} />
-        <Route path="*" element={<NotFound />} />
+          <Route element={<ProtectedRoute />}>
+            <Route path="/about" element={<About />} />
+            <Route path="/adduser" element={<AddUser />} />
+            <Route path="/allusers" element={<AllUser />} />
+            <Route path="/updateuser/:id" element={<UpdateUser />} />
+            <Route path="/attendance" element={<Attendance />} />
+            <Route path="/attendance/:id" element={<UserAttendance />} />
+            <Route path="/attendance/view/:id" element={<AttendanceDetails />} />
+            <Route path="/finance" element={<Finance />} />
+            <Route path="/dash" element={<DashBoard />} />
+            <Route path="/allexpenses" element={<AllExpenses />} />
+            <Route path="*" element={<NotFound />} />
+          </Route>
       </Routes>
     </BrowserRouter>
   );

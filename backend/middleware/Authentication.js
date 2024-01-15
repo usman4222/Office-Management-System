@@ -20,3 +20,14 @@ exports.isAuthenticatedUser = catchAsyncError(async (req, res, next) => {
         return next(new ErrorHandler('Invalid token', 401));
     }
 });
+
+
+exports.authorizeRole = (...roles) => {
+
+    return (req, res, next) => {
+        if (!roles.includes(req.user.role)) {
+            return next(new ErrorHandler(`Role: ${req.user.role} not allowed to access this Resourse.`, 403))
+        }
+        next();
+    }
+}

@@ -10,7 +10,7 @@ const router = express.Router()
 router.route('/login').post(loginUser)
 router.route('/logout').get(isAuthenticatedUser, logoutUser)
 router.route('/newemployee').post(isAuthenticatedUser, addNewEmployee)
-router.route('/allemployees').get(isAuthenticatedUser, getAllEmployees);
+router.route('/allemployees').get(isAuthenticatedUser, getAllEmployees, authorizeRole("admin"));
 router.route('/delete/:id').delete(isAuthenticatedUser, deleteEmployee)
 router.route('/updateemployee/:id').put(isAuthenticatedUser, updateEmployee)
 router.route('/employee/:id').get(isAuthenticatedUser, getOneEmployeeDetails)

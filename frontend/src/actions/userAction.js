@@ -17,29 +17,34 @@ import {
 import axios from "axios"
 
 export const login = (email, password) => async (dispatch) => {
-
     try {
-        dispatch({
-            type: LOGIN_REQUEST,
-        })
-
-        const config = { headers: { "Content-Type": "application/json" } }
-        const { data } = await axios.post(
-            `http://localhost:4000/api/v1/login`,
-            { email, password },
-            config
-        )
-        dispatch({
-            type: LOGIN_SUCCESS,
-            payload: data.user
-        })
+      dispatch({
+        type: LOGIN_REQUEST,
+      });
+  
+      const config = { headers: { 'Content-Type': 'application/json' } };
+      const { data } = await axios.post(
+        `http://localhost:4000/api/v1/login`,
+        { email, password },
+        config
+      ); 
+  
+      // Store the token in a secure manner (e.g., HTTP-only cookie or local storage)
+      localStorage.setItem('authToken', data.token);
+  
+      // Dispatch the success action with user data
+      dispatch({
+        type: LOGIN_SUCCESS,
+        payload: data.user,
+      });
     } catch (error) {
-        dispatch({
-            type: LOGIN_FAIL,
-            payload: error.response.data.message
-        })
+      // Dispatch the failure action with the error message
+      dispatch({
+        type: LOGIN_FAIL,
+        payload: error.response.data.message,
+      });
     }
-}
+  };
 
 
 

@@ -1,7 +1,8 @@
 const jwt = require('jsonwebtoken');
 const { JWT_SECRET, JWT_EXPIRES_IN, COOKIE_EXPIRE } = require('../config.js');
+const User = require('../models/userModel.js');
 
-const sendToken = (user, statusCode, res) => {
+const sendToken = async (user, statusCode, res) => {
 
     const payload = {
         userId: user.id,
@@ -12,6 +13,10 @@ const sendToken = (user, statusCode, res) => {
     const token = jwt.sign(payload, JWT_SECRET, {
         expiresIn: JWT_EXPIRES_IN,
     });
+
+    // Save the token in the user document in the database
+    user.token = token;
+    await user.save();
 
     // Calculate expiration time for the cookie
     const cookieExpires = new Date(Date.now() + COOKIE_EXPIRE * 24 * 60 * 60 * 1000);

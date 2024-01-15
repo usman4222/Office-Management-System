@@ -13,11 +13,11 @@ import { getAllExpenses, getCurrentMonthExpenses } from '../../actions/financeCo
 import ReactApexChart from 'react-apexcharts';
 
 
-const DashBoard = () => {
+const DashBoard = ({ user }) => {
     const [count, setCount] = useState(0);
     const dispatch = useDispatch()
     const { users } = useSelector((state) => state.allUser);
-    const { totalMonthlyExpenses} = useSelector((state) => state.currentMonthTotal);
+    const { totalMonthlyExpenses } = useSelector((state) => state.currentMonthTotal);
     const { expenses } = useSelector((state) => state.allExpenses);
     const [chartData, setChartData] = useState({
         series: [44, 55, 13, 43, 22],
@@ -65,10 +65,10 @@ const DashBoard = () => {
     };
 
     useEffect(() => {
-        const startCount = 0; 
-        const endCount = 123; 
-        const duration = 4000; 
-        const intervalTime = 50; 
+        const startCount = 0;
+        const endCount = 123;
+        const duration = 4000;
+        const intervalTime = 50;
         const steps = Math.ceil(duration / intervalTime);
         const increment = Math.ceil((endCount - startCount) / steps);
 

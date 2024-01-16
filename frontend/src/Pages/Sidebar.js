@@ -1,3 +1,85 @@
+// import React, { Fragment } from 'react'
+// import { Link } from 'react-router-dom'
+// // import { TreeItem, TreeView } from '@material-ui/lab'
+// import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+// import PostAddIcon from '@material-ui/icons/PostAdd'
+// import AddIcon from '@material-ui/icons/Add'
+// import ImportExportIcon from '@material-ui/icons/ImportExport'
+// import ListAltIcon from '@material-ui/icons/ListAlt'
+// import DashboardIcon from '@material-ui/icons/Dashboard'
+// import PeopleIcon from '@material-ui/icons/People'
+// import RateReviewIcon from '@material-ui/icons/RateReview'
+// import { FaUser } from 'react-icons/fa';
+// import { PiUsersThreeFill } from "react-icons/pi";
+// import { HiCurrencyRupee } from "react-icons/hi2";
+// import { MdAdminPanelSettings } from "react-icons/md";
+// import './Sidebar.css'
+
+// const Sidebar = () => {
+//     return (
+//         <Fragment>
+//             <div className='sidebar'>
+//                 <div>
+//                     <div className='line'>
+//                         <div className='logo'>
+//                             <p>Soriic</p>
+//                         </div>
+//                     </div>
+//                     <div>
+//                         <div className='actions'>
+//                             <div className='icon'>
+//                                 <Link to='/dash'>
+//                                     <p>
+//                                         <DashboardIcon />Dashboard
+//                                     </p>
+//                                 </Link>
+//                             </div>
+//                             <div className='icon'>
+//                                 <Link to='/adduser'>
+//                                     <p>
+//                                         <FaUser />Add Employee
+//                                     </p>
+//                                 </Link>
+//                             </div>
+//                             <div className='icon'>
+//                                 <Link to='/allusers'>
+//                                     <p>
+//                                         <PeopleIcon />All Employees
+//                                     </p>
+//                                 </Link>
+//                             </div>
+//                             <div className='icon'>
+//                                 <Link to='/attendance' >
+//                                     <p>
+//                                         <PiUsersThreeFill />Attendance
+//                                     </p>
+//                                 </Link>
+//                             </div>
+//                             <div className='icon'>
+//                                 <Link to='/finance'>
+//                                     <p>
+//                                         <HiCurrencyRupee />Add Expense
+//                                     </p>
+//                                 </Link>
+//                             </div>
+//                             <div className='icon'>
+//                                 <Link to='/allexpenses'>
+//                                     <p>
+//                                         <MdAdminPanelSettings />All Expenses
+//                                     </p>
+//                                 </Link>
+//                             </div>
+//                         </div>
+//                     </div>
+//                 </div>
+//             </div>
+//         </Fragment>
+//     )
+// }
+
+// export default Sidebar
+
+
 import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
 // import { TreeItem, TreeView } from '@material-ui/lab'
@@ -13,68 +95,61 @@ import { FaUser } from 'react-icons/fa';
 import { PiUsersThreeFill } from "react-icons/pi";
 import { HiCurrencyRupee } from "react-icons/hi2";
 import { MdAdminPanelSettings } from "react-icons/md";
+import { FaBars } from "react-icons/fa";
 import './Sidebar.css'
 
 const Sidebar = () => {
     return (
-        <Fragment>
-            <div className='sidebar'>
-                <div>
+        <div className="s-layout">
+            {/* Sidebar */}
+            <div className="s-layout__sidebar">
+                <a className="s-sidebar__trigger" href="#0">
+                    {/* <i className="fa fa-bars"></i> */}
+                    <i><FaBars /></i>
+                </a>
+
+                <nav className="s-sidebar__nav">
                     <div className='line'>
                         <div className='logo'>
                             <p>Soriic</p>
                         </div>
                     </div>
-                    <div>
-                        <div className='actions'>
-                            <div className='icon'>
-                                <Link to='/dash'>
-                                    <p>
-                                        <DashboardIcon />Dashboard
-                                    </p>
-                                </Link>
-                            </div>
-                            <div className='icon'>
-                                <Link to='/adduser'>
-                                    <p>
-                                        <FaUser />Add Employee
-                                    </p>
-                                </Link>
-                            </div>
-                            <div className='icon'>
-                                <Link to='/allusers'>
-                                    <p>
-                                        <PeopleIcon />All Employees
-                                    </p>
-                                </Link>
-                            </div>
-                            <div className='icon'>
-                                <Link to='/attendance' >
-                                    <p>
-                                        <PiUsersThreeFill />Attendance
-                                    </p>
-                                </Link>
-                            </div>
-                            <div className='icon'>
-                                <Link to='/finance'>
-                                    <p>
-                                        <HiCurrencyRupee />Add Expense
-                                    </p>
-                                </Link>
-                            </div>
-                            <div className='icon'>
-                                <Link to='/allexpenses'>
-                                    <p>
-                                        <MdAdminPanelSettings />All Expenses
-                                    </p>
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    <ul>
+                        <li>
+                            <a className="s-sidebar__nav-link" href="/dash">
+                                <DashboardIcon />Dashboard
+                            </a>
+                        </li>
+                        <li>
+                            <a className="s-sidebar__nav-link" href="/adduser">
+                                <FaUser />Add Employee
+                            </a>
+                        </li>
+                        <li>
+                            <a className="s-sidebar__nav-link" href="/allusers">
+                                <PeopleIcon />All Employees
+                            </a>
+                        </li>
+                        <li>
+                            <a className="s-sidebar__nav-link" href="/finance">
+                                <HiCurrencyRupee />Add Expense
+                            </a>
+                        </li>
+                        <li>
+                            <a className="s-sidebar__nav-link" href="/attendance">
+                                <PiUsersThreeFill />Attendance
+                            </a>
+                        </li>
+                        <li>
+                            <a className="s-sidebar__nav-link" href="allexpenses">
+                                <MdAdminPanelSettings />All Expenses
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
-        </Fragment>
-    )
-}
+        </div>
+    );
+};
 
-export default Sidebar
+export default Sidebar;

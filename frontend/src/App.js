@@ -36,7 +36,7 @@ function App() {
       {/* <Header /> */}
       <Routes>
         <Route path="/login" element={<RegisterLogin />} />
-          <Route element={<ProtectedRoute />}>
+          {/* <Route element={<ProtectedRoute />}> */}
             <Route path="/about" element={<About />} />
             <Route path="/adduser" element={<AddUser />} />
             <Route path="/allusers" element={<AllUser />} />
@@ -48,7 +48,7 @@ function App() {
             <Route path="/dash" element={<DashBoard />} />
             <Route path="/allexpenses" element={<AllExpenses />} />
             <Route path="*" element={<NotFound />} />
-          </Route>
+          {/* </Route> */}
       </Routes>
     </BrowserRouter>
   );

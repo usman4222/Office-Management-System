@@ -1,84 +1,161 @@
-@font-face {
+ @font-face {
     font-family: 'Lemon';
     src: url('../fonts/Lemon/Lemon-Regular.ttf') format('truetype');
 }
-
-.sidebar {
-    background: #000;
-    width: 17vmax;
-    background: url('../img//pexels-fauxels-3182834.jpg');
-    background-color: #cccccc;
-    height: 640px;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    position: fixed;
-    z-index: 100;
-}
-
-.sidebar> :first-child {
-    position: absolute;
-    background: #2B4162;
-    opacity: .9;
-    width: 100%;
-    height: 100%;
-}
-
+*, *::before, *::after {
+    box-sizing: border-box;
+ }
+ 
 .logo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px 0;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   padding: 20px 0;
 }
 
 .line::after {
-    content: '';
-    display: block;
-    background: #fff;
-    width: 100%;
-    height: 1px;
-    margin-top: -20px;
+   content: '';
+   display: block;
+   background: #fff;
+   width: 100%;
+   height: 1px;
+   margin-top: -20px;
 }
-
-.actions {
-    margin-top: 20px;
-}
-
 .logo p {
-    color: #fff;
-    font-size: 2vmax;
-    font-family: 'Lemon', sans-serif;
+   color: #fff;
+   font-size: 2vmax;
+   font-family: 'Lemon', sans-serif;
 }
-
-.icon {
-    display: flex;
-    align-items: center;
-    padding: 3px 0;
+ body {
+   font-family: Montserrat;
+    font-size: 1em;
+    color: #333;
+ }
+  .s-sidebar__trigger {
+    z-index: 2;
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-}
-
-.icon a {
-    text-decoration: none;
+    height: 4em;
+    background: #192b3c;
+ }
+ 
+ .s-sidebar__trigger > i {
+    display: inline-block;
+    margin: 1.5em 0 0 1.5em;
+    color: #f07ab0;
+ }
+ 
+ .s-sidebar__nav {
+    position: fixed;
+    top: 0;
+    left: -15em;
+    overflow: hidden;
+    transition: all .3s ease-in;
+    width: 15em;
+    height: 100%;
+    background: #243e56;
+    color: rgba(255, 255, 255, 0.7);
+ }
+ 
+ .s-sidebar__nav:hover,
+ .s-sidebar__nav:focus,
+ .s-sidebar__trigger:focus + .s-sidebar__nav,
+ .s-sidebar__trigger:hover + .s-sidebar__nav {
+    left: 0;
+ }
+ 
+ .s-sidebar__nav ul {
+    top: 4em;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    width: 15em;
+ }
+ 
+ .s-sidebar__nav ul li {
+    width: 100%;
+ }
+ 
+ .s-sidebar__nav-link {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height: 4em;
     font-family: Montserrat;
-}
-
-.icon:hover {
-    background: rgb(149, 165, 166);
-    cursor: pointer;
-}
-
-.icon p {
+ }
+ .s-sidebar__nav-link{
     display: flex;
     align-items: center;
-    justify-content: center;
-    margin-left: 40px;
-    padding: 20px 0;
+    margin-top: 10px;
+    text-decoration: none;
+    padding: 40px;
     color: #fff;
-    font-size: 1.2vmax;
-}
-
-.icon p>svg {
+ }
+ .s-sidebar__nav-link svg{
     margin-right: 20px;
     color: #fff;
-    font-size: 1.8vmax;
-}
+    font-size: 2.3vmax;
+ }
+ .s-sidebar__nav-link:hover {
+    background: #4d6276;
+ }
+ .s-sidebar__nav-link > i::before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+ }
+ 
+ @media (min-width: 42em) {
+    .s-layout__content {
+       margin-left: 4em;
+    }
+    .s-sidebar__nav-link svg{
+      margin-left: -20px;
+      color: #fff;
+      font-size: 3.2vmax;
+      margin-right: 30px;
+   }
+    .s-sidebar__trigger {
+       width: 4em;
+    }
+    .s-sidebar__nav {
+       width: 4em;
+       left: 0;
+    }
+    
+    .s-sidebar__nav:hover,
+    .s-sidebar__nav:focus,
+    .s-sidebar__trigger:hover + .s-sidebar__nav,
+    .s-sidebar__trigger:focus + .s-sidebar__nav {
+       width: 15em;
+    }
+ }
+ 
+ @media (min-width: 68em) {
+    .s-layout__content {
+       margin-left: 15em;
+    }
+    .s-sidebar__trigger {
+       display: none
+    }
+    
+    .s-sidebar__nav {
+       width: 15em;
+    }
+    
+    .s-sidebar__nav ul {
+       top: 1.3em;
+    }
+ }
+ 
+ @media (min-width: 425px) {
+
+   .s-sidebar__nav-link svg{
+      margin-left: -17px;
+      color: #fff;
+      font-size: 2.3vmax;
+   }
+ }

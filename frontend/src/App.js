@@ -18,6 +18,7 @@ import NotFound from "./Pages/NotFound/NotFound";
 import ProtectedRoute from "./Pages/ProtectedRoute/ProtectedRoute";
 import { useSelector } from "react-redux";
 import AttendanceList from "./Pages/employeeAttendance.js/AttendanceList";
+import UpdateUserAttendance from "./Pages/employeeAttendance.js/UpdateUserAttendance";
 
 function App() {
 
@@ -49,6 +50,7 @@ function App() {
             <Route path="/dash" element={<DashBoard />} />
             <Route path="/allexpenses" element={<AllExpenses />} />
             <Route path="/attendancelist/:id" element={<AttendanceList />} />
+            <Route path="/updateattendance/:id" element={<UpdateUserAttendance />} />
             <Route path="*" element={<NotFound />} />
           {/* </Route> */}
       </Routes>

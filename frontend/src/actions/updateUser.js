@@ -25,16 +25,13 @@ export const updateUserDetails = (id, userData) => async (dispatch) => {
             type: UPDATE_USER_SUCCESS,
             payload: data.success
         });
-        console.log('Product Updated successfully', data.product);
 
-        return data.product;
     } catch (error) {
         dispatch({
             type: UPDATE_USER_FAIL,
             payload: error.response.data.message
         });
 
-        console.error('Error to update product:', error);
         throw error;
     }
 };

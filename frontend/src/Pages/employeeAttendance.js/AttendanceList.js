@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 // import './AllUser.css'
-import { Fragment, usseEffect } from 'react'
+import { Fragment } from 'react'
 import { DataGrid } from '@material-ui/data-grid'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
@@ -48,6 +48,8 @@ const AttendanceList = () => {
         }
     }, [user]);
 
+    const userId = id;
+
     const CustomCountCell = ({ value }) => (
         <div style={{ textAlign: 'center' }}>{String(value)}</div>
     );
@@ -74,6 +76,23 @@ const AttendanceList = () => {
             minWidth: 10,
             flex: 0.5,
         },
+        {
+            field: "action",
+            headerName: "Action",
+            minWidth: 100,
+            type: "number",
+            sortable: false,
+            flex: 0.5,
+            renderCell: (params) => {
+                return (
+                    <Fragment>
+                        <Link to={`/updateattendance/${params.getValue(params.id, "id")}`} className='edit'>
+                            <EditIcon />
+                        </Link>
+                    </Fragment>
+                )
+            }
+        }
     ];
 
     const rows = attendanceDetails.map((detail, index) => ({

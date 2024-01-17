@@ -15,7 +15,7 @@ router.route('/delete/:id').delete(deleteEmployee)
 router.route('/updateemployee/:id').put(updateEmployee)
 router.route('/employee/:id').get(getOneEmployeeDetails)
 router.route('/attendance/:id').put(markAttendance)
-router.put('/updateattendance/:id',updateAttendance);
+router.route('/updateattendance/:id').put(updateAttendance);
 router.route('/finance').post(financeController)
 router.route('/allexpenses').get(getAllExpenses)
 router.route('/revenue').post(createRevenue)

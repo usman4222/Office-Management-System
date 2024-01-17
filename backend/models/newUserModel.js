@@ -29,11 +29,6 @@ const newUserSchema = new mongoose.Schema({
         type: String,
         required: [true, "Please define user designation"]
     },
-    // attendance: {
-    //     type: String,
-    //     required:true,
-    //     default: "Present"
-    // },
     attendance: [{
         date: {
             type: Date,

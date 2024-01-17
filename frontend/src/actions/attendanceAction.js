@@ -6,7 +6,10 @@ import {
     USER_ATTENDANCE_DETAILS_REQUEST,
     USER_ATTENDANCE_DETAILS_SUCCESS,
     USER_ATTENDANCE_DETAILS_FAIL,
-    CLEAR_ERRORS
+    CLEAR_ERRORS,
+    UPDATE_USER_ATTENDANCE_REQUEST,
+    UPDATE_USER_ATTENDANCE_SUCCESS,
+    UPDATE_USER_ATTENDANCE_FAIL
 } from '../constants/attendanceConstant';
 
 export const updateUserCon = (id, attendanceData) => async (dispatch) => {
@@ -45,7 +48,31 @@ export const updateUserCon = (id, attendanceData) => async (dispatch) => {
     }
 };
 
+export const changeStatusAction = (id, userData) => async (dispatch) => {
+    try {
+        dispatch({
+            type: UPDATE_USER_ATTENDANCE_REQUEST
+        });
 
+        const config = {
+            headers: { "Content-Type": "application/json" }
+        }
+        const { data } = await axios.put(`http://localhost:4000/api/v1/updateattendance/${id}`, userData, config);
+
+        dispatch({
+            type: UPDATE_USER_ATTENDANCE_SUCCESS,
+            payload: data.success
+        });
+
+    } catch (error) {
+        dispatch({
+            type: UPDATE_USER_ATTENDANCE_FAIL,
+            payload: error.response.data.message
+        });
+
+        throw error;
+    }
+};
 
 export const clearErrors = () => async (dispatch) => {
     dispatch({ type: CLEAR_ERRORS });

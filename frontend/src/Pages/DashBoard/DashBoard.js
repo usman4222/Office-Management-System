@@ -93,7 +93,7 @@ const DashBoard = ({ user }) => {
                     <div className='col-lg-2  main-r1-b1'>
                         <Sidebar />
                     </div>
-                    <div className='col-lg-10  main-r1-b2'>
+                    <div className='col-lg-10 col-md-12  main-r1-b2'>
                         <div className='row main-r2'>
                             <Header />
                         </div>

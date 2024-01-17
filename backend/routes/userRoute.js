@@ -9,15 +9,15 @@ const router = express.Router()
 
 router.route('/login').post(loginUser)
 router.route('/logout').get(isAuthenticatedUser, logoutUser)
-router.route('/newemployee').post(isAuthenticatedUser, addNewEmployee)
-router.route('/allemployees').get(isAuthenticatedUser, getAllEmployees, authorizeRole("admin"));
-router.route('/delete/:id').delete(isAuthenticatedUser, deleteEmployee)
-router.route('/updateemployee/:id').put(isAuthenticatedUser, updateEmployee)
-router.route('/employee/:id').get(isAuthenticatedUser, getOneEmployeeDetails)
-router.route('/attendance/:id').put(isAuthenticatedUser, updateAttendanceStatus)
-router.route('/finance').post(isAuthenticatedUser, financeController)
-router.route('/allexpenses').get(isAuthenticatedUser, getAllExpenses)
-router.route('/revenue').post(isAuthenticatedUser, createRevenue)
-router.route('/getExpenses').get(isAuthenticatedUser, getCurrentMonthExpenses)
+router.route('/newemployee').post(addNewEmployee)
+router.route('/allemployees').get(getAllEmployees, authorizeRole("admin"));
+router.route('/delete/:id').delete(deleteEmployee)
+router.route('/updateemployee/:id').put(updateEmployee)
+router.route('/employee/:id').get(getOneEmployeeDetails)
+router.route('/attendance/:id').put(updateAttendanceStatus)
+router.route('/finance').post(financeController)
+router.route('/allexpenses').get(getAllExpenses)
+router.route('/revenue').post(createRevenue)
+router.route('/getExpenses').get(getCurrentMonthExpenses)
 
 module.exports = router;

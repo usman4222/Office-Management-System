@@ -1,49 +1,46 @@
 import React, { useEffect, useState, Fragment } from 'react';
-import { DataGrid } from '@material-ui/data-grid'
-import { useSelector, useDispatch } from 'react-redux'
+import { DataGrid } from '@material-ui/data-grid';
+import { useSelector, useDispatch } from 'react-redux';
 import { getAttendanceDetails } from '../../actions/attendanceAction';
 import { getUserDetails } from '../../actions/updateUser';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Header from '../../components/Header';
 import Sidebar from '../Sidebar';
-import { Doughnut, Line } from 'react-chartjs-2';
+import { Doughnut } from 'react-chartjs-2';
+import { v4 as uuidv4 } from 'uuid';
 import './Attendance.css'
-import { LineChart } from '../DashBoard/Chart';
-
-
+import { Button } from '@material-ui/core';
 
 const AttendanceDetails = () => {
     const { user } = useSelector((state) => state.getUser);
-    const [rows, setRows] = useState([]);
     const dispatch = useDispatch();
     const { id } = useParams();
+    const params = useParams();
     const [showAttendance, setShowAttendance] = useState(false);
     const [attendanceDetails, setAttendanceDetails] = useState([]);
     const [presentPercentage, setPresentPercentage] = useState(0);
     const [presentCount, setPresentCount] = useState(0);
     const [absentCount, setAbsentCount] = useState(0);
     const [leaveCount, setLeaveCount] = useState(0);
-
-    const userId = id;
+    const [totalEntries, setTotalEntries] = useState(0);
 
     useEffect(() => {
-        const isUserDataIncomplete = !user || user._id !== userId;
+        const isUserDataIncomplete = !user || user._id !== id;
 
         if (isUserDataIncomplete) {
-            dispatch(getUserDetails(userId));
+            dispatch(getUserDetails(id));
         }
-    }, [dispatch, userId, user]);
+    }, [dispatch, id, user]);
 
     useEffect(() => {
         if (user && user.attendance && user.attendance.length > 0) {
             let presentCount = 0;
             let absentCount = 0;
             let leaveCount = 0;
-            let presentPercentage = 0
             let totalEntries = user.attendance.length;
 
             const attendanceData = user.attendance.map((item, index) => {
-                const id = index + 1;
+                const id = uuidv4();
                 const date = new Date(item.date).toLocaleDateString();
                 const status = item.status;
 
@@ -55,7 +52,7 @@ const AttendanceDetails = () => {
                     leaveCount++;
                 }
 
-                return { id: id.toString(), date, status };
+                return { id, date, status };
             });
 
             setAttendanceDetails(attendanceData);
@@ -66,144 +63,116 @@ const AttendanceDetails = () => {
             setPresentCount(presentCount);
             setAbsentCount(absentCount);
             setLeaveCount(leaveCount);
-
-            setRows([
-                {
-                    id: user._id,
-                    role: user.role,
-                    designation: user.designation,
-                    absentCount,
-                    presentCount,
-                    leaveCount,
-                    totalEntries,
-                    presentPercentage: percentage,
-                },
-            ]);
+            setTotalEntries(totalEntries);
         }
     }, [user]);
 
-    const DoughnutChart = ({ presentCount, absentCount, leaveCount }) => {
+    const DoughnutChart = () => {
         const data = {
-            labels: ["Present", "Absent", "Leave"],
+            labels: ['Present', 'Absent', 'Leave'],
             datasets: [
                 {
-                    label: "Views",
+                    label: 'Views',
                     data: [presentCount, absentCount, leaveCount],
-                    borderColor: ["rgb(62,12, 171)", "rgb(214, 44, 129)"],
-                    backgroundColor: ["rgba(62,12, 171, 0.3)", "rgba(214, 44, 129, 0.3)"],
-                    borderWidth: 1
-                }
-            ]
+                    borderColor: ['rgb(62,12, 171)', 'rgb(214, 44, 129)'],
+                    backgroundColor: ['rgba(62,12, 171, 0.3)', 'rgba(214, 44, 129, 0.3)'],
+                    borderWidth: 1,
+                },
+            ],
         };
-
         return <Doughnut data={data} />;
     };
 
-
-
     const columns = [
         {
-            field: "presentCount",
-            headerName: "Present",
-            minWidth: 10,
-            flex: 0.5
-        },
-        {
-            field: "leaveCount",
-            headerName: "Leave",
-            minWidth: 10,
-            flex: 0.5
-        },
-        {
-            field: "absentCount",
-            headerName: "Absent",
-            minWidth: 10,
-            flex: 0.5
-        },
-        {
-            field: "absentCount",
-            headerName: "Absent",
-            minWidth: 10,
-            flex: 0.5
-        },
-        {
-            field: "totalEntries",
-            headerName: "Total Days",
-            minWidth: 10,
-            flex: 0.5
-        },
-        {
-            field: "presentPercentage",
-            headerName: "Present",
+            field: 'date',
+            headerName: 'Date',
             minWidth: 10,
             flex: 0.5,
-            valueGetter: (params) => {
-                return presentPercentage.toFixed(2) + "%";
-            }
         },
-    ]
+        {
+            field: 'status',
+            headerName: 'Status',
+            minWidth: 10,
+            flex: 0.5,
+        },
+    ];
+
+
+    const rows = attendanceDetails.map((detail) => ({
+        id: detail.id,
+        date: detail.date,
+        status: detail.status,
+    }));
 
 
     return (
-        <div className='main'>
-            <div className='row w-full'>
-                <div className='col-lg-2'>
-                    <Sidebar />
-                </div>
-                <div className='col-lg-10'>
-                    <div className='row'>
-                        <div className='col-lg-12'>
-                            <Header />
-                        </div>
+        <Fragment>
+            <div className='main'>
+                <div className='row w-full'>
+                    <div className='col-lg-2'>
+                        <Sidebar />
                     </div>
-                    <Fragment>
+                    <div className='col-lg-10'>
+                        <div className='row'>
+                            <div className='col-lg-12'>
+                                <Header />
+                            </div>
+                        </div>
                         <div className='productsListContainer'>
                             <h1 className='productListHeading'>{user.name}'s Attendance Details</h1>
-                            <DataGrid
-                                rows={rows}
-                                columns={columns}
-                                pageSize={1}
-                                disableSelectionOnClick
-                                className='productsListTable'
-                                autoHeight
-                            />
-                            {/* {showAttendance && (
-                                <div style={{ marginTop: '20px' }}>
-                                    <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-                                        <thead>
-                                            <tr style={{ backgroundColor: '#f0f0f0' }}>
-                                                <th style={{ padding: '10px', }}>Date</th>
-                                                <th style={{ padding: '10px', }}>Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {attendanceDetails.map((detail, index) => (
-                                                <tr key={index} style={{ backgroundColor: index % 2 === 0 ? '#ffffff' : '#f9f9f9' }}>
-                                                    <td style={{ padding: '10px', textAlign: 'center' }}>{detail.date} </td>
-                                                    <td style={{ padding: '10px', textAlign: 'center' }}>{detail.status}</td>
-                                                </tr>
-                                            ))}
-                                        </tbody>
-                                    </table>
+                            <div className='row main-r1'>
+                                <div className='col-lg-2 main-r1-2'>
+                                    <p className='status'>Present</p>
+                                    <p>{presentCount}</p>
                                 </div>
-                            )} */}
-
-                        </div>
-                        <div className='row'>
-                            <div className='col-lg-4 doughnut'>
-                                <DoughnutChart presentCount={presentCount} absentCount={absentCount} leaveCount={leaveCount} />
+                                <div className='col-lg-2 main-r1-b1'>
+                                    <p className='status'>Absent</p>
+                                    <p>{absentCount}</p>
+                                </div>
+                                <div className='col-lg-2 main-r1-2'>
+                                    <p className='status'>Leave</p>
+                                    <p>{leaveCount}</p>
+                                </div>
+                                <div className='col-lg-2 main-r1-b1'>
+                                    <p className='status'>Total Days</p>
+                                    <p>{totalEntries}</p>
+                                </div>
+                                <div className='col-lg-2 main-r1-2'>
+                                    <p className='status'>Total Persentage</p>
+                                    <p>{presentPercentage + "%"}</p>
+                                </div>
+                                <div className='col-lg-2 main-r1-b1'>
+                                    <Link to={`/attendancelist/${id}`}>
+                                        <Button>Check Details</Button>
+                                    </Link>
+                                </div>
                             </div>
+                            <div className='do'>
+                                <div className=' doughnut'>
+                                    <DoughnutChart className="dough" presentCount={presentCount} absentCount={absentCount} leaveCount={leaveCount} />
+                                </div>
+                            </div>
+                        </div>
+                        {/* <div className='row cv'>
                             <div className='col-lg-6'>
-                            {/* <LineChart/> */}
+                                <DataGrid
+                                    rows={rows}
+                                    columns={columns}
+                                    pageSize={100}
+                                    disableSelectionOnClick
+                                    className='productsListTable'
+                                />
                             </div>
-                        </div>
-                    </Fragment>
+                        </div> */}
+                    </div>
                 </div>
             </div>
-        </div>
+        </Fragment>
     )
 }
 
 
 
 export default AttendanceDetails
+

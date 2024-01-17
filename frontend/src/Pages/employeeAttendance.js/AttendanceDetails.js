@@ -140,7 +140,7 @@ const AttendanceDetails = () => {
                                 </div>
                                 <div className='col-lg-2 main-r1-2'>
                                     <p className='status'>Total Persentage</p>
-                                    <p>{presentPercentage + "%"}</p>
+                                    <p>{presentPercentage.toFixed(0)}%</p>
                                 </div>
                                 <div className='col-lg-2 main-r1-b1'>
                                     <Link to={`/attendancelist/${id}`}>

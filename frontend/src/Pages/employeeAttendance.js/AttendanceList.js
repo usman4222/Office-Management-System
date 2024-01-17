@@ -11,7 +11,6 @@ import EditIcon from "@material-ui/icons/Edit"
 import DeleteIcon from "@material-ui/icons/Delete"
 import { useSnackbar } from 'notistack'
 import { getAllUsers, clearErrors, } from '../../actions/addUserAction'
-import { deleteUser } from '../../actions/deleteUser'
 import { DELETE_USER_RESET } from '../../constants/deleteUserConstant'
 import Sidebar from '../Sidebar'
 import { getUserDetails } from '../../actions/updateUser';
@@ -20,12 +19,11 @@ import { v4 as uuidv4 } from 'uuid';
 
 const AttendanceList = () => {
 
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
     const [attendanceDetails, setAttendanceDetails] = useState([]);
     const [showAttendance, setShowAttendance] = useState(false);
     const { user } = useSelector((state) => state.getUser);
     const { id } = useParams();
-
 
     useEffect(() => {
         const isUserDataIncomplete = !user || user._id !== id;
@@ -33,24 +31,14 @@ const AttendanceList = () => {
         if (isUserDataIncomplete) {
             dispatch(getUserDetails(id));
         }
-    }, [dispatch, id, user])
+    }, [dispatch, id, user]);
 
     useEffect(() => {
         if (user && user.attendance && user.attendance.length > 0) {
-        
-
             const attendanceData = user.attendance.map((item, index) => {
                 const id = uuidv4();
                 const date = new Date(item.date).toLocaleDateString();
                 const status = item.status;
-
-                // if (status === 'Present') {
-                //     presentCount++;
-                // } else if (status === 'Absent') {
-                //     absentCount++;
-                // } else if (status === 'Leave') {
-                //     leaveCount++;
-                // }
 
                 return { id, date, status };
             });
@@ -61,7 +49,7 @@ const AttendanceList = () => {
     }, [user]);
 
     const CustomCountCell = ({ value }) => (
-        <div style={{ textAlign: 'center' }}>{value}</div>
+        <div style={{ textAlign: 'center' }}>{String(value)}</div>
     );
 
     const columns = [
@@ -70,7 +58,9 @@ const AttendanceList = () => {
             headerName: 'Number',
             minWidth: 10,
             flex: 0.5,
-            renderCell: (params) => <CustomCountCell value={params.rowIndex + 1} />,
+            renderCell: (params) => (
+                <CustomCountCell value={user.attendance ? params.rowIndex + 1 : ''} />
+            ),
         },
         {
             field: 'date',
@@ -88,7 +78,6 @@ const AttendanceList = () => {
 
     const rows = attendanceDetails.map((detail, index) => ({
         id: detail.id,
-        // count: index + 1,
         date: detail.date,
         status: detail.status,
     }));

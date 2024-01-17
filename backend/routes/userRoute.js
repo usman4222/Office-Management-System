@@ -1,7 +1,7 @@
 const express = require('express');
 const { registerUser, loginUser, logoutUser, getAllUsers, getUserDetails, setUserRole, deleteUser } = require('../controllers/userController');
 const { deleteEmployee, addNewEmployee, updateEmployee, getAllEmployees, getOneEmployeeDetails } = require('../controllers/addUserController');
-const { updateAttendanceStatus, getUserAttendanceDetails } = require('../controllers/attendanceController');
+const { markAttendance, getUserAttendanceDetails, updateAttendance } = require('../controllers/attendanceController');
 const { financeController, getAllExpenses, getMonthlyExpenses, getCurrentMonthExpenses } = require('../controllers/financeController');
 const { createRevenue } = require('../controllers/revenueController');
 const { isAuthenticatedAdmin, isAuthenticated, authorizeRole, isAuthenticatedUser } = require('../middleware/Authentication');
@@ -14,7 +14,8 @@ router.route('/allemployees').get(getAllEmployees, authorizeRole("admin"));
 router.route('/delete/:id').delete(deleteEmployee)
 router.route('/updateemployee/:id').put(updateEmployee)
 router.route('/employee/:id').get(getOneEmployeeDetails)
-router.route('/attendance/:id').put(updateAttendanceStatus)
+router.route('/attendance/:id').put(markAttendance)
+router.put('/updateattendance/:id',updateAttendance);
 router.route('/finance').post(financeController)
 router.route('/allexpenses').get(getAllExpenses)
 router.route('/revenue').post(createRevenue)

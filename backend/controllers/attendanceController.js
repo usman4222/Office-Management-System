@@ -2,7 +2,7 @@ const catchAsyncError = require('../middleware/catchAsyncError');
 const newUser = require('../models/newUserModel');
 const ErrorHandler = require('../utils/errorHanlder');
 
-exports.updateAttendanceStatus = catchAsyncError(async (req, res, next) => {
+exports.markAttendance = catchAsyncError(async (req, res, next) => {
     try {
         const { id } = req.params;
         const { attendance } = req.body;
@@ -27,11 +27,9 @@ exports.updateAttendanceStatus = catchAsyncError(async (req, res, next) => {
             );
 
             if (existingAttendanceIndex !== -1) {
-                // Attendance for this date already exists, update the status
                 user.attendance[existingAttendanceIndex].status = status;
                 updatedAttendance.push(user.attendance[existingAttendanceIndex]);
             } else {
-                // Attendance for this date doesn't exist, add new attendance
                 user.attendance.push({ date, status });
                 updatedAttendance.push({ date, status });
             }
@@ -48,3 +46,55 @@ exports.updateAttendanceStatus = catchAsyncError(async (req, res, next) => {
 
 
 
+// exports.updateAttendance = catchAsyncError(async (req, res, next) => {
+//     const userId = req.params.id;
+//     const { date, status } = req.body;
+
+//     try {
+//         let user = await newUser.findById(userId);
+
+//         if (!user) {
+//             return next(new ErrorHandler("User Not found", 404));
+//         }
+
+//         const existingAttendanceIndex = user.attendance.findIndex(
+//             (a) => a.date.toDateString() === new Date(date).toDateString()
+//         );
+
+//         if (existingAttendanceIndex !== -1) {
+//             user.attendance[existingAttendanceIndex].status = status;
+//         } else {
+//             user.attendance.push({ date, status });
+//         }
+
+//         user = await user.save();
+
+//         res.status(200).json({
+//             success: true,
+//             updatedAttendance: user.attendance,
+//         });
+//     } catch (error) {
+//         return next(new ErrorHandler('Internal Server Error', 500));
+//     }
+// });
+
+
+exports.updateAttendance = catchAsyncError(async (req, res, next) => {
+
+    let user = newUser.findById(req.params.id)
+
+    if (!user) {
+        return next(new ErrorHandler("User Not found", 404));
+    }
+
+    user = await newUser.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false
+    })
+
+    res.status(200).json({
+        success: true,
+        user
+    })
+})

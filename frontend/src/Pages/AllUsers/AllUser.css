@@ -3,10 +3,7 @@
     box-sizing: border-box;
     display: flex;
     background: #fff;
-    /* border: 1px solid rgba(0, 0, 0, 0.158); */
-    height: 100vh;
     flex-direction: column;
-    background: #F0F1F4;
 }
 .productListHeading{
     font-weight: 400;
@@ -22,7 +19,6 @@
 .productsListTable{
     background: #fff;
     border: none !important;
-    background: #F0F1F4;
     margin-left: 20px;
     margin-right: 20px;
     height: 100px

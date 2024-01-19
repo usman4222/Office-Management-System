@@ -21,29 +21,6 @@ const DashBoard = ({ user }) => {
     const { users } = useSelector((state) => state.allUser);
     const { totalCurrentMonthExpenses } = useSelector((state) => state.currentMonthTotal);
     const { expenses } = useSelector((state) => state.allExpenses);
-    const [chartData, setChartData] = useState({
-        series: [44, 55, 13, 43, 22],
-        options: {
-            chart: {
-                width: 380,
-                type: 'pie',
-            },
-            labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
-            responsive: [
-                {
-                    breakpoint: 480,
-                    options: {
-                        chart: {
-                            width: 200,
-                        },
-                        legend: {
-                            position: 'bottom',
-                        },
-                    },
-                },
-            ],
-        },
-    });
 
 
     useEffect(() => {
@@ -88,7 +65,7 @@ const DashBoard = ({ user }) => {
 
     const DoughnutChart = () => {
         const data = {
-            labels: ["Intern's", 'Employees'],
+            labels: ["Total Intern's", 'Total Employees'],
             datasets: [
                 {
                     label: 'Views',
@@ -137,7 +114,7 @@ const DashBoard = ({ user }) => {
                                     <div className='col-lg-6 main-r3-b1-r1-b2'>
                                         <div>
                                             <p className='count'><CountUp end={users.length} duration={2} /></p>
-                                            <p>Employees</p>
+                                            <p>Total Members</p>
                                         </div>
                                     </div>
                                 </div>
@@ -156,17 +133,12 @@ const DashBoard = ({ user }) => {
                                 </div>
                             </div>
                         </div>
-                        <div className='row'>
-                            <div className='col-lg-4'>
-                                {/* <LineChart/> */}
+                        <div className='row main-r4'>
+                            <div className='col-lg-4 r4-b1'>
                                 <DoughnutChart />
-                                {/* <DateChart /> */}
-                                {/* <div id='chart'>
-                                    <ReactApexChart options={chartData.options} series={chartData.series} type='pie' width={380} />
-                                </div> */}
                             </div>
-                            <div className='col-lg-8'>
-                                <BarChart/>
+                            <div className='col-lg-8 r4-b2'>
+                                <BarChart />
                             </div>
                         </div>
                     </div>

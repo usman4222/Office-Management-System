@@ -18,10 +18,8 @@ const BarChart = () => {
     useEffect(() => {
         if (expenses.length === 0) return;
 
-        // Get the current year
         const currentYear = new Date().getFullYear();
 
-        // Extract data from expenses for each month of the current year
         const monthlyData = Array.from({ length: 12 }, (_, monthIndex) => {
             const monthExpenses = expenses.filter((expense) => {
                 const expenseDate = new Date(expense.date);
@@ -30,7 +28,6 @@ const BarChart = () => {
                 return expenseMonth === monthIndex && expenseYear === currentYear;
             });
 
-            // Calculate the total amount for the month
             const totalAmount = monthExpenses.reduce(
                 (accumulator, expense) => accumulator + parseFloat(expense.amount),
                 0
@@ -39,7 +36,6 @@ const BarChart = () => {
             return totalAmount;
         });
 
-        // Update the chart data with the dynamically generated data
         const chartData = {
             labels: [
                 'January', 'February', 'March', 'April', 'May', 'June',
@@ -47,7 +43,7 @@ const BarChart = () => {
             ],
             datasets: [
                 {
-                    label: "Total Monthly Expenses",
+                    label: "Total Monthly Expenses(Current Year)",
                     data: monthlyData,
                     backgroundColor: [
                         "rgba(255, 99, 132, 0.5)",

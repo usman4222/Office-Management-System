@@ -16,6 +16,7 @@ import {
     currentMonthTotalReducer,
     financeReducer,
 } from './reducers/financeReducer';
+import { getUserAttendance } from './actions/attendanceAction';
 
 const rootReducer = combineReducers({
     user: userReducer,
@@ -26,6 +27,7 @@ const rootReducer = combineReducers({
     delUser: deleteReducer,
     getUser: getUserReducer,
     updateUser: updateUserDetails,
+    userAttendance: getUserAttendance,
     changeAttendance: updateUserAttendance,
     editUser: userUpdateReducer,
     finance: financeReducer,

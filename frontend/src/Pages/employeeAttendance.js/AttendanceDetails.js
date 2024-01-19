@@ -32,6 +32,7 @@ const AttendanceDetails = () => {
         }
     }, [dispatch, id, user]);
 
+
     useEffect(() => {
         if (user && user.attendance && user.attendance.length > 0) {
             let presentCount = 0;
@@ -106,6 +107,7 @@ const AttendanceDetails = () => {
     }));
 
 
+
     return (
         <Fragment>
             <div className='main'>
@@ -143,7 +145,7 @@ const AttendanceDetails = () => {
                                     <p>{presentPercentage.toFixed(0)}%</p>
                                 </div>
                                 <div className='col-lg-2 main-r1-b1'>
-                                    <Link to={`/attendancelist/${id}`}>
+                                    <Link to={`/attendancelist/${user._id}`}>
                                         <Button>Check Details</Button>
                                     </Link>
                                 </div>

@@ -9,7 +9,10 @@ import {
     CLEAR_ERRORS,
     UPDATE_USER_ATTENDANCE_REQUEST,
     UPDATE_USER_ATTENDANCE_SUCCESS,
-    UPDATE_USER_ATTENDANCE_FAIL
+    UPDATE_USER_ATTENDANCE_FAIL,
+    GET_USER_ATTENDANCE_REQUEST,
+    GET_USER_ATTENDANCE_SUCCESS,
+    GET_USER_ATTENDANCE_FAIL,
 } from '../constants/attendanceConstant';
 
 export const updateUserCon = (id, attendanceData) => async (dispatch) => {
@@ -48,7 +51,30 @@ export const updateUserCon = (id, attendanceData) => async (dispatch) => {
     }
 };
 
-export const changeStatusAction = (id, userData) => async (dispatch) => {
+
+
+export const getUserAttendance = (id) => async (dispatch) => {
+
+    try {
+        dispatch({ type: GET_USER_ATTENDANCE_REQUEST })
+
+        const { data } = await axios.get(`http://localhost:4000/api/v1/getuserattendance/${id}`)
+
+        console.log("This is user attenance data", data)
+
+        dispatch({ type: GET_USER_ATTENDANCE_SUCCESS, payload: data.userAttendance })
+    } catch (error) {
+        dispatch({
+            type: GET_USER_ATTENDANCE_FAIL,
+            payload: error.response.data.message,
+            message: "Error while getting details"
+        })
+    }
+}
+
+
+
+export const changeStatusAction = (userId, attendanceId, userData) => async (dispatch) => {
     try {
         dispatch({
             type: UPDATE_USER_ATTENDANCE_REQUEST
@@ -57,7 +83,8 @@ export const changeStatusAction = (id, userData) => async (dispatch) => {
         const config = {
             headers: { "Content-Type": "application/json" }
         }
-        const { data } = await axios.put(`http://localhost:4000/api/v1/updateattendance/${id}`, userData, config);
+
+        const { data } = await axios.put(`http://localhost:4000/api/v1/editsingleattendance/${userId}/${attendanceId}`, userData, config);
 
         dispatch({
             type: UPDATE_USER_ATTENDANCE_SUCCESS,
@@ -73,6 +100,8 @@ export const changeStatusAction = (id, userData) => async (dispatch) => {
         throw error;
     }
 };
+
+
 
 export const clearErrors = () => async (dispatch) => {
     dispatch({ type: CLEAR_ERRORS });

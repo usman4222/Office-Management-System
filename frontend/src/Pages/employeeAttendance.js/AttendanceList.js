@@ -1,21 +1,12 @@
-import React, { useEffect, useState } from 'react'
-// import './AllUser.css'
-import { Fragment } from 'react'
-import { DataGrid } from '@material-ui/data-grid'
-import { useSelector, useDispatch } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
-import { useAlert } from 'react-alert'
-import { Button } from '@material-ui/core'
-// import { Metadata } from '@stripe/stripe-js'
 import EditIcon from "@material-ui/icons/Edit"
-import DeleteIcon from "@material-ui/icons/Delete"
-import { useSnackbar } from 'notistack'
-import { getAllUsers, clearErrors, } from '../../actions/addUserAction'
-import { DELETE_USER_RESET } from '../../constants/deleteUserConstant'
 import Sidebar from '../Sidebar'
 import { getUserDetails } from '../../actions/updateUser';
 import Header from '../../components/Header'
 import { v4 as uuidv4 } from 'uuid';
+import { DataGrid } from '@material-ui/data-grid';
+import { Fragment, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 const AttendanceList = () => {
 
@@ -42,8 +33,6 @@ const AttendanceList = () => {
 
                 return { id, date, status };
             });
-
-            // console.log("This is attendanceData", attendanceData)
 
             setAttendanceDetails(attendanceData);
             setShowAttendance(true);
@@ -92,9 +81,9 @@ const AttendanceList = () => {
                             <EditIcon />
                         </Link>
                     </Fragment>
-                )
-            }
-        }
+                );
+            },
+        },
     ];
 
     const rows = attendanceDetails.map((detail, index) => ({
@@ -134,7 +123,6 @@ const AttendanceList = () => {
         </Fragment>
     )
 }
-
 
 
 export default AttendanceList

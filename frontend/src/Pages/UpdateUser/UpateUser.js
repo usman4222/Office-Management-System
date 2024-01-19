@@ -28,7 +28,7 @@ const UpdateUser = () => {
     const [designation, setDesignation] = useState("");
 
     const roleCategories = [
-        "Employe",
+        "Employee",
         "Intern"
     ]
 

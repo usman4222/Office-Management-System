@@ -6,12 +6,14 @@ import PeopleIcon from '@material-ui/icons/People'
 import { Bar } from 'react-chartjs-2';
 import { DoughnutChart, LineChart } from './Chart';
 import DateChart from './DateChart';
+import { Doughnut } from 'react-chartjs-2';
 import { GiExpense } from "react-icons/gi";
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllUsers } from '../../actions/addUserAction';
 import { getAllExpenses, getCurrentMonthExpenses } from '../../actions/financeController';
 import ReactApexChart from 'react-apexcharts';
 import CountUp from 'react-countup';
+import BarChart from './BarChart';
 
 const DashBoard = ({ user }) => {
     const [count, setCount] = useState(0);
@@ -81,6 +83,27 @@ const DashBoard = ({ user }) => {
     }, []);
 
 
+    const internCount = users.filter(user => user.role === 'Intern').length;
+    const employeeCount = users.filter(user => user.role === 'Employee').length;;
+
+    const DoughnutChart = () => {
+        const data = {
+            labels: ["Intern's", 'Employees'],
+            datasets: [
+                {
+                    label: 'Views',
+                    data: [internCount, employeeCount],
+                    borderColor: ['rgb(62,12, 171)', 'rgb(214, 44, 129)'],
+                    backgroundColor: ['rgba(62,12, 171, 0.3)', 'rgba(214, 44, 129, 0.3)'],
+                    borderWidth: 1,
+                },
+            ],
+        };
+        return <Doughnut data={data} />;
+    };
+
+
+
     return (
         <Fragment>
             <div className='main'>
@@ -134,13 +157,16 @@ const DashBoard = ({ user }) => {
                             </div>
                         </div>
                         <div className='row'>
-                            <div className='col-lg-12'>
+                            <div className='col-lg-4'>
                                 {/* <LineChart/> */}
-                                {/* <DoughnutChart/> */}
+                                <DoughnutChart />
                                 {/* <DateChart /> */}
                                 {/* <div id='chart'>
                                     <ReactApexChart options={chartData.options} series={chartData.series} type='pie' width={380} />
                                 </div> */}
+                            </div>
+                            <div className='col-lg-8'>
+                                <BarChart/>
                             </div>
                         </div>
                     </div>

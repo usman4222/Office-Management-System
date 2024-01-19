@@ -1,56 +1,40 @@
-import React, { useState } from 'react';
-import Chart from 'react-apexcharts';
+import React from 'react';
+import { PolarArea } from 'react-chartjs-2';
 
 const DateChart = () => {
-    const [options, setOptions] = useState({
-        chart: {
-            id: 'area-datetime'
-        },
-        grid: {
-            show: false
-        },
-        title: {
-            text: "Market",
-            style: {
-                fontSize: '14px', fontWeight: 'bold', color: '#00ffea'
-            }
-        },
-        stroke: {
-            curve: 'smooth'
-        },
-        xaxis: {
-            type: 'datetime'
-        },
-        dateLabels: {
-            enabled: false
-        },
-        yaxis: {
-            show: false
-        },
-        color: ['#00ffea'],
-        tooltip: {
-            y: {
-                formatter: (value) => { return value.toFixed(2) }
-            }, theme: 'dark'
-        },
-        selection: 365
-    });
+    const data = {
+        labels: ['Red', 'Green', 'Yellow', 'Grey', 'Blue'],
+        datasets: [
+            {
+                label: 'My First Dataset',
+                data: [11, 16, 7, 3, 14],
+                backgroundColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(75, 192, 192)',
+                    'rgb(255, 205, 86)',
+                    'rgb(201, 203, 207)',
+                    'rgb(54, 162, 235)',
+                ],
+            },
+        ],
+    };
 
-    const [series, setSeries] = useState([
-        {
-            name: 'Market Price',
-            data: [[1645837250522, 39804.53519937617]]
-        }
-    ]);
+    const options = {
+        scales: {
+            r: {
+                type: 'radialLinear', // Use 'radialLinear' or 'linear'
+                grid: {
+                    circular: true,
+                },
+                min: 0,
+                max: 20, // You can adjust this based on your data
+            },
+        },
+    };
 
     return (
         <div>
-            <Chart
-                options={options}
-                series={series}
-                type="area"
-                width="500"
-            />
+            <PolarArea data={data} options={options} />
         </div>
     );
 };

@@ -38,27 +38,38 @@ const AttendanceDetails = () => {
             let presentCount = 0;
             let absentCount = 0;
             let leaveCount = 0;
-            let totalEntries = user.attendance.length;
-
+            let totalEntries = 0;
+    
+            const currentDate = new Date();
+            const currentMonth = currentDate.getMonth() + 1;
+    
             const attendanceData = user.attendance.map((item, index) => {
                 const id = uuidv4();
-                const date = new Date(item.date).toLocaleDateString();
-                const status = item.status;
-
-                if (status === 'Present') {
-                    presentCount++;
-                } else if (status === 'Absent') {
-                    absentCount++;
-                } else if (status === 'Leave') {
-                    leaveCount++;
+                const entryDate = new Date(item.date);
+                
+                if (entryDate.getMonth() + 1 === currentMonth) {
+                    totalEntries++;
+    
+                    const date = entryDate.toLocaleDateString();
+                    const status = item.status;
+    
+                    if (status === 'Present') {
+                        presentCount++;
+                    } else if (status === 'Absent') {
+                        absentCount++;
+                    } else if (status === 'Leave') {
+                        leaveCount++;
+                    }
+    
+                    return { id, date, status };
                 }
-
-                return { id, date, status };
-            });
-
+    
+                return null; 
+            }).filter(Boolean); 
+    
             setAttendanceDetails(attendanceData);
             setShowAttendance(true);
-
+    
             const percentage = (presentCount / totalEntries) * 100;
             setPresentPercentage(percentage);
             setPresentCount(presentCount);

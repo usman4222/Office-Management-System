@@ -22,7 +22,7 @@ const AddUser = () => {
     const { error, success } = useSelector((state) => state.newUser)
 
     const roleCategories = [
-        "Employe",
+        "Employee",
         "Intern"
     ]
 

@@ -22,27 +22,23 @@ const initialState = {
 export const currentMonthTotalReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_CURRENT_MONTH_TOTAL_REQUEST:
-            console.log("Reducer: GET_CURRENT_MONTH_TOTAL_REQUEST");
             return {
                 ...state,
                 loading: true,
             };
         case GET_CURRENT_MONTH_TOTAL_SUCCESS:
-            console.log("Reducer: GET_CURRENT_MONTH_TOTAL_SUCCESS", action.payload);
             return {
                 ...state,
                 loading: false,
                 totalCurrentMonthExpenses: action.payload,
             };
         case GET_CURRENT_MONTH_TOTAL_FAIL:
-            console.log("Reducer: GET_CURRENT_MONTH_TOTAL_FAIL", action.payload);
             return {
                 ...state,
                 loading: false,
                 error: action.payload,
             };
         case CLEAR_ERRORS:
-            console.log("Reducer: CLEAR_ERRORS");
             return {
                 ...state,
                 error: null,

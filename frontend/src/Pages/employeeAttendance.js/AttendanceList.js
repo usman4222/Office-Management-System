@@ -1,12 +1,13 @@
+import React, { useEffect, useState } from 'react'
+import { Fragment } from 'react'
+import { DataGrid } from '@material-ui/data-grid'
+import { useSelector, useDispatch } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
 import EditIcon from "@material-ui/icons/Edit"
 import Sidebar from '../Sidebar'
 import { getUserDetails } from '../../actions/updateUser';
 import Header from '../../components/Header'
 import { v4 as uuidv4 } from 'uuid';
-import { DataGrid } from '@material-ui/data-grid';
-import { Fragment, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 
 const AttendanceList = () => {
 
@@ -126,5 +127,3 @@ const AttendanceList = () => {
 
 
 export default AttendanceList
-
-

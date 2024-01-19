@@ -12,6 +12,50 @@ import {
     GET_CURRENT_MONTH_TOTAL_SUCCESS
 } from '../constants/financeConstant';
 
+const initialState = {
+    totalCurrentMonthExpenses: [],
+    loading: false,
+    error: null,
+};
+
+
+export const currentMonthTotalReducer = (state = initialState, action) => {
+    switch (action.type) {
+        case GET_CURRENT_MONTH_TOTAL_REQUEST:
+            console.log("Reducer: GET_CURRENT_MONTH_TOTAL_REQUEST");
+            return {
+                ...state,
+                loading: true,
+            };
+        case GET_CURRENT_MONTH_TOTAL_SUCCESS:
+            console.log("Reducer: GET_CURRENT_MONTH_TOTAL_SUCCESS", action.payload);
+            return {
+                ...state,
+                loading: false,
+                totalCurrentMonthExpenses: action.payload,
+            };
+        case GET_CURRENT_MONTH_TOTAL_FAIL:
+            console.log("Reducer: GET_CURRENT_MONTH_TOTAL_FAIL", action.payload);
+            return {
+                ...state,
+                loading: false,
+                error: action.payload,
+            };
+        case CLEAR_ERRORS:
+            console.log("Reducer: CLEAR_ERRORS");
+            return {
+                ...state,
+                error: null,
+            };
+        default:
+            return state;
+    }
+};
+
+
+
+
+
 // financeReducer function
 export const financeReducer = (state = { expense: [] }, action) => {
 
@@ -78,32 +122,3 @@ export const allExpensesReducer = (state = { expenses: [] }, action) => {
             return state
     }
 }
-
-export const currentMonthTotalReducer = (state = { totalMonthlyExpenses: [] }, action) => {
-    switch (action.type) {
-        case GET_CURRENT_MONTH_TOTAL_REQUEST:
-            return {
-                ...state,
-                loading: true,
-            };
-        case GET_CURRENT_MONTH_TOTAL_SUCCESS:
-            return {
-                ...state,
-                loading: false,
-                totalMonthlyExpenses: action.payload
-            };
-        case GET_CURRENT_MONTH_TOTAL_FAIL:
-            return {
-                ...state,
-                loading: false,
-                error: action.payload,
-            };
-        case CLEAR_ERRORS:
-            return {
-                ...state,
-                error: null,
-            };
-        default:
-            return state;
-    }
-};

@@ -1,7 +1,7 @@
 const express = require('express');
 const { registerUser, loginUser, logoutUser, getAllUsers, getUserDetails, setUserRole, deleteUser } = require('../controllers/userController');
 const { deleteEmployee, addNewEmployee, updateEmployee, getAllEmployees, getOneEmployeeDetails } = require('../controllers/addUserController');
-const { markAttendance, getUserAttendanceDetails, updateAttendance } = require('../controllers/attendanceController');
+const { markAttendance, getUserAttendanceDetails, updateAttendance, getSpecificUserAttendance, getSingleAttendance, editSingleAttendance } = require('../controllers/attendanceController');
 const { financeController, getAllExpenses, getMonthlyExpenses, getCurrentMonthExpenses } = require('../controllers/financeController');
 const { createRevenue } = require('../controllers/revenueController');
 const { isAuthenticatedAdmin, isAuthenticated, authorizeRole, isAuthenticatedUser } = require('../middleware/Authentication');
@@ -15,7 +15,9 @@ router.route('/delete/:id').delete(deleteEmployee)
 router.route('/updateemployee/:id').put(updateEmployee)
 router.route('/employee/:id').get(getOneEmployeeDetails)
 router.route('/attendance/:id').put(markAttendance)
-router.route('/updateattendance/:id').put(updateAttendance);
+router.route('/editsingleattendance/:id/:attendanceId').put(editSingleAttendance);
+router.route('/getuserattendance/:id').get(getSpecificUserAttendance)
+router.route('/getsingleattendance/:id/:attendanceId').get(getSingleAttendance);
 router.route('/finance').post(financeController)
 router.route('/allexpenses').get(getAllExpenses)
 router.route('/revenue').post(createRevenue)

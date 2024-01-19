@@ -1,5 +1,6 @@
 const catchAsyncError = require('../middleware/catchAsyncError');
 const newUser = require('../models/newUserModel');
+const userModel = require('../models/userModel');
 const ErrorHandler = require('../utils/errorHanlder');
 
 exports.markAttendance = catchAsyncError(async (req, res, next) => {
@@ -43,58 +44,125 @@ exports.markAttendance = catchAsyncError(async (req, res, next) => {
 });
 
 
+// exports.getSingleAttendanceDetails = catchAsyncError(async (req, res, next) => {
 
+//     const user = await newUser.findById(req.params.id)
 
-
-// exports.updateAttendance = catchAsyncError(async (req, res, next) => {
-//     const userId = req.params.id;
-//     const { date, status } = req.body;
-
-//     try {
-//         let user = await newUser.findById(userId);
-
-//         if (!user) {
-//             return next(new ErrorHandler("User Not found", 404));
-//         }
-
-//         const existingAttendanceIndex = user.attendance.findIndex(
-//             (a) => a.date.toDateString() === new Date(date).toDateString()
-//         );
-
-//         if (existingAttendanceIndex !== -1) {
-//             user.attendance[existingAttendanceIndex].status = status;
-//         } else {
-//             user.attendance.push({ date, status });
-//         }
-
-//         user = await user.save();
-
-//         res.status(200).json({
-//             success: true,
-//             updatedAttendance: user.attendance,
-//         });
-//     } catch (error) {
-//         return next(new ErrorHandler('Internal Server Error', 500));
+//     if (!user) {
+//         return next(new ErrorHandler("User Not found", 404));
 //     }
-// });
 
+//     res.status(200).json({
+//         success: true,
+//         user
+//     })
+// })
 
-exports.updateAttendance = catchAsyncError(async (req, res, next) => {
+exports.getSpecificUserAttendance = catchAsyncError(async (req, res, next) => {
+    const userId = req.params.id;
 
-    let user = newUser.findById(req.params.id)
+    try {
+        const user = await newUser.findById(userId);
 
-    if (!user) {
-        return next(new ErrorHandler("User Not found", 404));
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                error: 'User not found',
+            });
+        }
+
+        const userAttendance = user.attendance;
+
+        res.status(200).json({
+            success: true,
+            userAttendance,
+        });
+    } catch (error) {
+        console.error(`Error getting user attendance: ${error.message}`);
+        next(error); // Pass the error to the Express error handler
     }
-
-    user = await newUser.findByIdAndUpdate(req.params.id, req.body, {
-        new: true,
-        runValidators: true,
-        useFindAndModify: false
-    })
-
-    res.status(200).json({
-        success: true,
-        user
-    })
 })
+
+
+exports.getSingleAttendance = async (req, res, next) => {
+    const userId = req.params.id;
+    const attendanceId = req.params.attendanceId;
+
+    try {
+        const user = await newUser.findById(userId);
+
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                error: 'User not found',
+            });
+        }
+
+        const userAttendance = user.attendance;
+
+        const specificAttendance = userAttendance.find(entry => entry._id.toString() === attendanceId);
+
+        if (!specificAttendance) {
+            return res.status(404).json({
+                success: false,
+                error: 'Attendance entry not found',
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            specificAttendance,
+        });
+    } catch (error) {
+        console.error(`Error getting user attendance: ${error.message}`);
+        next(error);
+    }
+};
+
+
+
+exports.editSingleAttendance = async (req, res, next) => {
+    const userId = req.params.id;
+    const attendanceId = req.params.attendanceId;
+    const { date, status } = req.body; 
+
+    try {
+        const user = await newUser.findById(userId);
+
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                error: 'User not found',
+            });
+        }
+
+        const userAttendance = user.attendance;
+
+        const specificAttendance = userAttendance.find(entry => entry._id.toString() === attendanceId);
+
+        if (!specificAttendance) {
+            return res.status(404).json({
+                success: false,
+                error: 'Attendance entry not found',
+            });
+        }
+
+        if (status !== undefined) {
+            specificAttendance.status = status;
+        }
+
+        if (date) {
+            specificAttendance.date = date;
+        }
+
+        await user.save();
+
+        res.status(200).json({
+            success: true,
+            specificAttendance,
+        });
+    } catch (error) {
+        console.error(`Error editing user attendance: ${error.message}`);
+        next(error);
+    }
+};

@@ -50,7 +50,7 @@ const Sidebar = () => {
                             </Link>
                         </li>
                         <li>
-                            <Link className="s-sidebar__nav-link" to="allexpenses">
+                            <Link className="s-sidebar__nav-link" to="/allexpenses">
                                 <MdAdminPanelSettings />All Expenses
                             </Link>
                         </li>

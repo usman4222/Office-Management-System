@@ -43,6 +43,8 @@ const AttendanceList = () => {
                 return { id, date, status };
             });
 
+            // console.log("This is attendanceData", attendanceData)
+
             setAttendanceDetails(attendanceData);
             setShowAttendance(true);
         }

@@ -71,7 +71,8 @@ export const getCurrentMonthExpenses = () => async (dispatch) => {
 
         const { data } = await axios.get(`http://localhost:4000/api/v1/getExpenses`);
 
-        dispatch({ type: GET_CURRENT_MONTH_TOTAL_SUCCESS, payload: data.totalMonthlyExpenses });
+        dispatch({ type: GET_CURRENT_MONTH_TOTAL_SUCCESS, payload: data.totalCurrentMonthExpenses });
+
     } catch (error) {
         dispatch({
             type: GET_CURRENT_MONTH_TOTAL_FAIL,
@@ -79,6 +80,7 @@ export const getCurrentMonthExpenses = () => async (dispatch) => {
         });
     }
 };
+
 
 
 export const clearErrors = () => async (dispatch) => {

@@ -36,10 +36,8 @@ const newUserSchema = new mongoose.Schema({
         },
         status: {
             type: String,
-            enum: ['Present', 'Absent', 'Leave'],
-            required: true
         },
-    }],    
+    }],
     date: {
         type: Date,
         default: Date.now()

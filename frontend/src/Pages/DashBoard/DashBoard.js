@@ -11,13 +11,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllUsers } from '../../actions/addUserAction';
 import { getAllExpenses, getCurrentMonthExpenses } from '../../actions/financeController';
 import ReactApexChart from 'react-apexcharts';
-
+import CountUp from 'react-countup';
 
 const DashBoard = ({ user }) => {
     const [count, setCount] = useState(0);
     const dispatch = useDispatch()
     const { users } = useSelector((state) => state.allUser);
-    const { totalMonthlyExpenses } = useSelector((state) => state.currentMonthTotal);
+    const { totalCurrentMonthExpenses } = useSelector((state) => state.currentMonthTotal);
     const { expenses } = useSelector((state) => state.allExpenses);
     const [chartData, setChartData] = useState({
         series: [44, 55, 13, 43, 22],
@@ -43,9 +43,6 @@ const DashBoard = ({ user }) => {
         },
     });
 
-    // console.log("This is expenses", expenses)
-    // console.log("This is expenses", totalMonthlyExpenses)
-
 
     useEffect(() => {
         dispatch(getAllUsers());
@@ -54,15 +51,13 @@ const DashBoard = ({ user }) => {
     }, [dispatch]);
 
 
-    useEffect(() => {
-        // console.log("This is ", totalMonthlyExpenses);
-    }, [totalMonthlyExpenses]);
-
     const calculateTotalExpenses = () => {
         return expenses.reduce((accumulator, expense) => {
             return accumulator + parseFloat(expense.amount);
         }, 0);
     };
+
+
 
     useEffect(() => {
         const startCount = 0;
@@ -93,67 +88,46 @@ const DashBoard = ({ user }) => {
                     <div className='col-lg-2  main-r1-b1'>
                         <Sidebar />
                     </div>
-                    <div className='col-lg-10 col-md-12  main-r1-b2'>
+                    <div className='col-lg-10 col-sm-12  main-r1-b2'>
                         <div className='row main-r2'>
                             <Header />
                         </div>
                         <div className='row main-r3'>
                             <div className='col-lg-3  main-r3-b1'>
-                                <div>
-                                    <div className='row main-r3-b1-r1'>
-                                        <div className='col-lg-6 main-r3-b1-r1-b1'>
-                                            <div className='people'><GiExpense /></div>
-                                        </div>
-                                        <div className='col-lg-6 main-r3-b1-r1-b2'>
-                                            <div className="tsp-countUp col-md-2 col-sm-4 col-xs-6 tsp-full-xs tsp-no-padding-left tsp-item-1">
-                                                <div className="tsp-box-counter">
-                                                    <i className="fa fa-suitcase"></i>
-                                                    <div className="tsp-count">
-                                                        <p className="count">{calculateTotalExpenses()}</p>
-                                                        <p className="tsp-section">Total Expenses</p>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                <div className='row main-r3-b1-r1'>
+                                    <div className='col-lg-6 main-r3-b1-r1-b1'>
+                                        <div className='people'><GiExpense /></div>
+                                    </div>
+                                    <div className='col-lg-6 main-r3-b1-r1-b2'>
+                                        <div>
+                                            <p className='count'><CountUp end={calculateTotalExpenses()} duration={2} /></p>
+                                            <p>Total Expenses</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div className='col-lg-3  main-r3-b1' >
-                                <div>
-                                    <div className='row main-r3-b1-r1'>
-                                        <div className='col-lg-6 main-r3-b1-r1-b1'>
-                                            <div className='revenue'><PeopleIcon /></div>
-                                        </div>
-                                        <div className='col-lg-6 main-r3-b1-r1-b2'>
-                                            <div className="tsp-countUp col-md-2 col-sm-4 col-xs-6 tsp-full-xs tsp-no-padding-left tsp-item-1">
-                                                <div className="tsp-box-counter">
-                                                    <i className="fa fa-suitcase"></i>
-                                                    <div className="tsp-count">
-                                                        <p className="count">{users.length}</p>
-                                                        <p className="tsp-section">Users</p>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                <div className='row main-r3-b1-r1'>
+                                    <div className='col-lg-6 main-r3-b1-r1-b1'>
+                                        <div className='revenue'><PeopleIcon /></div>
+                                    </div>
+                                    <div className='col-lg-6 main-r3-b1-r1-b2'>
+                                        <div>
+                                            <p className='count'><CountUp end={users.length} duration={2} /></p>
+                                            <p>Employees</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div className='col-lg-3  main-r3-b1'>
-                                <div>
-                                    <div className='row main-r3-b1-r1'>
-                                        <div className='col-lg-4 main-r3-b1-r1-b1'>
-                                            <div className='att'><PeopleIcon /></div>
-                                        </div>
-                                        <div className='col-lg-8 main-r3-b1-r1-b2'>
-                                            <div className="tsp-countUp col-md-2 col-sm-4 col-xs-6 tsp-full-xs tsp-no-padding-left tsp-item-1">
-                                                <div className="tsp-box-counter">
-                                                    <i className="fa fa-suitcase"></i>
-                                                    <div className="tsp-count">
-                                                        <p className="count">{totalMonthlyExpenses}</p>
-                                                        <p className="tsp-section">Current Month Expenses </p>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                <div className='row main-r3-b1-r1'>
+                                    <div className='col-lg-6 main-r3-b1-r1-b1'>
+                                        <div className='att'><PeopleIcon /></div>
+                                    </div>
+                                    <div className='col-lg-6 main-r3-b1-r1-b2'>
+                                        <div>
+                                            <p className='count'><CountUp end={totalCurrentMonthExpenses} duration={2} /></p>
+                                            <p>Current Month Expenses </p>
                                         </div>
                                     </div>
                                 </div>
@@ -164,9 +138,9 @@ const DashBoard = ({ user }) => {
                                 {/* <LineChart/> */}
                                 {/* <DoughnutChart/> */}
                                 {/* <DateChart /> */}
-                                <div id='chart'>
+                                {/* <div id='chart'>
                                     <ReactApexChart options={chartData.options} series={chartData.series} type='pie' width={380} />
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                     </div>

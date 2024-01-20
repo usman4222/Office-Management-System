@@ -53,24 +53,24 @@ export const updateUserCon = (id, attendanceData) => async (dispatch) => {
 
 
 
-export const getUserAttendance = (id) => async (dispatch) => {
-
+export const getUserAttendance = (userId) => async (dispatch) => {
     try {
-        dispatch({ type: GET_USER_ATTENDANCE_REQUEST })
-
-        const { data } = await axios.get(`http://localhost:4000/api/v1/getuserattendance/${id}`)
-
-        console.log("This is user attenance data", data)
-
-        dispatch({ type: GET_USER_ATTENDANCE_SUCCESS, payload: data.userAttendance })
+      dispatch({ type: GET_USER_ATTENDANCE_REQUEST });
+  
+      if (userId) {
+        const { data } = await axios.get(`http://localhost:4000/api/v1/getuserattendance/${userId}`);
+        dispatch({ type: GET_USER_ATTENDANCE_SUCCESS, payload: data });
+        console.log("This is attendance Data", data)
+      } else {
+        throw new Error('User ID is undefined');
+      }
     } catch (error) {
-        dispatch({
-            type: GET_USER_ATTENDANCE_FAIL,
-            payload: error.response.data.message,
-            message: "Error while getting details"
-        })
+      dispatch({
+        type: GET_USER_ATTENDANCE_FAIL,
+        payload: error.response ? error.response.data.message : 'Error while getting details',
+      });
     }
-}
+  };
 
 
 

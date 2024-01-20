@@ -79,7 +79,7 @@ exports.getSpecificUserAttendance = catchAsyncError(async (req, res, next) => {
         });
     } catch (error) {
         console.error(`Error getting user attendance: ${error.message}`);
-        next(error); // Pass the error to the Express error handler
+        next(error); 
     }
 })
 

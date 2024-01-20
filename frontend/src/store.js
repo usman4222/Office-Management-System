@@ -10,7 +10,7 @@ import { addUserReducer } from './reducers/addUserReducer';
 import { allUsersReducer } from './reducers/allUserReducer';
 import { deleteReducer } from './reducers/deleteUser';
 import { getUserReducer, updateUserDetails } from './reducers/updateUser';
-import { updateUserAttendance, userUpdateReducer } from './reducers/attendanceReducer';
+import { updateUserAttendance, userAttendanceReducer, userUpdateReducer } from './reducers/attendanceReducer';
 import {
     allExpensesReducer,
     currentMonthTotalReducer,
@@ -27,7 +27,7 @@ const rootReducer = combineReducers({
     delUser: deleteReducer,
     getUser: getUserReducer,
     updateUser: updateUserDetails,
-    userAttendance: getUserAttendance,
+    userAttendance: userAttendanceReducer,
     changeAttendance: updateUserAttendance,
     editUser: userUpdateReducer,
     finance: financeReducer,

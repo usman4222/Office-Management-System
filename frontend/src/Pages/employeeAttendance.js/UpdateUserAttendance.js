@@ -10,31 +10,52 @@ import { UPDATE_USER_RESET } from '../../constants/updateUser';
 import Header from '../../components/Header';
 import Sidebar from '../Sidebar';
 import { UPDATE_USER_ATTENDANCE_RESET } from '../../constants/attendanceConstant';
-import { changeStatusAction } from '../../actions/attendanceAction';
+import { changeStatusAction, getSingleAttendanceDetails } from '../../actions/attendanceAction';
 import { v4 as uuidv4 } from 'uuid';
 
 const UpdateUserAttendance = () => {
 
-    const dispatch = useDispatch()
-    const navigate = useNavigate()
-    const { id } = useParams()
-    const { error: updateError, isUpdated } = useSelector((state) => state.changeAttendance)
-    const { user } = useSelector((state) => state.getUser)
+    const dispatch = useDispatch();
+    const { userAttendance } = useSelector((state) => state.userAttendance);
+    const { user } = useSelector((state) => state.getUser);
+    const attendanceArray = userAttendance.userAttendance || [];
+    const { userId, attendanceId } = useParams();
+    const { id } = useParams();
 
+    const [date, setDate] = useState('');
+    const [status, setStatus] = useState('');
 
-    const [date, setDate] = useState("")
-    const { enqueueSnackbar } = useSnackbar();
-    const [status, setStatus] = useState("");
+    const allAttendanceIds = attendanceArray.map(entry => entry._id);
+    console.log("All Attendance IDs:", allAttendanceIds);
+
+    console.log("Attendance Array:", attendanceArray);
+    console.log('User ID:', userId);
+    console.log('Param Attendance ID:', attendanceId);
+
+    const selectedAttendanceId = attendanceArray.find((attendance) => attendance._id === attendanceId);
+    console.log('Selected Attendance ID:', selectedAttendanceId);
+
+    const userAttendanceId = selectedAttendanceId ? selectedAttendanceId._id : null;
+    console.log('User Attendance ID:', userAttendanceId);
+
+    useEffect(() => {
+        console.log("User ID:", userId);
+        console.log("Attendance ID:", attendanceId);
+      
+        if (userId && attendanceId) {
+          dispatch(getSingleAttendanceDetails(userId, attendanceId));
+        } else {
+          console.error("Invalid userId or attendanceId:", userId, attendanceId);
+        }
+      }, [dispatch, userId, attendanceId]);
+      
+    
 
     const roleCategories = [
         "Present",
         "Absent",
         "Leave",
-    ]
-
-    const userId = id;
-
-    // console.log("This is user att", user.attendance )
+    ];
 
     useEffect(() => {
         const isUserDataIncomplete = !user || user._id !== id;
@@ -50,7 +71,7 @@ const UpdateUserAttendance = () => {
                 const id = uuidv4();
                 const date = new Date(item.date).toLocaleDateString();
                 const status = item.status;
-    
+
                 return { id, date, status };
             });
 
@@ -59,38 +80,6 @@ const UpdateUserAttendance = () => {
         }
     }, [user]);
 
-
-    useEffect(() => {
-        if (user && user._id === userId) {
-            setDate(user.date)
-            setStatus(user.status)
-        } else {
-            dispatch(getUserDetails(userId))
-        }
-
-        if (updateError) {
-            enqueueSnackbar(updateError, { variant: 'success' });
-            dispatch(clearErrors())
-        }
-        if (isUpdated) {
-            enqueueSnackbar("Attendance Updated Successfully", { variant: 'success' });
-            navigate('/')
-            dispatch({ type: UPDATE_USER_ATTENDANCE_RESET })
-        }
-    }, [dispatch, enqueueSnackbar, updateError, isUpdated, userId, user])
-
-
-
-    const updateUserHandler = (e) => {
-        e.preventDefault()
-
-        const myForm = new FormData()
-
-        myForm.set("date", date)
-        myForm.set("status", status)
-        dispatch(changeStatusAction(userId, myForm))
-
-    }
 
     return (
         <Fragment>
@@ -106,12 +95,12 @@ const UpdateUserAttendance = () => {
                             </div>
                         </div>
                         <div className='main-form'>
-                        <h1 className='productListHeading'>{user.name}'s Attendance Details</h1>
+                            {/* <h1 className='productListHeading'>{user.name}'s Attendance Details</h1> */}
                             <div className='addUser'>
                                 <form
                                     className='createProductForm'
                                     encType='multipart/form-data'
-                                    onSubmit={updateUserHandler}
+                                // onSubmit={updateUserHandler}
                                 >
                                     <h2 >Update Attendance</h2>
                                     <input

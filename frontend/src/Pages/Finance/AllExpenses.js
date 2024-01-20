@@ -28,6 +28,12 @@ const AllExpenses = () => {
 
     const columns = [
         {
+            field: "index",
+            headerName: "Index",
+            minWidth: 10,
+            flex: 0.5,
+        },
+        {
             field: "title",
             headerName: "Title",
             minWidth: 10,
@@ -61,9 +67,10 @@ const AllExpenses = () => {
 
     const rows = expenses.map((item, index) => ({
         id: uuidv4(), 
+        index: index + 1,
         title: item.title,
         ref: item.ref,
-        date: item.date,
+        date: new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(item.date)),
         amount: item.amount,
         description: item.description
     }));

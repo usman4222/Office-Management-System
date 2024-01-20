@@ -4,13 +4,13 @@ const { deleteEmployee, addNewEmployee, updateEmployee, getAllEmployees, getOneE
 const { markAttendance, getUserAttendanceDetails, updateAttendance, getSpecificUserAttendance, getSingleAttendance, editSingleAttendance } = require('../controllers/attendanceController');
 const { financeController, getAllExpenses, getMonthlyExpenses, getCurrentMonthExpenses } = require('../controllers/financeController');
 const { createRevenue } = require('../controllers/revenueController');
-const { isAuthenticatedAdmin, isAuthenticated, authorizeRole, isAuthenticatedUser } = require('../middleware/Authentication');
+const { isAuthenticatedUser } = require('../middleware/Authentication')
 const router = express.Router()
 
 router.route('/login').post(loginUser)
 router.route('/logout').get(isAuthenticatedUser, logoutUser)
 router.route('/newemployee').post(addNewEmployee)
-router.route('/allemployees').get(getAllEmployees, authorizeRole("admin"));
+router.route('/allemployees').get(getAllEmployees);
 router.route('/delete/:id').delete(deleteEmployee)
 router.route('/updateemployee/:id').put(updateEmployee)
 router.route('/employee/:id').get(getOneEmployeeDetails)

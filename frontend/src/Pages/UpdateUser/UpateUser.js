@@ -18,6 +18,8 @@ const UpdateUser = () => {
     const { error: updateError, isUpdated } = useSelector((state) => state.updateUser)
     const { user } = useSelector((state) => state.getUser)
 
+    // console.log(user)
+
 
     const [name, setName] = useState("")
     const [fatherName, setFatherName] = useState("")

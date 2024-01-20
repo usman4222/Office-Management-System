@@ -50,7 +50,7 @@ function App() {
             <Route path="/dash" element={<DashBoard />} />
             <Route path="/allexpenses" element={<AllExpenses />} />
             <Route path="/attendancelist/:id" element={<AttendanceList />} />
-            <Route path="/updateattendance/:id" element={<UpdateUserAttendance />} />
+            <Route path="/updateattendance/:userId/:attendanceId" element={<UpdateUserAttendance />} />
             <Route path="*" element={<NotFound />} />
           {/* </Route> */}
       </Routes>

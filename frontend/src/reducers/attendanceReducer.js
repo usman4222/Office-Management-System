@@ -11,6 +11,9 @@ import {
   GET_USER_ATTENDANCE_REQUEST,
   GET_USER_ATTENDANCE_SUCCESS,
   GET_USER_ATTENDANCE_FAIL,
+  GET_USER_SINGLE_ATTENDANCE_REQUEST,
+  GET_USER_SINGLE_ATTENDANCE_SUCCESS,
+  GET_USER_SINGLE_ATTENDANCE_FAIL,
 } from '../constants/attendanceConstant';
 
 // Attendance reducer function
@@ -51,30 +54,29 @@ export const userUpdateReducer = (state = { users: [] }, action) => {
 
 const initialState = {
   loading: false,
-  userAttendanceDetails: [],
+  userAttendance: {
+    userAttendance: [], 
+  },
   error: null,
 };
 
 export const userAttendanceReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_USER_ATTENDANCE_REQUEST:
-      console.log(GET_USER_ATTENDANCE_REQUEST)
       return {
         ...state,
         loading: true,
       };
     case GET_USER_ATTENDANCE_SUCCESS:
-      console.log(GET_USER_ATTENDANCE_SUCCESS, action.payload);
       return {
         loading: false,
-        userAttendanceDetails: action.payload,
+        userAttendance: action.payload,
         error: null,
       };
     case GET_USER_ATTENDANCE_FAIL:
-      console.log(GET_USER_ATTENDANCE_FAIL)
       return {
         loading: false,
-        userAttendanceDetails: [],
+        userAttendance: [],
         error: action.payload,
       };
     case CLEAR_ERRORS:
@@ -86,6 +88,42 @@ export const userAttendanceReducer = (state = initialState, action) => {
       return state;
   }
 };
+
+
+
+export const getUserSingleAttendanceReducer = (state = { singleAttendance: {} }, action) => {
+  switch (action.type) {
+    case GET_USER_SINGLE_ATTENDANCE_REQUEST:
+      console.log('GET_USER_SINGLE_ATTENDANCE_REQUEST');
+      return {
+        ...state,
+        loading: true
+      };
+    case GET_USER_SINGLE_ATTENDANCE_SUCCESS:
+      console.log('GET_USER_SINGLE_ATTENDANCE_SUCCESS', action.payload);
+      return {
+        loading: false,
+        singleAttendance: action.payload
+      };
+    case GET_USER_SINGLE_ATTENDANCE_FAIL:
+      console.log('GET_USER_SINGLE_ATTENDANCE_FAIL', action.payload);
+      return {
+        loading: false,
+        error: action.payload
+      };
+    case CLEAR_ERRORS:
+      console.log('CLEAR_ERRORS');
+      return {
+        ...state,
+        error: null
+      };
+    default:
+      return state;
+  }
+};
+
+
+
 
 
 export const updateUserAttendance = (state = {}, action) => {

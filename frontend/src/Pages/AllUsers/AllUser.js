@@ -47,10 +47,10 @@ const AllUser = () => {
 
     const columns = [
         {
-            field: "id",
-            headerName: "Empolyee ID",
+            field: "index",
+            headerName: "Index",
             minWidth: 10,
-            flex: 0.8
+            flex: 0.5,
         },
         {
             field: "name",
@@ -115,7 +115,8 @@ const AllUser = () => {
         }
     ]
 
-    const rows = users.map((item) => ({
+    const rows = users.map((item, index) => ({
+        index: index + 1,
         id: item._id,
         name: item.name,
         role: item.role,
@@ -136,7 +137,7 @@ const AllUser = () => {
                     <div className='col-lg-10 main1-r1-b2'>
                         <div className='row'>
                             <div className='col-lg-12'>
-                                <Header/>
+                                <Header />
                             </div>
                         </div>
                         <div className='dashboard'>

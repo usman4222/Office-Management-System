@@ -1,3 +1,4 @@
+const { default: mongoose } = require('mongoose');
 const catchAsyncError = require('../middleware/catchAsyncError');
 const newUser = require('../models/newUserModel');
 const userModel = require('../models/userModel');
@@ -79,14 +80,23 @@ exports.getSpecificUserAttendance = catchAsyncError(async (req, res, next) => {
         });
     } catch (error) {
         console.error(`Error getting user attendance: ${error.message}`);
-        next(error); 
+        next(error);
     }
 })
+
 
 
 exports.getSingleAttendance = async (req, res, next) => {
     const userId = req.params.id;
     const attendanceId = req.params.attendanceId;
+
+    // Check if attendanceId is a valid ObjectId
+    if (!mongoose.Types.ObjectId.isValid(attendanceId)) {
+        return res.status(400).json({
+            success: false,
+            error: 'Invalid attendanceId format',
+        });
+    }
 
     try {
         const user = await newUser.findById(userId);
@@ -121,10 +131,11 @@ exports.getSingleAttendance = async (req, res, next) => {
 
 
 
+
 exports.editSingleAttendance = async (req, res, next) => {
     const userId = req.params.id;
     const attendanceId = req.params.attendanceId;
-    const { date, status } = req.body; 
+    const { date, status } = req.body;
 
     try {
         const user = await newUser.findById(userId);

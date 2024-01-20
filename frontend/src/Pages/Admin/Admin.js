@@ -23,6 +23,8 @@ const Admin = () => {
     const { error, users } = useSelector((state) => state.adminUsers)
     const { error: deleteError, isDeleted, message } = useSelector((state) => state.deleteUser)
 
+    // console.log("This is user role", users)
+
 
     useEffect(() => {
         if (error) {

@@ -40,10 +40,16 @@ const Attendance = () => {
 
   const columns = [
     {
+      field: "index",
+      headerName: "Index",
+      minWidth: 10,
+      flex: 0.4,
+    },
+    {
       field: "name",
       headerName: "Name",
       minWidth: 100,
-      flex: 0.5,
+      flex: 0.4,
     },
     {
       field: "designation",
@@ -55,7 +61,7 @@ const Attendance = () => {
       field: "role",
       headerName: "Role",
       minWidth: 10,
-      flex: 0.5,
+      flex: 0.4,
       cellClassName: (params) => {
         return params.getValue(params.id, "role") === "admin" ? "greenColor" : "redColor";
       },
@@ -64,7 +70,7 @@ const Attendance = () => {
       field: 'Attendance',
       headerName: 'Employee Attendance',
       minWidth: 10,
-      flex: 0.8,
+      flex: 0.6,
       renderCell: (params) => (
         <Link to={`/attendance/${params.getValue(params.id, "id")}`}>
           <Button
@@ -120,8 +126,9 @@ const Attendance = () => {
     },
   ];
 
-  const rows = users.map((item) => ({
+  const rows = users.map((item, index) => ({
     id: item._id,
+    index: index + 1,
     name: item.name,
     role: item.role,
     fatherName: item.fatherName,

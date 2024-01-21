@@ -13,6 +13,8 @@ import {
     USER_DELETE_SUCCESS,
     USER_DELETE_FAIL,
     UPDATE_USER_REQUEST,
+    LOGOUT_SUCCESS,
+    LOGOUT_FAIL,
 } from "../constants/userConstant"
 import axios from "axios"
 
@@ -27,10 +29,14 @@ export const login = (email, password) => async (dispatch) => {
         `http://localhost:4000/api/v1/login`,
         { email, password },
         config
-      ); 
+      );
   
-      // Store the token in a secure manner (e.g., HTTP-only cookie or local storage)
+      // Store the token in LocalStorage
       localStorage.setItem('authToken', data.token);
+  
+      // Log the stored token for debugging
+      const storedToken = localStorage.getItem('authToken');
+      console.log('Stored Token:', storedToken);
   
       // Dispatch the success action with user data
       dispatch({
@@ -68,6 +74,19 @@ export const register = (userData) => async (dispatch) => {
         dispatch({
             type: REGISTER_FAIL,
             payload: error.data
+        })
+    }
+}
+
+export const logout = () => async (dispatch) => {
+
+    try {
+        await axios.get(`http://localhost:4000/api/v1/logout`)
+        dispatch({ type: LOGOUT_SUCCESS })
+    } catch (error) {
+        dispatch({
+            type: LOGOUT_FAIL,
+            payload: error.response.data.message
         })
     }
 }

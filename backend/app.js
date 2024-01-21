@@ -14,15 +14,13 @@ app.use(cors());
 app.use(express.json()); // Use express.json() instead of bodyParser.json()
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
-app.use(bodyParser.urlencoded({ extended: true }))
-
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Routes
 const user = require("./routes/userRoute.js")
-
 app.use('/api/v1', user);
 
-// Error handling middleware
+// Error handling middleware - register only once
 app.use(errorMiddleware);
 
-module.exports = app
+module.exports = app;

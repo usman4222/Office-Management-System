@@ -19,10 +19,11 @@ import ProtectedRoute from "./Pages/ProtectedRoute/ProtectedRoute";
 import { useSelector } from "react-redux";
 import AttendanceList from "./Pages/employeeAttendance.js/AttendanceList";
 import UpdateUserAttendance from "./Pages/employeeAttendance.js/UpdateUserAttendance";
+import Logout from "./Pages/Logout/Logout";
 
 function App() {
 
-  // const { isAuthenticated } = useSelector((state) => state.user);
+  const { isAuthenticated, user } = useSelector((state) => state.user);
 
   // const isAuthenticate = ({ element: Element, ...rest }) => (
   //   <Route
@@ -38,22 +39,25 @@ function App() {
       {/* <Header /> */}
       <Routes>
         <Route path="/login" element={<RegisterLogin />} />
-          {/* <Route element={<ProtectedRoute />}> */}
-            <Route path="/about" element={<About />} />
-            <Route path="/adduser" element={<AddUser />} />
-            <Route path="/allusers" element={<AllUser />} />
-            <Route path="/updateuser/:id" element={<UpdateUser />} />
-            <Route path="/attendance" element={<Attendance />} />
-            <Route path="/attendance/:id" element={<UserAttendance />} />
-            <Route path="/attendance/view/:id" element={<AttendanceDetails />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/adduser" element={<AddUser />} />
+        <Route path="/allusers" element={<AllUser />} />
+        <Route path="/updateuser/:id" element={<UpdateUser />} />
+        <Route path="/attendance" element={<Attendance />} />
+        <Route path="/attendance/:id" element={<UserAttendance />} />
+        <Route path="/attendance/view/:id" element={<AttendanceDetails />} />
+        <Route path="/dash" element={<DashBoard />} />
+        {isAuthenticated && user.role === "admin" && (
+          <>
             <Route path="/finance" element={<Finance />} />
-            <Route path="/dash" element={<DashBoard />} />
             <Route path="/allexpenses" element={<AllExpenses />} />
-            <Route path="/attendancelist/:id" element={<AttendanceList />} />
-            <Route path="/updateattendance/:userId/:attendanceId" element={<UpdateUserAttendance />} />
-            <Route path="*" element={<NotFound />} />
-          {/* </Route> */}
-      </Routes>
+          </>
+        )}
+        <Route path="/attendancelist/:id" element={<AttendanceList />} />
+        <Route path="/updateattendance/:userId/:attendanceId" element={<UpdateUserAttendance />} />
+        <Route path="/logout" element={<Logout />} />
+        <Route path="*" element={<NotFound />} />
+        f      </Routes>
     </BrowserRouter>
   );
 }

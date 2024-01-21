@@ -14,6 +14,8 @@ import { getAllExpenses, getCurrentMonthExpenses } from '../../actions/financeCo
 import ReactApexChart from 'react-apexcharts';
 import CountUp from 'react-countup';
 import BarChart from './BarChart';
+import { GiPayMoney } from "react-icons/gi";
+
 
 const DashBoard = ({ user }) => {
     const [count, setCount] = useState(0);
@@ -122,7 +124,7 @@ const DashBoard = ({ user }) => {
                             <div className='col-lg-3  main-r3-b1'>
                                 <div className='row main-r3-b1-r1'>
                                     <div className='col-lg-6 main-r3-b1-r1-b1'>
-                                        <div className='att'><PeopleIcon /></div>
+                                        <div className='att'><GiPayMoney /></div>
                                     </div>
                                     <div className='col-lg-6 main-r3-b1-r1-b2'>
                                         <div>

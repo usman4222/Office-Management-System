@@ -5,21 +5,24 @@ const User = require('../models/userModel');
 const { JWT_SECRET } = require('../config.js');
 
 exports.isAuthenticatedUser = catchAsyncError(async (req, res, next) => {
-    try {
-        const {token} = req.cookies
-    
-        if(!token){
-            return next(new ErrorHandler("Please Login to access this resourse."))
-        }
-        const isDecoded = jwt.verify(token, JWT_SECRET)
 
-        req.user = await User.findById(isDecoded.id)
-        next();
-    } catch (error) {
-        console.error(error);
-        return next(new ErrorHandler('Invalid token', 401));
+    const { token } = req.cookies
+    console.log("This is token", token)
+
+    if (!token) {
+        return next(new ErrorHandler("Please Login to access this resourse."))
     }
-});
+    const isDecoded = jwt.verify(token, JWT_SECRET)
+
+    console.log("this is decoded", isDecoded)
+
+    req.user = await User.findById(isDecoded.id)
+
+    console.log("this is user", req.user)
+    next();
+
+})
+
 
 
 exports.authorizeRole = (...roles) => {

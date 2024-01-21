@@ -1,11 +1,15 @@
 import React, { Fragment } from 'react'
 import { FaSearch } from "react-icons/fa"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import './Header.css'
+import { useSelector } from 'react-redux'
 
 
 
 const Header = () => {
+
+    const { isAuthenticated, user } = useSelector((state) => state.user);
+
     return (
         <Fragment>
             <div>
@@ -16,9 +20,14 @@ const Header = () => {
                                 <Link to='/dash'>
                                     <p>DashBoard</p>
                                 </Link>
-                                <Link  to='/login'>
-                                    <p>Login</p>
-                                </Link>
+
+                                {isAuthenticated
+                                    ?
+                                    <Link to='/logout'>
+                                        Logout
+                                    </Link>
+                                    :
+                                   []}
                             </ul>
                         </div>
                     </div>

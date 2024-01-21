@@ -35,16 +35,17 @@ exports.getAllEmployees = catchAsyncError(async (req, res, next) => {
         const users = await newUser.find();
 
         if (users.length === 0) {
-            return next(new ErrorHandler("No User Found", 400));
+            return next(new ErrorHandler("No Users Found", 404));
         }
 
         res.status(200).json({
             success: true,
             users,
-            error: { message: "This is an error while getting all users" } 
         });
+        return next();
     } catch (error) {
-        return next(new ErrorHandler("Error getting users", 500)); 
+        console.error('Error getting users:', error);
+        return next(new ErrorHandler("Error getting users", 500));
     }
 });
 

@@ -1,40 +1,65 @@
-const jwt = require('jsonwebtoken');
-const { JWT_SECRET, JWT_EXPIRES_IN, COOKIE_EXPIRE } = require('../config.js');
-const User = require('../models/userModel.js');
+// const jwt = require('jsonwebtoken');
+// const { JWT_SECRET, JWT_EXPIRES_IN, COOKIE_EXPIRE } = require('../config.js');
+// const User = require('../models/userModel.js');
 
-const sendToken = async (user, statusCode, res) => {
+// const sendToken = async (user, statusCode, res) => {
 
-    const payload = {
-        userId: user.id,
-        email: user.email,
-    };
+//     const payload = {
+//         userId: user.id,
+//         email: user.email,
+//     };
 
-    // Sign the token using the secret key from config
-    const token = jwt.sign(payload, JWT_SECRET, {
-        expiresIn: JWT_EXPIRES_IN,
-    });
+//     const token = jwt.sign(payload, JWT_SECRET, {
+//         expiresIn: JWT_EXPIRES_IN,
+//     });
 
-    // Save the token in the user document in the database
-    user.token = token;
-    await user.save();
+//     user.token = token;
+//     await user.save();
 
-    // Calculate expiration time for the cookie
-    const cookieExpires = new Date(Date.now() + COOKIE_EXPIRE * 24 * 60 * 60 * 1000);
+//     const cookieExpires = new Date(Date.now() + COOKIE_EXPIRE * 24 * 60 * 60 * 1000);
 
-    // Options for the cookie
+//     const options = {
+//         expires: cookieExpires,
+//         httpOnly: true,
+//     };
+
+//     res
+//         .status(statusCode)
+//         .cookie('token', token, options)
+//         .json({
+//             success: true,
+//             user,
+//             token,
+//         });
+// };
+
+// module.exports = sendToken;
+
+
+
+
+const { COOKIE_EXPIRE } = require('../config.js');
+
+const sendToken = (user, statusCode, res) => {
+    const token = user.getJWTToken();
+
     const options = {
-        expires: cookieExpires,
+        expires: new Date(Date.now() + COOKIE_EXPIRE * 24 * 60 * 60 * 1000),
         httpOnly: true,
+        secure: true, // Set to true for HTTPS
+        sameSite: 'None', // Set to 'None' for cross-domain requests
     };
+    
 
-    res
-        .status(statusCode)
-        .cookie('token', token, options)
-        .json({
-            success: true,
-            user,
-            token,
-        });
+    // Log information related to the cookie on the server side
+    console.log('Stored Token:', token);
+
+    res.status(statusCode).cookie("token", token, options).json({
+        success: true,
+        user,
+        token
+    });
+    
 };
 
 module.exports = sendToken;

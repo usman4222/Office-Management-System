@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import './AllUser.css'
-import { Fragment, usseEffect } from 'react'
+import { Fragment} from 'react'
 import { DataGrid } from '@material-ui/data-grid'
 import { useSelector, useDispatch } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useAlert } from 'react-alert'
 import { Button } from '@material-ui/core'
 // import { Metadata } from '@stripe/stripe-js'
@@ -19,10 +19,39 @@ import Header from '../../components/Header'
 const AllUser = () => {
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const { enqueueSnackbar } = useSnackbar();
     const { error, users } = useSelector((state) => state.allUser)
     const { error: deleteError, isDeleted, message } = useSelector((state) => state.delUser)
 
+    // const callAboutPage = async () => {
+    //     try {
+    //         const res = await fetch('/allemployees', {
+    //             method: 'GET',
+    //             headers: {
+    //                 Accept: "application/json",
+    //                 "Content-Type": "application/json",
+    //             },
+    //             credentials: "include"
+    //         });
+            
+    //         const data = await res.json();
+    //         console.log(data);
+    
+    //         if (res.status !== 200) {
+    //             const error = new Error(res.error);
+    //             throw error;
+    //         }
+    //     } catch (error) {
+    //         console.log(error);
+    //         navigate('/login'); 
+    //     }
+    // };
+    
+    // useEffect(() => {
+    //     callAboutPage();
+    // }, []);
+    
 
     useEffect(() => {
         if (error) {
@@ -39,7 +68,7 @@ const AllUser = () => {
             dispatch({ type: DELETE_USER_RESET })
         }
         dispatch(getAllUsers());
-    }, [alert, error, dispatch, deleteError, isDeleted, message]);
+    }, [enqueueSnackbar, error, dispatch, deleteError, isDeleted, message]);
 
     const deleteUserHandler = (id) => {
         dispatch(deleteUser(id))
@@ -129,7 +158,7 @@ const AllUser = () => {
 
     return (
         <Fragment>
-            <div className='main'>
+            <div className='main' method="GET">
                 <div className='row w-full main1-r1'>
                     <div className='col-lg-2 main1-r1-b1'>
                         <Sidebar />

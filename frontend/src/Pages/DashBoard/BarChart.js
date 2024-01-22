@@ -101,7 +101,6 @@ const BarChart = () => {
 
     return (
         <div>
-            {/* <h2>Total Monthly Expenses (Current Year)</h2> */}
             <canvas ref={chartRef} width="400" height="200"></canvas>
         </div>
     );

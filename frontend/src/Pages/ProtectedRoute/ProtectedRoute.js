@@ -1,13 +1,12 @@
 import React from 'react';
+import { Route, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { Navigate } from 'react-router-dom';
+import DashBoard from '../DashBoard/DashBoard';
 
-const ProtectedRoute = ({ children }) => {
+const ProtectedRoute = ({ element, ...rest }) => {
     const { user } = useSelector((state) => state.user);
 
-    if (!user || !user.isAuthenticated) {
-        return <Navigate to="/login" />;
-    }
+    { user && user.isAuthenticated ? <DashBoard /> : <Navigate to="/login" /> }
 };
 
 export default ProtectedRoute;

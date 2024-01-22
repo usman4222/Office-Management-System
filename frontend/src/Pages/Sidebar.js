@@ -8,7 +8,8 @@ import { MdAdminPanelSettings } from "react-icons/md";
 import { FaBars } from "react-icons/fa";
 import './Sidebar.css';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux'; 
+import { useSelector } from 'react-redux';
+import { LuLogOut } from 'react-icons/lu';
 
 const Sidebar = () => {
     const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -38,7 +39,7 @@ const Sidebar = () => {
                             </Link>
                         </li>
                         <li>
-                            <Link className="s-sidebar__nav-link" to="/allusers">
+                            <Link className="s-sidebar__nav-link" to="/allemployees">
                                 <PeopleIcon />All Employees
                             </Link>
                         </li>
@@ -47,20 +48,29 @@ const Sidebar = () => {
                                 <PiUsersThreeFill />Attendance
                             </Link>
                         </li>
-                        {isAuthenticated && user.role === "admin" && (
-                            <>
-                                <li>
-                                    <Link className="s-sidebar__nav-link" to="/finance">
-                                        <HiCurrencyRupee />Add Expense
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link className="s-sidebar__nav-link" to="/allexpenses">
-                                        <MdAdminPanelSettings />All Expenses
-                                    </Link>
-                                </li>
-                            </>
-                        )}
+                        {/* {isAuthenticated && user.role === "admin" && (
+                            <> */}
+                        <li>
+                            <Link className="s-sidebar__nav-link" to="/finance">
+                                <HiCurrencyRupee />Add Expense
+                            </Link>
+                        </li>
+                        <li>
+                            <Link className="s-sidebar__nav-link" to="/allexpenses">
+                                <MdAdminPanelSettings />All Expenses
+                            </Link>
+                        </li>
+                        {/* </>
+                        )} */}
+                        {isAuthenticated
+                            ?
+                            <li className='log'>
+                                <Link className="s-sidebar__nav-link " to="/logout">
+                                    <LuLogOut />Logout
+                                </Link>
+                            </li>
+                            :
+                            <p></p>}
                     </ul>
                 </nav>
             </div>

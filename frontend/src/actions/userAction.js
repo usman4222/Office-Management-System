@@ -15,42 +15,47 @@ import {
     UPDATE_USER_REQUEST,
     LOGOUT_SUCCESS,
     LOGOUT_FAIL,
-} from "../constants/userConstant"
-import axios from "axios"
+    UPDATE_USER_SUCCESS,
+    UPDATE_USER_FAIL,
+} from "../constants/userConstant";
+import axios from "axios";
+
+
+
 
 export const login = (email, password) => async (dispatch) => {
     try {
-      dispatch({
-        type: LOGIN_REQUEST,
-      });
-  
-      const config = { headers: { 'Content-Type': 'application/json' } };
-      const { data } = await axios.post(
-        `http://localhost:4000/api/v1/login`,
-        { email, password },
-        config
-      );
-  
-      // Store the token in LocalStorage
-      localStorage.setItem('authToken', data.token);
-  
-      // Log the stored token for debugging
-      const storedToken = localStorage.getItem('authToken');
-      console.log('Stored Token:', storedToken);
-  
-      // Dispatch the success action with user data
-      dispatch({
-        type: LOGIN_SUCCESS,
-        payload: data.user,
-      });
+        dispatch({
+            type: LOGIN_REQUEST,
+        });
+
+        const { data } = await axios.post(
+            `http://localhost:4000/api/v1/login`,
+            { email, password }
+        );
+
+        const token = data.token;
+        localStorage.setItem('token', token);
+
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`, // Set the Authorization header
+        };
+
+        console.log('Retrieved token:', token);
+        console.log('This is token', token); 
+
+        dispatch({
+            type: LOGIN_SUCCESS,
+            payload: data.user,
+        });
     } catch (error) {
-      // Dispatch the failure action with the error message
-      dispatch({
-        type: LOGIN_FAIL,
-        payload: error.response.data.message,
-      });
+        dispatch({
+            type: LOGIN_FAIL,
+            payload: error.response.data.message,
+        });
     }
-  };
+};
 
 
 

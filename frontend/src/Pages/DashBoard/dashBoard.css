@@ -121,4 +121,64 @@
 
 .r4-b1 {
     padding: 20px;
+    
+}
+
+@media (min-width: 768px) {
+    .r4-b1 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        /* background:red; */
+    }
+    .r4-b2 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+
+
+
+/* Custom CSS for responsiveness */
+.main-r3-b1 {
+    width: 100%;
+    max-width: 300px;
+    /* Adjust the maximum width as needed */
+    margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+    .main-r3-b1 {
+        max-width: none;
+    }
+}
+
+/* Custom CSS for responsiveness */
+.main-r3-b1 {
+    width: 100%;
+    max-width: 300px;
+    /* Adjust the maximum width as needed */
+    margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+    .main-r3-b1 {
+        max-width: none;
+    }
+}
+/* Custom CSS for responsiveness */
+canvas {
+    width: 100%; /* Make the canvas element take up the full width by default */
+    max-width: 400px; /* Set a maximum width as needed */
+    height: 200px; /* Set the default height */
+}
+
+@media (min-width: 768px) {
+    canvas {
+        width: 100%; /* Make the canvas take up full width at 768px and larger screens */
+        height: 300px; /* Set the increased height at 768px and larger screens */
+        max-width: none; /* Remove the maximum width */
+    }
 }

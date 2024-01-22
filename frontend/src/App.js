@@ -1,63 +1,59 @@
-import { BrowserRouter, Routes, Route, Navigate, useNavigate } from "react-router-dom";
-import RegisterLogin from "./Pages/RegisterLogin";
-import Header from "./components/Header";
-import Home from "./Pages/Home";
-import About from "./Pages/About";
-import AddUser from "./Pages/AddUser/AddUser";
-import AllUser from "./Pages/AllUsers/AllUser";
-import UpdateUser from "./Pages/UpdateUser/UpateUser";
-import Attendance from "./Pages/employeeAttendance.js/Attendance";
-import UserAttendance from "./Pages/employeeAttendance.js/UserAttendance";
-import AttendanceDetails from "./Pages/employeeAttendance.js/AttendanceDetails";
-import Finance from "./Pages/Finance/Finance";
-import DashBoard from "./Pages/DashBoard/DashBoard";
-import './index.css'
-import Admin from "./Pages/Admin/Admin";
-import AllExpenses from "./Pages/Finance/AllExpenses";
-import NotFound from "./Pages/NotFound/NotFound";
-import ProtectedRoute from "./Pages/ProtectedRoute/ProtectedRoute";
-import { useSelector } from "react-redux";
-import AttendanceList from "./Pages/employeeAttendance.js/AttendanceList";
-import UpdateUserAttendance from "./Pages/employeeAttendance.js/UpdateUserAttendance";
-import Logout from "./Pages/Logout/Logout";
+import React, { useEffect } from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import RegisterLogin from './Pages/RegisterLogin';
+import About from './Pages/About';
+import AddUser from './Pages/AddUser/AddUser';
+import AllUser from './Pages/AllUsers/AllUser';
+import UpdateUser from './Pages/UpdateUser/UpateUser';
+import Attendance from './Pages/employeeAttendance.js/Attendance';
+import UserAttendance from './Pages/employeeAttendance.js/UserAttendance';
+import AttendanceDetails from './Pages/employeeAttendance.js/AttendanceDetails';
+import DashBoard from './Pages/DashBoard/DashBoard';
+import Finance from './Pages/Finance/Finance';
+import AllExpenses from './Pages/Finance/AllExpenses';
+import NotFound from './Pages/NotFound/NotFound';
+import ProtectedRoute from './Pages/ProtectedRoute/ProtectedRoute';
+import AttendanceList from './Pages/employeeAttendance.js/AttendanceList';
+import UpdateUserAttendance from './Pages/employeeAttendance.js/UpdateUserAttendance';
+import Logout from './Pages/Logout/Logout';
+import { setAuthToken } from './actions/userAction';
 
 function App() {
-
   const { isAuthenticated, user } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
-  // const isAuthenticate = ({ element: Element, ...rest }) => (
-  //   <Route
-  //     {...rest}
-  //     element={(props) =>
-  //       isAuthenticated ? <Element {...props} /> : <Navigate to="/login" />
-  //     }
-  //   />
-
+  // useEffect(() => {
+  //   const storedToken = localStorage.getItem('authToken');
+  //   if (storedToken) {
+  //     dispatch(setAuthToken(storedToken));
+  //   }
+  // }, [dispatch]);
 
   return (
     <BrowserRouter>
-      {/* <Header /> */}
       <Routes>
         <Route path="/login" element={<RegisterLogin />} />
         <Route path="/about" element={<About />} />
-        <Route path="/adduser" element={<AddUser />} />
-        <Route path="/allusers" element={<AllUser />} />
-        <Route path="/updateuser/:id" element={<UpdateUser />} />
-        <Route path="/attendance" element={<Attendance />} />
-        <Route path="/attendance/:id" element={<UserAttendance />} />
-        <Route path="/attendance/view/:id" element={<AttendanceDetails />} />
-        <Route path="/dash" element={<DashBoard />} />
-        {isAuthenticated && user.role === "admin" && (
-          <>
-            <Route path="/finance" element={<Finance />} />
-            <Route path="/allexpenses" element={<AllExpenses />} />
-          </>
-        )}
-        <Route path="/attendancelist/:id" element={<AttendanceList />} />
-        <Route path="/updateattendance/:userId/:attendanceId" element={<UpdateUserAttendance />} />
-        <Route path="/logout" element={<Logout />} />
+        <Route element={<AddUser />} path="/adduser" />
+        <Route element={<AllUser />} path="/allemployees" />
+        <Route element={<UpdateUser />} path="/updateuser/:id" />
+        <Route element={<Attendance />} path="/attendance" />
+        <Route element={<UserAttendance />} path="/attendance/:id" />
+        <Route element={<AttendanceDetails />} path="/attendance/view/:id" />
+        <Route element={<DashBoard />} path="/dash" />
+        {/* {isAuthenticated && user.role === 'admin' && (
+          <> */}
+            <Route element={<Finance />} path="/finance" />
+            <Route element={<AllExpenses />} path="/allexpenses" />
+          {/* </>
+        )} */}
+        <Route element={<AttendanceList />} path="/attendancelist/:id" />
+        <Route element={<UpdateUserAttendance />} path="/updateattendance/:userId/:attendanceId" />
+        <Route element={<Logout />} path="/logout" />
+        <Route path="/" element={<Navigate to="/login" />} />
         <Route path="*" element={<NotFound />} />
-        f      </Routes>
+      </Routes>
     </BrowserRouter>
   );
 }

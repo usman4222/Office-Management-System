@@ -1,5 +1,5 @@
 import { combineReducers, applyMiddleware, createStore } from 'redux';
-import { thunk } from 'redux-thunk';
+import thunk from 'redux-thunk';  // Importing 'thunk' directly
 import { composeWithDevTools } from 'redux-devtools-extension';
 import {
     allAdminUsersReducer,
@@ -10,11 +10,16 @@ import { addUserReducer } from './reducers/addUserReducer';
 import { allUsersReducer } from './reducers/allUserReducer';
 import { deleteReducer } from './reducers/deleteUser';
 import { getUserReducer, updateUserDetails } from './reducers/updateUser';
-import { getUserSingleAttendanceReducer, updateUserAttendance, userAttendanceReducer, userUpdateReducer } from './reducers/attendanceReducer';
+import {
+    getUserSingleAttendanceReducer,
+    updateUserAttendance,
+    userAttendanceReducer,
+    userUpdateReducer
+} from './reducers/attendanceReducer';
 import {
     allExpensesReducer,
     currentMonthTotalReducer,
-    financeReducer,
+    financeReducer
 } from './reducers/financeReducer';
 import { getUserAttendance } from './actions/attendanceAction';
 
@@ -36,9 +41,7 @@ const rootReducer = combineReducers({
     currentMonthTotal: currentMonthTotalReducer,
 });
 
-const middleware = [thunk];
-
-const composedEnhancers = composeWithDevTools(applyMiddleware(...middleware));
+const composedEnhancers = composeWithDevTools(applyMiddleware(thunk));
 
 const store = createStore(rootReducer, composedEnhancers);
 

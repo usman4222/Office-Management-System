@@ -95,12 +95,12 @@ const DashBoard = ({ user }) => {
                             <Header />
                         </div>
                         <div className='row main-r3'>
-                            <div className='col-lg-3  main-r3-b1'>
+                            <div className='col-lg-3 col-md-6 col-sm-12 main-r3-b1'>
                                 <div className='row main-r3-b1-r1'>
-                                    <div className='col-lg-6 main-r3-b1-r1-b1'>
+                                    <div className='col-lg-6 col-md-6 col-sm-6 main-r3-b1-r1-b1'>
                                         <div className='people'><GiExpense /></div>
                                     </div>
-                                    <div className='col-lg-6 main-r3-b1-r1-b2'>
+                                    <div className='col-lg-6 col-md-6 col-sm-6 main-r3-b1-r1-b2'>
                                         <div>
                                             <p className='count'><CountUp end={calculateTotalExpenses()} duration={2} /></p>
                                             <p>Total Expenses</p>
@@ -108,12 +108,12 @@ const DashBoard = ({ user }) => {
                                     </div>
                                 </div>
                             </div>
-                            <div className='col-lg-3  main-r3-b1' >
+                            <div className='col-lg-3 col-md-6 col-sm-12 main-r3-b1'>
                                 <div className='row main-r3-b1-r1'>
-                                    <div className='col-lg-6 main-r3-b1-r1-b1'>
+                                    <div className='col-lg-6 col-md-6 col-sm-6 main-r3-b1-r1-b1'>
                                         <div className='revenue'><PeopleIcon /></div>
                                     </div>
-                                    <div className='col-lg-6 main-r3-b1-r1-b2'>
+                                    <div className='col-lg-6 col-md-6 col-sm-6 main-r3-b1-r1-b2'>
                                         <div>
                                             <p className='count'><CountUp end={users.length} duration={2} /></p>
                                             <p>Total Members</p>
@@ -121,12 +121,13 @@ const DashBoard = ({ user }) => {
                                     </div>
                                 </div>
                             </div>
-                            <div className='col-lg-3  main-r3-b1'>
+
+                            <div className='col-lg-3 col-md-6 col-sm-12 main-r3-b1'>
                                 <div className='row main-r3-b1-r1'>
-                                    <div className='col-lg-6 main-r3-b1-r1-b1'>
+                                    <div className='col-lg-6 col-md-6 col-sm-6 main-r3-b1-r1-b1'>
                                         <div className='att'><GiPayMoney /></div>
                                     </div>
-                                    <div className='col-lg-6 main-r3-b1-r1-b2'>
+                                    <div className='col-lg-6 col-md-6 col-sm-6 main-r3-b1-r1-b2'>
                                         <div>
                                             <p className='count'><CountUp end={totalCurrentMonthExpenses} duration={2} /></p>
                                             <p>Current Month Expenses </p>
@@ -134,6 +135,7 @@ const DashBoard = ({ user }) => {
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                         <div className='row main-r4'>
                             <div className='col-lg-4 r4-b1'>

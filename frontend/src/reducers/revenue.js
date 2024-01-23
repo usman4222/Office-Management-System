@@ -1,5 +1,5 @@
 import { CLEAR_ERRORS } from "../constants/financeConstant";
-import { CREATE_REVENUE_FAIL, CREATE_REVENUE_REQUEST, CREATE_REVENUE_RESET, CREATE_REVENUE_SUCCESS } from "../constants/revenue";
+import { CREATE_REVENUE_FAIL, CREATE_REVENUE_REQUEST, CREATE_REVENUE_RESET, CREATE_REVENUE_SUCCESS, GET_ALL_REVENUE_FAIL, GET_ALL_REVENUE_REQUEST, GET_ALL_REVENUE_SUCCESS } from "../constants/revenue";
 
 
 
@@ -36,6 +36,38 @@ export const revenueReducer = (state = { revenue: [] }, action) => {
                 ...state,
                 error: null
             }
+        default:
+            return state
+    }
+}
+
+
+
+export const allExpensesReducer = (state = { revenues: [] }, action) => {
+
+    switch (action.type) {
+        case GET_ALL_REVENUE_REQUEST:
+            return {
+                ...state,
+                loading: true,
+            }
+        case GET_ALL_REVENUE_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                revenues: action.payload
+            }
+        case GET_ALL_REVENUE_FAIL:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload
+            }
+        case CLEAR_ERRORS:
+            return {
+                ...state,
+                error: null
+            };
         default:
             return state
     }

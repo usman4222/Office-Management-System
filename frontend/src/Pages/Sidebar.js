@@ -10,6 +10,7 @@ import './Sidebar.css';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { LuLogOut } from 'react-icons/lu';
+import { GiReceiveMoney } from "react-icons/gi";
 
 const Sidebar = () => {
     const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -55,9 +56,14 @@ const Sidebar = () => {
                                 <HiCurrencyRupee />Add Expense
                             </Link>
                         </li>
-                        <li>
+                        {/* <li>
                             <Link className="s-sidebar__nav-link" to="/allexpenses">
                                 <MdAdminPanelSettings />All Expenses
+                            </Link>
+                        </li> */}
+                        <li>
+                            <Link className="s-sidebar__nav-link" to="/revenue">
+                                <GiReceiveMoney />Add Revenue
                             </Link>
                         </li>
                         {/* </>

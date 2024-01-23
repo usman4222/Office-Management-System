@@ -6,7 +6,7 @@ import { CREATE_REVENUE_FAIL, CREATE_REVENUE_REQUEST, CREATE_REVENUE_RESET, CREA
 
 
 
-export const financeReducer = (state = { revenue: [] }, action) => {
+export const revenueReducer = (state = { revenue: [] }, action) => {
 
     switch (action.type) {
         case CREATE_REVENUE_REQUEST:

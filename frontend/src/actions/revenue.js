@@ -1,5 +1,5 @@
 import axios from "axios";
-import { CREATE_REVENUE_FAIL, CREATE_REVENUE_REQUEST, CREATE_REVENUE_SUCCESS } from "../constants/revenue";
+import { CREATE_REVENUE_FAIL, CREATE_REVENUE_REQUEST, CREATE_REVENUE_SUCCESS, GET_ALL_REVENUE_FAIL, GET_ALL_REVENUE_REQUEST, GET_ALL_REVENUE_SUCCESS } from "../constants/revenue";
 
 
 
@@ -31,5 +31,21 @@ export const addNewRevenue = (revenue) => async (dispatch) => {
         });
 
         throw error;
+    }
+};
+
+
+export const getAllRevenue = () => async (dispatch) => {
+    try {
+        dispatch({ type: GET_ALL_REVENUE_REQUEST });
+
+        const { data } = await axios.get(`http://localhost:4000/api/v1/allrevenues`);
+
+        dispatch({ type: GET_ALL_REVENUE_SUCCESS, payload: data.revenues });
+    } catch (error) {
+        dispatch({
+            type: GET_ALL_REVENUE_FAIL,
+            payload: error.response ? error.response.data.message : error.message
+        });
     }
 };

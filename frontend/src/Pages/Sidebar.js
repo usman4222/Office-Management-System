@@ -39,11 +39,11 @@ const Sidebar = () => {
                                 <FaUser />Add Employee
                             </Link>
                         </li>
-                        <li>
+                        {/* <li>
                             <Link className="s-sidebar__nav-link" to="/allemployees">
                                 <PeopleIcon />All Employees
                             </Link>
-                        </li>
+                        </li> */}
                         <li>
                             <Link className="s-sidebar__nav-link" to="/attendance">
                                 <PiUsersThreeFill />Attendance
@@ -64,6 +64,11 @@ const Sidebar = () => {
                         <li>
                             <Link className="s-sidebar__nav-link" to="/revenue">
                                 <GiReceiveMoney />Add Revenue
+                            </Link>
+                        </li>
+                        <li>
+                            <Link className="s-sidebar__nav-link" to="/allrevenue">
+                                <GiReceiveMoney />All Revenue
                             </Link>
                         </li>
                         {/* </>

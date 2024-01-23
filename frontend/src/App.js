@@ -20,6 +20,7 @@ import Logout from './Pages/Logout/Logout';
 import { setAuthToken } from './actions/userAction';
 import { getAllUsers } from './actions/addUserAction';
 import CreateRevenue from './Pages/Revenue/CreateRevenue';
+import AllRevenue from './Pages/Revenue/AllRevenue';
 
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -48,6 +49,7 @@ function App() {
         <Route element={<Finance />} path="/finance" />
         <Route element={<AllExpenses />} path="/allexpenses" />
         <Route element={<CreateRevenue />} path="/revenue" />
+        <Route element={<AllRevenue />} path="/allrevenue" />
         {/* </>
         )} */}
         <Route element={<AttendanceList />} path="/attendancelist/:id" />

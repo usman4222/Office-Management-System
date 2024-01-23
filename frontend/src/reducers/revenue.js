@@ -43,7 +43,7 @@ export const revenueReducer = (state = { revenue: [] }, action) => {
 
 
 
-export const allExpensesReducer = (state = { revenues: [] }, action) => {
+export const allRevenuesReducer = (state = { revenues: [] }, action) => {
 
     switch (action.type) {
         case GET_ALL_REVENUE_REQUEST:

@@ -22,7 +22,7 @@ import {
     financeReducer
 } from './reducers/financeReducer';
 import { getUserAttendance } from './actions/attendanceAction';
-import { revenueReducer } from './reducers/revenue';
+import { allRevenuesReducer, revenueReducer } from './reducers/revenue';
 
 const rootReducer = combineReducers({
     user: userReducer,
@@ -40,7 +40,8 @@ const rootReducer = combineReducers({
     finance: financeReducer,
     allExpenses: allExpensesReducer,
     currentMonthTotal: currentMonthTotalReducer,
-    revenue: revenueReducer
+    revenue: revenueReducer,
+    allRevenues: allRevenuesReducer
 });
 
 const composedEnhancers = composeWithDevTools(applyMiddleware(thunk));

@@ -24,3 +24,23 @@ exports.createRevenue = catchAsyncError(async (req, res, next) => {
 
     }
 })
+
+
+
+exports.getAllRevenue = catchAsyncError(async (req, res, next) => {
+    try {
+        const revenues = await revenue.find();
+
+        if (revenues.length === 0) {
+            return next(new ErrorHandler("No Revenues Found", 400));
+        }
+
+        res.status(200).json({
+            success: true,
+            revenues,
+            error: { message: "This is an error while getting all revenues" }
+        });
+    } catch (error) {
+        return next(new ErrorHandler("Error getting revenues", 500));
+    }
+});

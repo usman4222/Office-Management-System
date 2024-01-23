@@ -3,7 +3,7 @@ const { registerUser, loginUser, logoutUser, getAllUsers, getUserDetails, setUse
 const { deleteEmployee, addNewEmployee, updateEmployee, getAllEmployees, getOneEmployeeDetails } = require('../controllers/addUserController');
 const { markAttendance, getUserAttendanceDetails, updateAttendance, getSpecificUserAttendance, getSingleAttendance, editSingleAttendance } = require('../controllers/attendanceController');
 const { financeController, getAllExpenses, getMonthlyExpenses, getCurrentMonthExpenses } = require('../controllers/financeController');
-const { createRevenue } = require('../controllers/revenueController');
+const { createRevenue, getAllRevenue } = require('../controllers/revenueController');
 const { isAuthenticatedUser, authorizeRole } = require('../middleware/Authentication')
 const router = express.Router()
 
@@ -23,7 +23,8 @@ router.route('/getuserattendance/:id').get(isAuthenticatedUser,getSpecificUserAt
 router.route('/getsingleattendance/:id/:attendanceId').get(isAuthenticatedUser,getSingleAttendance)
 router.route('/finance').post(isAuthenticatedUser,authorizeRole("admin"),financeController)
 router.route('/allexpenses').get(isAuthenticatedUser, authorizeRole("admin"),getAllExpenses)
-router.route('/revenue').post(isAuthenticatedUser, authorizeRole("admin"), createRevenue)
 router.route('/getExpenses').get(isAuthenticatedUser, authorizeRole("admin"), getCurrentMonthExpenses)
+router.route('/revenue').post(isAuthenticatedUser, authorizeRole("admin"), createRevenue)
+router.route('/allrevenues').get(isAuthenticatedUser, authorizeRole("admin"), getAllRevenue)
 
 module.exports = router;

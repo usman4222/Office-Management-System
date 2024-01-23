@@ -16,16 +16,6 @@ const revenueSchema = new mongoose.Schema({
     description: {
         type: String,
         required: [true, "Please Enter description"]
-    },
-    month: {
-        name: {
-            type: String,
-            required: [true, "Please Enter month name"]
-        },
-        year: {
-            type: Number,
-            required: [true, "Please Enter year"]
-        }
     }
 })
 

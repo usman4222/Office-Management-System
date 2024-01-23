@@ -3,7 +3,7 @@ const { registerUser, loginUser, logoutUser, getAllUsers, getUserDetails, setUse
 const { deleteEmployee, addNewEmployee, updateEmployee, getAllEmployees, getOneEmployeeDetails } = require('../controllers/addUserController');
 const { markAttendance, getUserAttendanceDetails, updateAttendance, getSpecificUserAttendance, getSingleAttendance, editSingleAttendance } = require('../controllers/attendanceController');
 const { financeController, getAllExpenses, getMonthlyExpenses, getCurrentMonthExpenses } = require('../controllers/financeController');
-const { createRevenue, getAllRevenue } = require('../controllers/revenueController');
+const { createRevenue, getAllRevenue, getCurrentMonthRevenue } = require('../controllers/revenueController');
 const { isAuthenticatedUser, authorizeRole } = require('../middleware/Authentication')
 const router = express.Router()
 
@@ -26,5 +26,6 @@ router.route('/allexpenses').get(isAuthenticatedUser, authorizeRole("admin"),get
 router.route('/getExpenses').get(isAuthenticatedUser, authorizeRole("admin"), getCurrentMonthExpenses)
 router.route('/revenue').post(isAuthenticatedUser, authorizeRole("admin"), createRevenue)
 router.route('/allrevenues').get(isAuthenticatedUser, authorizeRole("admin"), getAllRevenue)
+router.route('/currentmonthrevenue').get(isAuthenticatedUser, authorizeRole("admin"), getCurrentMonthRevenue)
 
 module.exports = router;

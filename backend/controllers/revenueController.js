@@ -1,5 +1,6 @@
 const catchAsyncError = require("../middleware/catchAsyncError");
 const revenue = require("../models/revenueModel");
+const ErrorHandler = require("../utils/errorHanlder");
 
 
 exports.createRevenue = catchAsyncError(async (req, res, next) => {
@@ -42,5 +43,40 @@ exports.getAllRevenue = catchAsyncError(async (req, res, next) => {
         });
     } catch (error) {
         return next(new ErrorHandler("Error getting revenues", 500));
+    }
+});
+
+
+
+exports.getCurrentMonthRevenue = catchAsyncError(async (req, res, next) => {
+    try {
+        const currentDate = new Date();
+        const currentMonth = currentDate.getMonth() + 1; 
+        const currentYear = currentDate.getFullYear(); 
+
+        const totalMonthlyRevenue = await revenue.find({
+            $expr: {
+                $and: [
+                    { $eq: [{ $month: "$date" }, currentMonth] }, 
+                    { $eq: [{ $year: "$date" }, currentYear] }, 
+                ],
+            },
+        });
+
+        if (totalMonthlyRevenue.length === 0) {
+            return next(new ErrorHandler("No Revenues Found for this month", 404));
+        }
+
+        const totalCurrentMonthRevenue = totalMonthlyRevenue.reduce(
+            (total, revenue) => total + parseFloat(revenue.amount),
+            0
+        );
+
+        res.status(200).json({
+            success: true,
+            totalCurrentMonthRevenue,
+        });
+    } catch (error) {
+        return next(new ErrorHandler("Error getting current month revenue", 500));
     }
 });

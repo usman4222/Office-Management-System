@@ -52,10 +52,12 @@ export const userUpdateReducer = (state = { users: [] }, action) => {
   }
 }
 
+const storedAttendance = JSON.parse(localStorage.getItem('userAttendance'));
+
 const initialState = {
   loading: false,
   userAttendance: {
-    userAttendance: [], 
+    userAttendance: storedAttendance || [], 
   },
   error: null,
 };
@@ -70,7 +72,7 @@ export const userAttendanceReducer = (state = initialState, action) => {
     case GET_USER_ATTENDANCE_SUCCESS:
       return {
         loading: false,
-        userAttendance: action.payload,
+        userAttendance: action.payload, 
         error: null,
       };
     case GET_USER_ATTENDANCE_FAIL:
@@ -88,6 +90,7 @@ export const userAttendanceReducer = (state = initialState, action) => {
       return state;
   }
 };
+
 
 
 

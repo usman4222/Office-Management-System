@@ -18,17 +18,17 @@ import AttendanceList from './Pages/employeeAttendance.js/AttendanceList';
 import UpdateUserAttendance from './Pages/employeeAttendance.js/UpdateUserAttendance';
 import Logout from './Pages/Logout/Logout';
 import { setAuthToken } from './actions/userAction';
+import { getAllUsers } from './actions/addUserAction';
 
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   const storedToken = localStorage.getItem('authToken');
-  //   if (storedToken) {
-  //     dispatch(setAuthToken(storedToken));
-  //   }
-  // }, [dispatch]);
+  // console.log(user.role);
+
+  useEffect(() => {
+    dispatch(getAllUsers)
+  }, [dispatch]);
 
   return (
     <BrowserRouter>
@@ -44,9 +44,9 @@ function App() {
         <Route element={<DashBoard />} path="/dash" />
         {/* {isAuthenticated && user.role === 'admin' && (
           <> */}
-            <Route element={<Finance />} path="/finance" />
-            <Route element={<AllExpenses />} path="/allexpenses" />
-          {/* </>
+        <Route element={<Finance />} path="/finance" />
+        <Route element={<AllExpenses />} path="/allexpenses" />
+        {/* </>
         )} */}
         <Route element={<AttendanceList />} path="/attendancelist/:id" />
         <Route element={<UpdateUserAttendance />} path="/updateattendance/:userId/:attendanceId" />

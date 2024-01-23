@@ -146,6 +146,14 @@ const UpdateUser = () => {
                                             </option>
                                         ))}
                                     </select>
+                                    <select onChange={(e) => setDesignation(e.target.value)}>
+                                        <option value="">Choose Desigination</option>
+                                        {skillCategories.map((cate) => (
+                                            <option key={cate} value={cate}>
+                                                {cate}
+                                            </option>
+                                        ))}
+                                    </select>
                                     <div className='submitBtn'>
                                         <button type='submit'>Update</button>
                                     </div>

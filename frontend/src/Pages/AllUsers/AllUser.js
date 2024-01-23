@@ -22,36 +22,7 @@ const AllUser = () => {
     const navigate = useNavigate()
     const { enqueueSnackbar } = useSnackbar();
     const { error, users } = useSelector((state) => state.allUser)
-    const { error: deleteError, isDeleted, message } = useSelector((state) => state.delUser)
-
-    // const callAboutPage = async () => {
-    //     try {
-    //         const res = await fetch('/allemployees', {
-    //             method: 'GET',
-    //             headers: {
-    //                 Accept: "application/json",
-    //                 "Content-Type": "application/json",
-    //             },
-    //             credentials: "include"
-    //         });
-            
-    //         const data = await res.json();
-    //         console.log(data);
-    
-    //         if (res.status !== 200) {
-    //             const error = new Error(res.error);
-    //             throw error;
-    //         }
-    //     } catch (error) {
-    //         console.log(error);
-    //         navigate('/login'); 
-    //     }
-    // };
-    
-    // useEffect(() => {
-    //     callAboutPage();
-    // }, []);
-    
+    const { error: deleteError, isDeleted, message } = useSelector((state) => state.delUser)    
 
     useEffect(() => {
         if (error) {

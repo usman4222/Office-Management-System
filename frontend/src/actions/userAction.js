@@ -29,33 +29,33 @@ export const login = (email, password) => async (dispatch) => {
             type: LOGIN_REQUEST,
         });
 
+        // Make the login request
         const { data } = await axios.post(
             `http://localhost:4000/api/v1/login`,
             { email, password }
         );
 
-        const token = data.token;
-        localStorage.setItem('token', token);
+        // Set the received token in localStorage with the name 'authToken'
+        localStorage.setItem('authToken', data.token);
 
-        const headers = {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`, // Set the Authorization header
-        };
+        // Set the token in the headers for future requests
+        axios.defaults.headers.common['Authorization'] = `Bearer ${ data.token}`;
 
-        console.log('Retrieved token:', token);
-        console.log('This is token', token); 
-
+        // Dispatch the success action with user data
         dispatch({
             type: LOGIN_SUCCESS,
             payload: data.user,
         });
     } catch (error) {
+        // Dispatch the failure action with the error message
         dispatch({
             type: LOGIN_FAIL,
             payload: error.response.data.message,
         });
     }
 };
+
+
 
 
 

@@ -27,7 +27,9 @@ const Header = () => {
                                         Logout
                                     </Link>
                                     :
-                                   []}
+                                    <Link to='/login'>
+                                    Login
+                                </Link>}
                             </ul>
                         </div>
                     </div>

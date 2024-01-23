@@ -76,17 +76,17 @@ exports.loginUser = catchAsyncError(async (req, res, next) => {
     }
 
     if (password === storedPassword) {
-        const token = await user.generateAuthToken();
-        console.log(token);
-        res.cookie('jwtToken', token, {
-            expires: new Date(Date.now() + 24 * 60 * 60),
-            httpOnly: true
-        })
-        res.status(200).json({
-            user,
-            token
-        })
-        // sendToken(user, 200, res);
+        // const token = await user.generateAuthToken();
+        // console.log(token);
+        // res.cookie('jwtToken', token, {
+        //     expires: new Date(Date.now() + 24 * 60 * 60),
+        //     httpOnly: true
+        // })
+        // res.status(200).json({
+        //     user,
+        //     token
+        // })
+        sendToken(user, 200, res);
     } else {
         return next(new ErrorHandler("Invalid Credentials", 401));
     }
@@ -95,10 +95,14 @@ exports.loginUser = catchAsyncError(async (req, res, next) => {
 
 
 exports.logoutUser = catchAsyncError(async (req, res, next) => {
-    res.cookie("jwtToken", null, {
-        expires: new Date(Date.now() + 24 * 60 * 60 * 1000), 
-        httpOnly: true,
-    });
+    // res.cookie("jwtToken", null, {
+    //     expires: new Date(Date.now() + 24 * 60 * 60 * 1000), 
+    //     httpOnly: true,
+    // });
+    res.cookie("token", null, {
+        expires: new Date(Date.now()),
+        httpOnly: true
+    })
     res.status(200).json({
         success: true,
         message: "Logout Successfully",

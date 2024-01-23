@@ -17,8 +17,14 @@ import {
     LOGOUT_FAIL,
 } from "../constants/userConstant"
 
+const initialState = {
+    token: localStorage.getItem('token'),
+    isAuthenticated: localStorage.getItem('token') ? true : false,
+    loading: false,
+    isRegistered: false
+}
 
-export const userReducer = (state = { user: {} }, action) => {
+export const userReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case REGISTER_REQUEST:
@@ -29,6 +35,7 @@ export const userReducer = (state = { user: {} }, action) => {
             }
         case REGISTER_SUCCESS:
         case LOGIN_SUCCESS:
+            localStorage.setItem('token', action.payload.token);
             return {
                 ...state,
                 loading: false,
@@ -36,6 +43,7 @@ export const userReducer = (state = { user: {} }, action) => {
                 user: action.payload
             }
         case LOGOUT_SUCCESS:
+            localStorage.removeItem('token');
             return {
                 loading: false,
                 isAuthenticated: false,

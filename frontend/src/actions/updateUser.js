@@ -44,6 +44,7 @@ export const getUserDetails = (id) => async (dispatch) => {
         dispatch({ type: GET_USER_REQUEST })
 
         const { data } = await axios.get(`http://localhost:4000/api/v1/employee/${id}`)
+        console.log(data);
 
         dispatch({ type: GET_USER_SUCCESS, payload: data.user })
     } catch (error) {

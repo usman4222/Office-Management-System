@@ -1,55 +1,54 @@
 import React, { Fragment, useEffect, useState } from 'react';
-// import '../UpdateUser.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { useSnackbar } from 'notistack';
-import { addNewUser, clearErrors } from '../../actions/addUserAction';
 import { useParams } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-import { getUserDetails, updateUserDetails } from '../../actions/updateUser';
-import { UPDATE_USER_RESET } from '../../constants/updateUser';
-import Header from '../../components/Header';
 import Sidebar from '../Sidebar';
+import Header from '../../components/Header';
 import { UPDATE_USER_ATTENDANCE_RESET } from '../../constants/attendanceConstant';
 import { changeStatusAction, getSingleAttendanceDetails } from '../../actions/attendanceAction';
 import { v4 as uuidv4 } from 'uuid';
 
 const UpdateUserAttendance = () => {
-
     const dispatch = useDispatch();
     const { userAttendance } = useSelector((state) => state.userAttendance);
     const { user } = useSelector((state) => state.getUser);
-    const attendanceArray = userAttendance.userAttendance || [];
-    const { userId, attendanceId } = useParams();
-    const { id } = useParams();
+    const { id, attendanceId } = useParams();  // Get attendanceId from URL params
 
     const [date, setDate] = useState('');
     const [status, setStatus] = useState('');
 
-    const allAttendanceIds = attendanceArray.map(entry => entry._id);
-    console.log("All Attendance IDs:", allAttendanceIds);
-
-    console.log("Attendance Array:", attendanceArray);
-    console.log('User ID:', userId);
-    console.log('Param Attendance ID:', attendanceId);
-
-    const selectedAttendanceId = attendanceArray.find((attendance) => attendance._id === attendanceId);
-    console.log('Selected Attendance ID:', selectedAttendanceId);
-
-    const userAttendanceId = selectedAttendanceId ? selectedAttendanceId._id : null;
-    console.log('User Attendance ID:', userAttendanceId);
+    const userId = user ? user._id : '';
 
     useEffect(() => {
-        console.log("User ID:", userId);
-        console.log("Attendance ID:", attendanceId);
-      
-        if (userId && attendanceId) {
-          dispatch(getSingleAttendanceDetails(userId, attendanceId));
-        } else {
-          console.error("Invalid userId or attendanceId:", userId, attendanceId);
-        }
-      }, [dispatch, userId, attendanceId]);
-      
-    
+        const fetchData = async () => {
+            try {
+                if (userId && attendanceId) {
+                    // Check if the user has updated the attendance and reset the state
+                    dispatch({ type: UPDATE_USER_ATTENDANCE_RESET });
+
+                    // Fetch the details for the selected attendance
+                    await dispatch(getSingleAttendanceDetails(userId, attendanceId));
+
+                    // Set initial state based on the selected attendance data
+                    const selectedAttendance = userAttendance.userAttendance.find(
+                        (attendance) => attendance._id === attendanceId
+                    );
+
+                    if (selectedAttendance) {
+                        setDate(new Date(selectedAttendance.date).toISOString().split('T')[0]);
+                        setStatus(selectedAttendance.status);
+                    } else {
+                        console.error("Invalid attendanceId or attendance data:", attendanceId, userAttendance.userAttendance);
+                    }
+                } else {
+                    console.error("Invalid userId or attendanceId:", userId, attendanceId);
+                }
+            } catch (error) {
+                console.error("Error fetching attendance details:", error);
+            }
+        };
+
+        fetchData();
+    }, [dispatch, userId, attendanceId, userAttendance.userAttendance]);
 
     const roleCategories = [
         "Present",
@@ -57,29 +56,15 @@ const UpdateUserAttendance = () => {
         "Leave",
     ];
 
-    useEffect(() => {
-        const isUserDataIncomplete = !user || user._id !== id;
+    const updateAttendanceHandler = (e) => {
+        e.preventDefault();
 
-        if (isUserDataIncomplete) {
-            dispatch(getUserDetails(id));
-        }
-    }, [dispatch, id, user]);
-
-    useEffect(() => {
-        if (user && user.attendance && user.attendance.length > 0) {
-            const attendanceData = user.attendance.map((item, index) => {
-                const id = uuidv4();
-                const date = new Date(item.date).toLocaleDateString();
-                const status = item.status;
-
-                return { id, date, status };
-            });
-
-            // setAttendanceDetails(attendanceData);
-            // setShowAttendance(true);
-        }
-    }, [user]);
-
+        // Use the attendanceId from URL params for updating
+        const myForm = new FormData();
+        myForm.set("date", date);
+        myForm.set("status", status);
+        dispatch(changeStatusAction({ _id: attendanceId }, myForm));
+    };
 
     return (
         <Fragment>
@@ -95,14 +80,13 @@ const UpdateUserAttendance = () => {
                             </div>
                         </div>
                         <div className='main-form'>
-                            {/* <h1 className='productListHeading'>{user.name}'s Attendance Details</h1> */}
                             <div className='addUser'>
                                 <form
                                     className='createProductForm'
                                     encType='multipart/form-data'
-                                // onSubmit={updateUserHandler}
+                                    onSubmit={updateAttendanceHandler}
                                 >
-                                    <h2 >Update Attendance</h2>
+                                    <h2>Update Attendance</h2>
                                     <input
                                         type='date'
                                         placeholder='Date'
@@ -110,7 +94,7 @@ const UpdateUserAttendance = () => {
                                         value={date}
                                         onChange={(e) => setDate(e.target.value)}
                                     />
-                                    <select onChange={(e) => setStatus(e.target.value)}>
+                                    <select onChange={(e) => setStatus(e.target.value)} value={status}>
                                         <option value="">Mark</option>
                                         {roleCategories.map((cate) => (
                                             <option key={cate} value={cate}>
@@ -132,5 +116,3 @@ const UpdateUserAttendance = () => {
 };
 
 export default UpdateUserAttendance;
-
-

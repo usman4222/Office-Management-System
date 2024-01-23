@@ -46,11 +46,10 @@ const sendToken = (user, statusCode, res) => {
     const options = {
         expires: new Date(Date.now() + COOKIE_EXPIRE * 24 * 60 * 60 * 1000),
         httpOnly: true,
-        secure: true, // Set to true for HTTPS
+        secure: true, // Set to true for HTTPS; set to false during development without HTTPS
         sameSite: 'None', // Set to 'None' for cross-domain requests
     };
     
-
     // Log information related to the cookie on the server side
     console.log('Stored Token:', token);
 
@@ -59,7 +58,6 @@ const sendToken = (user, statusCode, res) => {
         user,
         token
     });
-    
 };
 
 module.exports = sendToken;

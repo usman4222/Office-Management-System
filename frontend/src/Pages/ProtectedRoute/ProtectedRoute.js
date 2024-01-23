@@ -6,7 +6,7 @@ import DashBoard from '../DashBoard/DashBoard';
 const ProtectedRoute = ({ element, ...rest }) => {
     const { user } = useSelector((state) => state.user);
 
-    { user && user.isAuthenticated ? <DashBoard /> : <Navigate to="/login" /> }
+    { user && user.isAuthenticated ? console.log("isAuthenticated User") : console.log("no") }
 };
 
 export default ProtectedRoute;

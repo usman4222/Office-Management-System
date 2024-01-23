@@ -16,14 +16,14 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: "user"
     },
-    tokens: [
-        {
-            token: {
-                type: String,
-                required: true
-            }
-        }
-    ]
+    // tokens: [
+    //     {
+    //         token: {
+    //             type: String,
+    //             required: true
+    //         }
+    //     }
+    // ]
 })
 
 // userSchema.methods.getJWTToken = function () {
@@ -34,17 +34,22 @@ const userSchema = new mongoose.Schema({
 
 // }
 
-userSchema.methods.generateAuthToken = async function () {
-    try {
-        let token = jwt.sign({ _id: this._id }, JWT_SECRET);
-        this.tokens = this.tokens.concat({ token: token });
-        await this.save();
-        return token;
-    } catch (error) {
-        console.log(error);
-    }
-}
+// userSchema.methods.generateAuthToken = async function () {
+//     try {
+//         let token = jwt.sign({ _id: this._id }, JWT_SECRET);
+//         this.tokens = this.tokens.concat({ token: token });
+//         await this.save();
+//         return token;
+//     } catch (error) {
+//         console.log(error);
+//     }
+// }
+userSchema.methods.getJWTToken = function () {
 
+    return jwt.sign({ _id: this._id }, JWT_SECRET, {
+        expiresIn: JWT_EXPIRES_IN
+    })
+}
 
 
 

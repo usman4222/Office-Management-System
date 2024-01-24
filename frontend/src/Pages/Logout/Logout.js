@@ -1,7 +1,7 @@
 import React from 'react';
 import { LuLogOut } from 'react-icons/lu';
 import { Typography } from '@material-ui/core';
-import { Link, useNavigate } from 'react-router-dom';  // Import useNavigate instead of useHistory
+import { Link, useNavigate } from 'react-router-dom';  
 import '../NotFound/NotFound.css';
 import { useSnackbar } from 'notistack';
 import { useDispatch } from 'react-redux';
@@ -14,7 +14,7 @@ const Logout = () => {
 
     function logoutUser() {
         dispatch(logout());
-        enqueueSnackbar('Logout Successfully', { variant: 'success' });
+        enqueueSnackbar('Not Working Now...!', { variant: 'success' });
         navigate('/login'); 
     }
 
@@ -23,7 +23,7 @@ const Logout = () => {
             <LuLogOut />
             <Typography>Are you sure to Logout...?</Typography>
             <Link onClick={logoutUser}>Logout</Link>
-            <Link to='/dash'>Back to DashBoard</Link>
+            <Link to='/'>Back to DashBoard</Link>
         </div>
     );
 };

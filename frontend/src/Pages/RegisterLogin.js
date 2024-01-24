@@ -1,8 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
 import './RegisterLogin.css'
-import FaceIcon from '@material-ui/icons/Face'
-import MailOutlineIcon from '@material-ui/icons/MailOutline'
-import LockOpenIcon from '@material-ui/icons/LockOpen'
 import { useDispatch, useSelector } from "react-redux"
 import { clearErrors, login, register } from '../actions/userAction'
 import { useNavigate } from 'react-router-dom';
@@ -49,14 +46,13 @@ const RegisterLogin = () => {
 
 
     useEffect(() => {
-        // && typeof error === 'object'
-        if (error ) {
+        if (error) {
             enqueueSnackbar(`Invalid Credentials`, { variant: 'error' });
             dispatch(clearErrors());
         }
         if (isAuthenticated) {
             enqueueSnackbar('Successfully Logged In', { variant: 'success' });
-            navigate("/dash");
+            navigate("/");
         }
     }, [dispatch, error, isAuthenticated, navigate]);
 
@@ -64,29 +60,24 @@ const RegisterLogin = () => {
 
     const registerSubmit = async (e) => {
         e.preventDefault();
-    
+
         if (password.length < 8) {
             enqueueSnackbar('Password should be at least 8 characters long', { variant: 'error' });
             return;
         }
-    
+
         if (name.length < 4) {
             enqueueSnackbar('Name should be at least 4 characters long', { variant: 'error' });
             return;
         }
-    
+
         const formData = new FormData();
         formData.append("name", name);
         formData.append("email", email);
         formData.append("password", password);
-    
+
         dispatch(register(formData));
     };
-    
-    
-
-
-
 
 
     return (
@@ -124,7 +115,6 @@ const RegisterLogin = () => {
                     >
                         <h2>Register</h2>
                         <div className='nameInput'>
-                            {/* <FaceIcon /> */}
                             <input
                                 type='text'
                                 placeholder='Name'
@@ -135,7 +125,6 @@ const RegisterLogin = () => {
                             />
                         </div>
                         <div className='emailInput'>
-                            {/* <MailOutlineIcon /> */}
                             <input
                                 type='email'
                                 placeholder='Email'
@@ -146,7 +135,6 @@ const RegisterLogin = () => {
                             />
                         </div>
                         <div className='passInput'>
-                            {/* <LockOpenIcon /> */}
                             <input
                                 type='password'
                                 placeholder='Password'

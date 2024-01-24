@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 import { Button } from '@material-ui/core';
-import DeleteIcon from "@material-ui/icons/Delete";
 import { getAllUsers, clearErrors } from '../../actions/addUserAction';
 import { deleteUser } from '../../actions/deleteUser';
 import { DELETE_USER_RESET } from '../../constants/deleteUserConstant';

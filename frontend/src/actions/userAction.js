@@ -20,7 +20,7 @@ import {
 } from "../constants/userConstant";
 import axios from "axios";
 
-
+let link = `http://localhost:4000/api/v1`
 
 
 export const login = (email, password) => async (dispatch) => {
@@ -29,25 +29,20 @@ export const login = (email, password) => async (dispatch) => {
             type: LOGIN_REQUEST,
         });
 
-        // Make the login request
         const { data } = await axios.post(
-            `http://localhost:4000/api/v1/login`,
+            `${link}login`,
             { email, password }
         );
 
-        // Set the received token in localStorage with the name 'authToken'
         localStorage.setItem('authToken', data.token);
 
-        // Set the token in the headers for future requests
         axios.defaults.headers.common['Authorization'] = `Bearer ${ data.token}`;
 
-        // Dispatch the success action with user data
         dispatch({
             type: LOGIN_SUCCESS,
             payload: data.user,
         });
     } catch (error) {
-        // Dispatch the failure action with the error message
         dispatch({
             type: LOGIN_FAIL,
             payload: error.response.data.message,
@@ -67,7 +62,7 @@ export const register = (userData) => async (dispatch) => {
 
         const config = { headers: { "Content-Type": "application/json" } }
         const { data } = await axios.post(
-            `http://localhost:4000/api/v1/register`,
+            `${link}/register`,
             userData,
             config
         );
@@ -86,7 +81,7 @@ export const register = (userData) => async (dispatch) => {
 export const logout = () => async (dispatch) => {
 
     try {
-        await axios.get(`http://localhost:4000/api/v1/logout`)
+        await axios.get(`${link}/logout`)
         dispatch({ type: LOGOUT_SUCCESS })
     } catch (error) {
         dispatch({
@@ -101,7 +96,7 @@ export const getAllAdminUsers = () => async (dispatch) => {
     try {
         dispatch({ type: GET_ALL_USERS_REQUEST })
 
-        const { data } = await axios.get(`http://localhost:4000/api/v1/allusers`)
+        const { data } = await axios.get(`${link}/allusers`)
 
         dispatch({ type: GET_ALL_USERS_SUCCESS, payload: data.users })
     } catch (error) {
@@ -117,7 +112,7 @@ export const deleteUser = (id) => async (dispatch) => {
     try {
         dispatch({ type: USER_DELETE_REQUEST })
 
-        const { data } = await axios.delete(`http://localhost:4000/api/v1/deleteuser/${id}`)
+        const { data } = await axios.delete(`${link}/deleteuser/${id}`)
         dispatch({
             type: USER_DELETE_SUCCESS,
             payload: data
@@ -137,7 +132,7 @@ export const updateUser = (id, userData) => async (dispatch) => {
         dispatch({ type: UPDATE_USER_REQUEST })
 
         const config = { headers: { "Content-Type": "application/json" } }
-        const { data } = await axios.put(`http://localhost:4000/api/v1/user/${id}`, userData, config)
+        const { data } = await axios.put(`${link}/user/${id}`, userData, config)
         console.log(userData)
         dispatch({
             type: UPDATE_USER_SUCCESS,

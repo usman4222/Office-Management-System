@@ -64,7 +64,7 @@ const AddUser = () => {
         }
         if (success) {
             enqueueSnackbar('User created Successfully', { variant: 'success' });
-            navigate('/')
+            navigate('/allemployees')
             dispatch({ type: ADD_USER_RESET })
         }
     }, [dispatch, error, success])

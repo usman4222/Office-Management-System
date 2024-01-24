@@ -14,6 +14,10 @@
     width: 100%;
 }
 
+.MuiSvgIcon-root {
+    font-size: 50px;
+}
+
 .main-r3 {
     display: flex;
     justify-content: space-evenly;
@@ -36,10 +40,6 @@
 
 .main-r3-b1-r1 {
     display: flex;
-    width: 300px;
-    height: 200px;
-    justify-content: space-around;
-    align-items: center;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
@@ -82,18 +82,8 @@
     border-radius: 100%;
 }
 
-.main-r3-b1-r1-b1 svg {
-    font-size: 50px;
-}
-
 .main-r3-b1-r1-b2 {
     font-size: 20px;
-}
-
-.main-r3-b1 {
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .tsp-section {
@@ -121,7 +111,7 @@
 
 .r4-b1 {
     padding: 20px;
-    
+
 }
 
 @media (min-width: 768px) {
@@ -129,8 +119,8 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        /* background:red; */
     }
+
     .r4-b2 {
         display: flex;
         align-items: center;
@@ -139,13 +129,15 @@
 }
 
 
+@media (min-width: 768px) {
+    .main-r3-b1 {
+        max-width: none;
+    }
+}
 
-
-/* Custom CSS for responsiveness */
 .main-r3-b1 {
     width: 100%;
     max-width: 300px;
-    /* Adjust the maximum width as needed */
     margin: 0 auto;
 }
 
@@ -155,30 +147,16 @@
     }
 }
 
-/* Custom CSS for responsiveness */
-.main-r3-b1 {
-    width: 100%;
-    max-width: 300px;
-    /* Adjust the maximum width as needed */
-    margin: 0 auto;
-}
-
-@media (min-width: 768px) {
-    .main-r3-b1 {
-        max-width: none;
-    }
-}
-/* Custom CSS for responsiveness */
 canvas {
-    width: 100%; /* Make the canvas element take up the full width by default */
-    max-width: 400px; /* Set a maximum width as needed */
-    height: 200px; /* Set the default height */
+    width: 100%;
+    max-width: 400px;
+    height: 200px;
 }
 
 @media (min-width: 768px) {
     canvas {
-        width: 100%; /* Make the canvas take up full width at 768px and larger screens */
-        height: 300px; /* Set the increased height at 768px and larger screens */
-        max-width: none; /* Remove the maximum width */
+        width: 100%;
+        height: 300px;
+        max-width: none;
     }
 }

@@ -5,45 +5,8 @@ const { JWT_SECRET } = require('../config.js');
 const ErrorHandler = require('../utils/errorHanlder');
 const catchAsyncError = require('./catchAsyncError');
 
-// exports.isAuthenticatedUser = catchAsyncError(async (req, res, next) => {
 
-
-//     try {
-//         const token = req.cookies.jwtToken
-//         const verifyToken = jwt.verify(token, JWT_SECRET)
-//         const rootUser = await User.findById({ _id: verifyToken._id, "tokens.token": token })
-//         if (!rootUser) {
-//             throw new ErrorHandler("User Not Found")
-//         }
-//         req.token = token
-//         req.rootUser = rootUser
-//         req.userID = rootUser._id
-//         next()
-//     } catch (error) {
-//         res.status(401).json({
-//             message: "401, Unauthorized: no token"
-//         })
-//         console.log(error);
-//     }
-
-
-// }); 
 exports.isAuthenticatedUser = catchAsyncError(async (req, res, next) => {
-
-    // const { token } = req.cookies
-    // console.log("This is token", token)
-
-    // if (!token) {
-    //     return next(new ErrorHandler("Please Login to access this resourse."))
-    // }
-    // const isDecoded = jwt.verify(token, JWT_SECRET)
-
-    // console.log("this is decoded", isDecoded)
-
-    // req.user = await User.findById(isDecoded._id)
-
-    // console.log("this is user", req.user)
-    // next();
 
     const authHeader = req.headers.authorization;
 
@@ -86,17 +49,3 @@ exports.authorizeRole = (...roles) => {
         next();
     };
 };
-// const { token } = req.cookies
-// console.log("This is token", token)
-
-// if (!token) {
-//     return next(new ErrorHandler("Please Login to access this resourse."))
-// }
-// const isDecoded = jwt.verify(token,JWT_SECRET)
-
-// console.log("this is decoded", isDecoded)
-
-// req.user = await User.findById(isDecoded.id)
-
-// console.log("this is user", req.user)
-// next();

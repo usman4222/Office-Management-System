@@ -39,20 +39,20 @@ const AttendanceDetails = () => {
             let absentCount = 0;
             let leaveCount = 0;
             let totalEntries = 0;
-    
+
             const currentDate = new Date();
             const currentMonth = currentDate.getMonth() + 1;
-    
+
             const attendanceData = user.attendance.map((item, index) => {
                 const id = uuidv4();
                 const entryDate = new Date(item.date);
-                
+
                 if (entryDate.getMonth() + 1 === currentMonth) {
                     totalEntries++;
-    
+
                     const date = entryDate.toLocaleDateString();
                     const status = item.status;
-    
+
                     if (status === 'Present') {
                         presentCount++;
                     } else if (status === 'Absent') {
@@ -60,16 +60,16 @@ const AttendanceDetails = () => {
                     } else if (status === 'Leave') {
                         leaveCount++;
                     }
-    
+
                     return { id, date, status };
                 }
-    
-                return null; 
-            }).filter(Boolean); 
-    
+
+                return null;
+            }).filter(Boolean);
+
             setAttendanceDetails(attendanceData);
             setShowAttendance(true);
-    
+
             const percentage = (presentCount / totalEntries) * 100;
             setPresentPercentage(percentage);
             setPresentCount(presentCount);
@@ -167,17 +167,6 @@ const AttendanceDetails = () => {
                                 </div>
                             </div>
                         </div>
-                        {/* <div className='row cv'>
-                            <div className='col-lg-6'>
-                                <DataGrid
-                                    rows={rows}
-                                    columns={columns}
-                                    pageSize={100}
-                                    disableSelectionOnClick
-                                    className='productsListTable'
-                                />
-                            </div>
-                        </div> */}
                     </div>
                 </div>
             </div>

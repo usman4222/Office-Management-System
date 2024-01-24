@@ -4,8 +4,7 @@ import './dashBoard.css';
 import Header from '../../components/Header';
 import PeopleIcon from '@material-ui/icons/People'
 import { Bar } from 'react-chartjs-2';
-import { DoughnutChart, LineChart } from './Chart';
-import DateChart from './DateChart';
+import { DoughnutChart } from './Chart';
 import { Doughnut } from 'react-chartjs-2';
 import { GiExpense } from "react-icons/gi";
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,7 +13,13 @@ import { getAllExpenses, getCurrentMonthExpenses } from '../../actions/financeCo
 import ReactApexChart from 'react-apexcharts';
 import CountUp from 'react-countup';
 import BarChart from './BarChart';
+import { Line } from 'react-chartjs-2'
+import LineChart from './LineChart';
 import { GiPayMoney } from "react-icons/gi";
+import { getCurrentMonthRevenue } from '../../actions/revenue';
+import { GiReceiveMoney } from "react-icons/gi";
+import { BsPeopleFill } from "react-icons/bs";
+import { RiMoneyDollarCircleFill } from "react-icons/ri";
 
 
 const DashBoard = ({ user }) => {
@@ -22,13 +27,16 @@ const DashBoard = ({ user }) => {
     const dispatch = useDispatch()
     const { users } = useSelector((state) => state.allUser);
     const { totalCurrentMonthExpenses } = useSelector((state) => state.currentMonthTotal);
+    const { totalCurrentMonthRevenue } = useSelector((state) => state.currentMonthRevenue);
     const { expenses } = useSelector((state) => state.allExpenses);
+
 
 
     useEffect(() => {
         dispatch(getAllUsers());
         dispatch(getAllExpenses());
         dispatch(getCurrentMonthExpenses())
+        dispatch(getCurrentMonthRevenue())
     }, [dispatch]);
 
 
@@ -96,46 +104,61 @@ const DashBoard = ({ user }) => {
                         </div>
                         <div className='row main-r3'>
                             <div className='col-lg-3 col-md-6 col-sm-12 main-r3-b1'>
-                                <div className='row main-r3-b1-r1'>
-                                    <div className='col-lg-6 col-md-6 col-sm-6 main-r3-b1-r1-b1'>
-                                        <div className='people'><GiExpense /></div>
-                                    </div>
-                                    <div className='col-lg-6 col-md-6 col-sm-6 main-r3-b1-r1-b2'>
-                                        <div>
-                                            <p className='count'><CountUp end={calculateTotalExpenses()} duration={2} /></p>
-                                            <p>Total Expenses</p>
+                                <div className="max-w-sm mx-auto bg-white shadow-lg rounded-md overflow-hidden">
+                                    <div className="p-4">
+                                        <div className="flex items-center mb-4">
+                                            <div className="flex items-center justify-center text-6xl bg-green-300 rounded-full h-20 w-20"><GiExpense /></div>
+                                            <div className="ml-2">
+                                                <p className="text-2xl text-center "><CountUp end={calculateTotalExpenses()} duration={2} /></p>
+                                                <p className="text-lg text-center text-gray-600">Total Expenses</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div className='col-lg-3 col-md-6 col-sm-12 main-r3-b1'>
-                                <div className='row main-r3-b1-r1'>
-                                    <div className='col-lg-6 col-md-6 col-sm-6 main-r3-b1-r1-b1'>
-                                        <div className='revenue'><PeopleIcon /></div>
-                                    </div>
-                                    <div className='col-lg-6 col-md-6 col-sm-6 main-r3-b1-r1-b2'>
-                                        <div>
-                                            <p className='count'><CountUp end={users.length} duration={2} /></p>
-                                            <p>Total Members</p>
+                                <div className="max-w-sm mx-auto bg-white shadow-lg rounded-md overflow-hidden">
+                                    <div className="p-4">
+                                        <div className="flex items-center mb-4">
+                                            <div className="flex items-center justify-center text-6xl bg-blue-200 rounded-full h-20 w-20">
+                                                <BsPeopleFill />
+                                            </div>
+                                            <div className="ml-2">
+                                                <p className="text-2xl text-center "><CountUp end={users.length} duration={2} /></p>
+                                                <p className="text-lg  text-gray-600">Total Members</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
                             <div className='col-lg-3 col-md-6 col-sm-12 main-r3-b1'>
-                                <div className='row main-r3-b1-r1'>
-                                    <div className='col-lg-6 col-md-6 col-sm-6 main-r3-b1-r1-b1'>
-                                        <div className='att'><GiPayMoney /></div>
-                                    </div>
-                                    <div className='col-lg-6 col-md-6 col-sm-6 main-r3-b1-r1-b2'>
-                                        <div>
-                                            <p className='count'><CountUp end={totalCurrentMonthExpenses} duration={2} /></p>
-                                            <p>Current Month Expenses </p>
+                                <div className="max-w-sm mx-auto bg-white shadow-lg rounded-md overflow-hidden">
+                                    <div className="p-4">
+                                        <div className="flex items-center mb-4">
+                                            <div className="flex items-center justify-center text-6xl bg-yellow-200 rounded-full h-20 w-20">
+                                                <RiMoneyDollarCircleFill />
+                                            </div>
+                                            <div className="ml-2">
+                                                <p className="text-2xl text-center "><CountUp end={totalCurrentMonthExpenses} duration={2} /></p>
+                                                <p className="text-lg  text-gray-600">MonthlyExpense</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
+                            {/* <div className='col-lg-3 col-md-6 col-sm-12 main-r3-b1'>
+                                <div className="max-w-sm mx-auto bg-white shadow-lg rounded-md overflow-hidden">
+                                    <div className="p-4">
+                                        <div className="flex items-center mb-4">
+                                            <div className="text-6xl text-black"><GiReceiveMoney /></div>
+                                            <div className="ml-2">
+                                                <p className="text-2xl text-center "><CountUp end={totalCurrentMonthRevenue} duration={2} /></p>
+                                                <p className="text-lg  text-gray-600">Monthly Revenue</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> */}
                         </div>
                         <div className='row main-r4'>
                             <div className='col-lg-4 r4-b1'>
@@ -143,6 +166,7 @@ const DashBoard = ({ user }) => {
                             </div>
                             <div className='col-lg-8 r4-b2'>
                                 <BarChart />
+                                {/* <LineChart/> */}
                             </div>
                         </div>
                     </div>

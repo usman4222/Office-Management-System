@@ -1,5 +1,5 @@
 import { combineReducers, applyMiddleware, createStore } from 'redux';
-import thunk from 'redux-thunk';  // Importing 'thunk' directly
+import thunk from 'redux-thunk'; 
 import { composeWithDevTools } from 'redux-devtools-extension';
 import {
     allAdminUsersReducer,
@@ -21,7 +21,6 @@ import {
     currentMonthTotalReducer,
     financeReducer
 } from './reducers/financeReducer';
-import { getUserAttendance } from './actions/attendanceAction';
 import { allRevenuesReducer, currentMonthTotalRevenueReducer, revenueReducer } from './reducers/revenue';
 
 const rootReducer = combineReducers({

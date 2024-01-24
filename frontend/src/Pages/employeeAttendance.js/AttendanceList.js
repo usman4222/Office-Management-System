@@ -1,13 +1,9 @@
 import React, { useEffect, Fragment, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useSnackbar } from 'notistack';
 import { getUserAttendance } from '../../actions/attendanceAction';
-import { clearErrors } from '../../actions/addUserAction';
 import Sidebar from '../Sidebar';
 import Header from '../../components/Header';
-import { Link, useParams } from 'react-router-dom';
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
+import { useParams } from 'react-router-dom';
 
 const AttendanceList = () => {
     const dispatch = useDispatch();
@@ -15,38 +11,8 @@ const AttendanceList = () => {
     const { userAttendance } = useSelector((state) => state.userAttendance);
     const attendanceArray = userAttendance.userAttendance || [];
     const [attendanceDetails, setAttendanceDetails] = useState([]);
-    const [selectedAttendanceId, setSelectedAttendanceId] = useState('');
-    const { id, attendanceId } = useParams();
 
-    const userId = user ? user._id : '';  // Corrected line
-
-    console.log('UserId:', userId);
-
-
-
-
-    console.log('Attendance Array:', attendanceArray);
-
-    // Get an array of all defined attendance IDs
-    const allAttendanceIds = attendanceArray
-        .map((detail) => detail._id) // Assuming that _id is the correct property
-        .filter((attendanceId) => attendanceId !== undefined);
-
-    console.log("All Attendance IDs:", allAttendanceIds);
-
-    // // Assuming you want the first attendanceId
-    // const firstAttendanceId = attendanceArray.length > 0 ? attendanceArray[0]._id : undefined;
-
-    // console.log("First Attendance ID:", firstAttendanceId);
-    const handleEditClick = (attendanceId) => {
-        console.log("Clicked on Edit for attendanceId:", attendanceId);
-        setSelectedAttendanceId(attendanceId);
-        console.log("Selected Attendance ID:", selectedAttendanceId);
-    };
-
-
-
-
+    const userId = user ? user._id : '';
 
 
     useEffect(() => {
@@ -101,30 +67,7 @@ const AttendanceList = () => {
             minWidth: 10,
             flex: 0.5,
         },
-        // {
-        //     field: 'action',
-        //     headerName: 'Action',
-        //     minWidth: 150,
-        //     type: 'number',
-        //     sortable: false,
-        //     flex: 0.5,
-        //     renderCell: (params) => (
-        //         <Fragment>
-        //             {params.row && params.row.data && params.row.data.attendanceId !== undefined && (
-        //                 <Link
-        //                     to={`/updateattendance/${userId}/${params.row.data.attendanceId}`}
-        //                     className='edit'
-        //                 >
-        //                     <EditIcon />
-        //                 </Link>
-        //             )}
-        //         </Fragment>
-        //     ),
-            
-            
-
-        // },
-    ];
+    ]
 
 
 
@@ -153,7 +96,6 @@ const AttendanceList = () => {
                                                 <th style={{ textAlign: 'center' }}>Number</th>
                                                 <th style={{ textAlign: 'center' }}>Date</th>
                                                 <th>Status</th>
-                                                {/* <th>Action</th> */}
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -164,9 +106,6 @@ const AttendanceList = () => {
                                                         {formatDate(detail.date)}
                                                     </td>
                                                     <td>{detail.status}</td>
-                                                    {/* <td>
-                                                        {columns[3].renderCell({ ...detail, id: index })}
-                                                    </td> */}
                                                 </tr>
                                             ))}
                                         </tbody>

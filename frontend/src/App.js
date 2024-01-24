@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import RegisterLogin from './Pages/RegisterLogin';
-import About from './Pages/About';
 import AddUser from './Pages/AddUser/AddUser';
 import AllUser from './Pages/AllUsers/AllUser';
 import UpdateUser from './Pages/UpdateUser/UpateUser';
@@ -26,7 +25,6 @@ function App() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
-  // console.log(user.role);
 
   useEffect(() => {
     dispatch(getAllUsers)
@@ -36,14 +34,13 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<RegisterLogin />} />
-        <Route path="/about" element={<About />} />
         <Route element={<AddUser />} path="/adduser" />
         <Route element={<AllUser />} path="/allemployees" />
         <Route element={<UpdateUser />} path="/updateuser/:id" />
         <Route element={<Attendance />} path="/attendance" />
         <Route element={<UserAttendance />} path="/attendance/:id" />
         <Route element={<AttendanceDetails />} path="/attendance/view/:id" />
-        <Route element={<DashBoard />} path="/dash" />
+        <Route element={<DashBoard />} path="/" />
         {/* {isAuthenticated && user.role === 'admin' && (
           <> */}
         <Route element={<Finance />} path="/finance" />

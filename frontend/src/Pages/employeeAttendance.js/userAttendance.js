@@ -1,10 +1,10 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSnackbar } from 'notistack';
-import { addNewUser, clearErrors } from '../../actions/addUserAction';
+import { clearErrors } from '../../actions/addUserAction';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { getUserDetails, updateUserDetails } from '../../actions/updateUser';
+import { getUserDetails } from '../../actions/updateUser';
 import { UPDATE_USER_RESET } from '../../constants/updateUser';
 import { updateUserCon } from '../../actions/attendanceAction';
 import Header from '../../components/Header';
@@ -49,7 +49,7 @@ const UpdateUser = () => {
             navigate('/attendance')
             dispatch({ type: UPDATE_USER_RESET })
         }
-    }, [dispatch, enqueueSnackbar, updateError, isUpdated, userId, user])
+    }, [dispatch, enqueueSnackbar, navigate, updateError, isUpdated, userId, user])
 
 
 
@@ -61,11 +61,6 @@ const UpdateUser = () => {
         }
         dispatch(updateUserCon(id, { status, date }));
     }
-    // useEffect(() => {
-    //     $('input[type=date]').each(function() {
-    //       $(this).clone().attr('type', 'text').insertAfter(this).datepicker().prev().remove();
-    //     });
-    //   }, []);
 
 
 

@@ -1,8 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import './updateUser.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSnackbar } from 'notistack';
-import { addNewUser, clearErrors } from '../../actions/addUserAction';
+import { clearErrors } from '../../actions/addUserAction';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { getUserDetails, updateUserDetails } from '../../actions/updateUser';
@@ -17,8 +16,6 @@ const UpdateUser = () => {
     const { id } = useParams()
     const { error: updateError, isUpdated } = useSelector((state) => state.updateUser)
     const { user } = useSelector((state) => state.getUser)
-
-    // console.log(user)
 
 
     const [name, setName] = useState("")
@@ -66,7 +63,7 @@ const UpdateUser = () => {
         }
         if (isUpdated) {
             enqueueSnackbar("Employee Updated Successfully", { variant: 'success' });
-            navigate('/')
+            navigate('/allemployees')
             dispatch({ type: UPDATE_USER_RESET })
         }
     }, [dispatch, enqueueSnackbar, updateError, isUpdated, userId, user])

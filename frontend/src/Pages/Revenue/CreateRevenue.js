@@ -4,11 +4,13 @@ import { useSnackbar } from 'notistack'
 import Header from '../../components/Header'
 import Sidebar from '../Sidebar'
 import { addNewRevenue } from '../../actions/revenue'
+import { useNavigate } from 'react-router-dom'
 
 const CreateRevenue = () => {
 
     const dispatch = useDispatch();
     const { enqueueSnackbar } = useSnackbar();
+    const navigate = useNavigate()
 
     const [ref, setRef] = useState('');
     const [amount, setAmount] = useState('');
@@ -28,6 +30,7 @@ const CreateRevenue = () => {
 
             await dispatch(addNewRevenue(revenueData));
             enqueueSnackbar('Revenue added Successfully', { variant: 'success' });
+            navigate('/allrevenue')
         } catch (error) {
             console.error(error.message);
         }

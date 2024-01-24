@@ -52,7 +52,6 @@ export const currentMonthTotalReducer = (state = initialState, action) => {
 
 
 
-// financeReducer function
 export const financeReducer = (state = { expense: [] }, action) => {
 
     switch (action.type) {

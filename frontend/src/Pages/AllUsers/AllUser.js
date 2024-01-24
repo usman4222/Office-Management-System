@@ -4,9 +4,7 @@ import { Fragment} from 'react'
 import { DataGrid } from '@material-ui/data-grid'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
-import { useAlert } from 'react-alert'
 import { Button } from '@material-ui/core'
-// import { Metadata } from '@stripe/stripe-js'
 import EditIcon from "@material-ui/icons/Edit"
 import DeleteIcon from "@material-ui/icons/Delete"
 import { useSnackbar } from 'notistack'
@@ -19,7 +17,6 @@ import Header from '../../components/Header'
 const AllUser = () => {
 
     const dispatch = useDispatch()
-    const navigate = useNavigate()
     const { enqueueSnackbar } = useSnackbar();
     const { error, users } = useSelector((state) => state.allUser)
     const { error: deleteError, isDeleted, message } = useSelector((state) => state.delUser)    
@@ -34,7 +31,6 @@ const AllUser = () => {
             dispatch(clearErrors());
         }
         if (isDeleted) {
-            // history.push('/admin/users')
             enqueueSnackbar('User deleted Successfully', { variant: 'success' });
             dispatch({ type: DELETE_USER_RESET })
         }

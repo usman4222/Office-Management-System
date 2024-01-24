@@ -5,11 +5,13 @@ import { useSnackbar } from 'notistack'
 import { getAllExpenses } from '../../actions/financeController'
 import Header from '../../components/Header'
 import Sidebar from '../Sidebar'
+import { useNavigate } from 'react-router-dom'
 
 const Finance = () => {
 
     const dispatch = useDispatch();
     const { enqueueSnackbar } = useSnackbar();
+    const navigate = useNavigate()
     const { error, success, expenses } = useSelector((state) => state.allExpenses);
     const { error: currentMonthError, success: currentMonthSuccess, currentMonthTotal } = useSelector(
         (state) => state.currentMonthTotal
@@ -55,12 +57,12 @@ const Finance = () => {
 
             await dispatch(addNewExpense(expenseData));
             enqueueSnackbar('Expense added Successfully', { variant: 'success' });
+            navigate('/allexpenses')
         } catch (error) {
             console.error(error.message);
         }
     };
 
-    // Calculate total expenses
     const calculateTotalExpenses = () => {
         const total = expenses.reduce((accumulator, expense) => {
             return accumulator + parseFloat(expense.amount);
@@ -68,10 +70,8 @@ const Finance = () => {
         return total;
     };
 
-    // Display total expenses in the console
     useEffect(() => {
         const totalExpenses = calculateTotalExpenses();
-        // console.log('Total Expenses:', totalExpenses);
     }, [expenses]);
 
 

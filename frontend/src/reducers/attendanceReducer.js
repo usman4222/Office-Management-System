@@ -16,7 +16,6 @@ import {
   GET_USER_SINGLE_ATTENDANCE_FAIL,
 } from '../constants/attendanceConstant';
 
-// Attendance reducer function
 export const userUpdateReducer = (state = { users: [] }, action) => {
 
   switch (action.type) {

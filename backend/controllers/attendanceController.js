@@ -45,20 +45,6 @@ exports.markAttendance = catchAsyncError(async (req, res, next) => {
 });
 
 
-// exports.getSingleAttendanceDetails = catchAsyncError(async (req, res, next) => {
-
-//     const user = await newUser.findById(req.params.id)
-
-//     if (!user) {
-//         return next(new ErrorHandler("User Not found", 404));
-//     }
-
-//     res.status(200).json({
-//         success: true,
-//         user
-//     })
-// })
-
 exports.getSpecificUserAttendance = catchAsyncError(async (req, res, next) => {
     const userId = req.params.id;
 
@@ -90,7 +76,6 @@ exports.getSingleAttendance = async (req, res, next) => {
     const userId = req.params.id;
     const attendanceId = req.params.attendanceId;
 
-    // Check if attendanceId is a valid ObjectId
     if (!mongoose.Types.ObjectId.isValid(attendanceId)) {
         return res.status(400).json({
             success: false,

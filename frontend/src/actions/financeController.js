@@ -1,4 +1,3 @@
-// Frontend action file (e.g., financeActions.js)
 import {
     FINANCE_REQUEST,
     FINANCE_SUCCESS,
@@ -9,12 +8,11 @@ import {
     GET_ALL_EXPENSES_FAIL,
     GET_CURRENT_MONTH_TOTAL_REQUEST,
     GET_CURRENT_MONTH_TOTAL_SUCCESS,
-    GET_CURRENT_MONTH_TOTAL_FAIL,
-    QR_REQUEST,
-    QR_SUCCESS,
-    QR_FAIL
+    GET_CURRENT_MONTH_TOTAL_FAIL
 } from "../constants/financeConstant";
 import axios from "axios";
+
+let link = `http://localhost:4000/api/v1`
 
 export const addNewExpense = (expense) => async (dispatch) => {
     try {
@@ -26,7 +24,7 @@ export const addNewExpense = (expense) => async (dispatch) => {
             headers: { "Content-Type": "application/json" }
         }
 
-        const { data } = await axios.post(`http://localhost:4000/api/v1/finance`, expense, config);
+        const { data } = await axios.post(`${link}/finance`, expense, config);
 
         dispatch({
             type: FINANCE_SUCCESS,
@@ -53,7 +51,7 @@ export const getAllExpenses = () => async (dispatch) => {
     try {
         dispatch({ type: GET_ALL_EXPENSES_REQUEST });
 
-        const { data } = await axios.get(`http://localhost:4000/api/v1/allexpenses`);
+        const { data } = await axios.get(`${link}/allexpenses`);
 
         dispatch({ type: GET_ALL_EXPENSES_SUCCESS, payload: data.expenses });
     } catch (error) {
@@ -69,7 +67,7 @@ export const getCurrentMonthExpenses = () => async (dispatch) => {
     try {
         dispatch({ type: GET_CURRENT_MONTH_TOTAL_REQUEST });
 
-        const { data } = await axios.get(`http://localhost:4000/api/v1/getExpenses`);
+        const { data } = await axios.get(`${link}/getExpenses`);
 
         dispatch({ type: GET_CURRENT_MONTH_TOTAL_SUCCESS, payload: data.totalCurrentMonthExpenses });
 
@@ -87,4 +85,4 @@ export const clearErrors = () => async (dispatch) => {
     dispatch({
         type: CLEAR_ERRORS
     });
-};                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  

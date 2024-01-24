@@ -1,8 +1,6 @@
 const catchAsyncError = require("../middleware/catchAsyncError");
 const spend = require("../models/financeModel");
 const ErrorHandler = require("../utils/errorHanlder");
-const QRCode = require('qrcode');
-
 
 
 exports.financeController = catchAsyncError(async (req, res, next) => {
@@ -39,50 +37,17 @@ exports.getAllExpenses = catchAsyncError(async (req, res, next) => {
 });
 
 
-// exports.getMonthlyExpenses = catchAsyncError(async (req, res, next) => {
-//     try {
-//         const { month, year } = req.query;
-
-//         const expenses = await spend.find({
-//             $expr: {
-//                 $and: [
-//                     { $eq: [{ $month: "$date" }, parseInt(month)] },
-//                     { $eq: [{ $year: "$date" }, parseInt(year)] },
-//                 ],
-//             },
-//         });
-
-//         if (expenses.length === 0) {
-//             return next(new ErrorHandler("No Expenses Found for this month", 404));
-//         }
-
-//         const totalMonthlyExpenses = expenses.reduce(
-//             (total, expense) => total + parseFloat(expense.amount),
-//             0
-//         );
-
-//         res.status(200).json({
-//             success: true,
-//             totalMonthlyExpenses,
-//             expenses,
-//         });
-//     } catch (error) {
-//         return next(new ErrorHandler("Error getting monthly expenses", 500));
-//     }
-// });
-
-
 exports.getCurrentMonthExpenses = catchAsyncError(async (req, res, next) => {
     try {
         const currentDate = new Date();
-        const currentMonth = currentDate.getMonth() + 1; // Get current month
-        const currentYear = currentDate.getFullYear(); // Get current year
+        const currentMonth = currentDate.getMonth() + 1;
+        const currentYear = currentDate.getFullYear();
 
         const totalMonthlyExpenses = await spend.find({
             $expr: {
                 $and: [
-                    { $eq: [{ $month: "$date" }, currentMonth] }, // Filter by current month
-                    { $eq: [{ $year: "$date" }, currentYear] }, // Filter by current year
+                    { $eq: [{ $month: "$date" }, currentMonth] }, 
+                    { $eq: [{ $year: "$date" }, currentYear] }, 
                 ],
             },
         });
@@ -91,7 +56,6 @@ exports.getCurrentMonthExpenses = catchAsyncError(async (req, res, next) => {
             return next(new ErrorHandler("No Expenses Found for this month", 404));
         }
 
-        // Calculate total expenses for the current month
         const totalCurrentMonthExpenses = totalMonthlyExpenses.reduce(
             (total, expense) => total + parseFloat(expense.amount),
             0

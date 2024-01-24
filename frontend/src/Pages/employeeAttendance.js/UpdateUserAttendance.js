@@ -5,13 +5,12 @@ import Sidebar from '../Sidebar';
 import Header from '../../components/Header';
 import { UPDATE_USER_ATTENDANCE_RESET } from '../../constants/attendanceConstant';
 import { changeStatusAction, getSingleAttendanceDetails } from '../../actions/attendanceAction';
-import { v4 as uuidv4 } from 'uuid';
 
 const UpdateUserAttendance = () => {
     const dispatch = useDispatch();
     const { userAttendance } = useSelector((state) => state.userAttendance);
     const { user } = useSelector((state) => state.getUser);
-    const { id, attendanceId } = useParams();  // Get attendanceId from URL params
+    const { attendanceId } = useParams();  
 
     const [date, setDate] = useState('');
     const [status, setStatus] = useState('');
@@ -22,13 +21,10 @@ const UpdateUserAttendance = () => {
         const fetchData = async () => {
             try {
                 if (userId && attendanceId) {
-                    // Check if the user has updated the attendance and reset the state
                     dispatch({ type: UPDATE_USER_ATTENDANCE_RESET });
 
-                    // Fetch the details for the selected attendance
                     await dispatch(getSingleAttendanceDetails(userId, attendanceId));
 
-                    // Set initial state based on the selected attendance data
                     const selectedAttendance = userAttendance.userAttendance.find(
                         (attendance) => attendance._id === attendanceId
                     );
@@ -59,7 +55,6 @@ const UpdateUserAttendance = () => {
     const updateAttendanceHandler = (e) => {
         e.preventDefault();
 
-        // Use the attendanceId from URL params for updating
         const myForm = new FormData();
         myForm.set("date", date);
         myForm.set("status", status);

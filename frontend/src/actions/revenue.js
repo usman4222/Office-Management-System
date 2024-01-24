@@ -12,7 +12,7 @@ import {
 } from "../constants/revenue";
 
 
-
+let link = `http://localhost:4000/api/v1`
 
 export const addNewRevenue = (revenue) => async (dispatch) => {
     try {
@@ -24,14 +24,12 @@ export const addNewRevenue = (revenue) => async (dispatch) => {
             headers: { "Content-Type": "application/json" }
         }
 
-        const { data } = await axios.post(`http://localhost:4000/api/v1/revenue`, revenue, config);
+        const { data } = await axios.post(`${link}/revenue`, revenue, config);
 
         dispatch({
             type: CREATE_REVENUE_SUCCESS,
             payload: data
         });
-
-        // dispatch(getAllExpenses());
 
         return data;
     } catch (error) {
@@ -49,7 +47,7 @@ export const getAllRevenue = () => async (dispatch) => {
     try {
         dispatch({ type: GET_ALL_REVENUE_REQUEST });
 
-        const { data } = await axios.get(`http://localhost:4000/api/v1/allrevenues`);
+        const { data } = await axios.get(`${link}/allrevenues`);
 
         dispatch({ type: GET_ALL_REVENUE_SUCCESS, payload: data.revenues });
     } catch (error) {
@@ -63,16 +61,15 @@ export const getAllRevenue = () => async (dispatch) => {
 
 export const getCurrentMonthRevenue = () => async (dispatch) => {
     try {
-        dispatch({ type: GET_CURRENT_MONTH_TOTAL_REVENUE_FAIL, });
+        dispatch({ type: GET_CURRENT_MONTH_TOTAL_REVENUE_REQUEST });
 
-        const { data } = await axios.get(`http://localhost:4000/api/v1/currentmonthrevenue`);
+        const { data } = await axios.get(`${link}/currentmonthrevenue`);
 
-        dispatch({ type: GET_CURRENT_MONTH_TOTAL_REVENUE_REQUEST, payload: data.totalCurrentMonthExpenses });
-
+        dispatch({ type: GET_CURRENT_MONTH_TOTAL_REVENUE_SUCCESS, payload: data.totalCurrentMonthRevenue });
     } catch (error) {
         dispatch({
-            type: GET_CURRENT_MONTH_TOTAL_REVENUE_SUCCESS,
-            payload: error.response ? error.response.data.message : error.message
+            type: GET_CURRENT_MONTH_TOTAL_REVENUE_FAIL,
+            payload: error.response ? error.response.data.message : error.message,
         });
     }
 };

@@ -27,35 +27,6 @@ exports.registerUser = catchAsyncError(async (req, res, next) => {
 })
 
 
-// exports.loginUser = catchAsyncError(async (req, res, next) => {
-
-//     const { email, password } = req.body;
-//     try {
-//         if (!email || !password) {
-//             throw new ErrorHandler("Please enter Email and Password", 400);
-//         }
-
-//         const user = await User.findOne({ email }).select("+password");
-
-//         if (!user) {
-//             throw new ErrorHandler("Invalid Credentials", 401);
-//         }
-
-//         const isPasswordMatched = await user.comparePassword(password);
-
-//         if (!isPasswordMatched) {
-//             throw new ErrorHandler("Invalid Credentials", 401);
-//         }
-//         console.log("login error:", user);
-
-//         sendToken(user, 200, res);
-//     } catch (error) {
-//         next(error);
-//         console.log("login error:", error);
-//     }
-// })
-
-
 exports.loginUser = catchAsyncError(async (req, res, next) => {
     const { email, password } = req.body;
 

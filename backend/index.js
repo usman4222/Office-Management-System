@@ -3,13 +3,12 @@ const { PORT, MONGO } = require('./config.js');
 const app = require('./app.js');
 const mongoose = require('mongoose');
 
-let server; // Define the server variable
+let server; 
 
 mongoose
   .connect(MONGO)
   .then(() => {
     console.log("MongoDB is connected...");
-    // Start the server once the MongoDB connection is established
     server = app.listen(PORT, () => {
       console.log(`Server is running on port: ${PORT}`);
     });

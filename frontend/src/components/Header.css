@@ -1,13 +1,9 @@
-.header{
-    /* background: #774E2A; */
-}
 .header ul{
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 .header ul a{
-    /* background: #000; */
     text-decoration: none;
     padding: 19px 50px;
     color: #888;
@@ -19,25 +15,12 @@
     display: block;
     width: 100%;
     height: 1px;
-    /* background: #888; */
     clear: both;
     margin-top: -22px; 
     box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
 }
-
-/* @media screen,(max-width: 1024px) {
-    .header ul a{
-        padding: 20px 50px;
-    }
-}
-*/
 @media screen and (max-width: 768px) {
     .header ul a {
         padding: 12px 50px;
     }
 }
-
-/* @media screen and (max-width: 425px) {
-    .header {
-    }
-} */

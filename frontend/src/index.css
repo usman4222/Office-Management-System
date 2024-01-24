@@ -5,9 +5,6 @@ body {
     background: #1C2B36;
     margin: 0;
   }
-  /* #root {
-    padding: 10px; 
-  } */
   @font-face {
     font-family: 'Montserrat';
     src: url('./fonts/Montserrat/Montserrat-VariableFont_wght.ttf') format('truetype');

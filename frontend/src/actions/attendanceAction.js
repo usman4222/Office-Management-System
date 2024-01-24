@@ -15,6 +15,8 @@ import {
     GET_USER_ATTENDANCE_FAIL,
 } from '../constants/attendanceConstant';
 
+let link = `http://localhost:4000/api/v1`
+
 export const updateUserCon = (id, attendanceData) => async (dispatch) => {
     try {
         dispatch({ type: UPDATE_USER_REQUEST });
@@ -34,14 +36,12 @@ export const updateUserCon = (id, attendanceData) => async (dispatch) => {
             ]
         };
 
-        const { data } = await axios.put(`http://localhost:4000/api/v1/attendance/${id}`, payload, config);
+        const { data } = await axios.put(`${link}/attendance/${id}`, payload, config);
 
         dispatch({
             type: UPDATE_USER_SUCCESS,
             payload: data.success
         });
-
-        console.log('User updated successfully:', payload);
     } catch (error) {
         dispatch({
             type: UPDATE_USER_FAIL,
@@ -58,7 +58,7 @@ export const getUserAttendance = (userId) => async (dispatch) => {
         dispatch({ type: GET_USER_ATTENDANCE_REQUEST });
 
         if (userId) {
-            const { data } = await axios.get(`http://localhost:4000/api/v1/getuserattendance/${userId}`);
+            const { data } = await axios.get(`${link}/getuserattendance/${userId}`);
             dispatch({ type: GET_USER_ATTENDANCE_SUCCESS, payload: data });
         } else {
             throw new Error('User ID is undefined');
@@ -78,9 +78,7 @@ export const getSingleAttendanceDetails = (userId, attendanceId) => async (dispa
     try {
         dispatch({ type: GET_USER_SINGLE_ATTENDANCE_REQUEST });
 
-        const { data } = await axios.get(`http://localhost:4000/api/v1/getsingleattendance/${userId}/${attendanceId}`);
-
-        console.log('API Response:', data);
+        const { data } = await axios.get(`${link}/getsingleattendance/${userId}/${attendanceId}`);
 
         dispatch({ type: GET_USER_SINGLE_ATTENDANCE_SUCCESS, payload: data });
     } catch (error) {
@@ -107,7 +105,7 @@ export const changeStatusAction = (userId, attendanceId, userData) => async (dis
             headers: { "Content-Type": "application/json" }
         }
 
-        const { data } = await axios.put(`http://localhost:4000/api/v1/editsingleattendance/${userId}/${attendanceId}`, userData, config);
+        const { data } = await axios.put(`${link}/editsingleattendance/${userId}/${attendanceId}`, userData, config);
 
         dispatch({
             type: UPDATE_USER_ATTENDANCE_SUCCESS,

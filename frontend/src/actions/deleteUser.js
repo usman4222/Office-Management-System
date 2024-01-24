@@ -6,11 +6,13 @@ import {
 } from "../constants/deleteUserConstant"
 import axios from "axios"
 
+let link = `http://localhost:4000/api/v1`
+
 export const deleteUser = (id) => async (dispatch) => {
     try {
         dispatch({ type: DELETE_USER_REQUEST })
 
-        const { data } = await axios.delete(`http://localhost:4000/api/v1/delete/${id}`)
+        const { data } = await axios.delete(`${link}/delete/${id}`)
         dispatch({
             type: DELETE_USER_SUCCESS,
             payload: data

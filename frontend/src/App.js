@@ -20,6 +20,7 @@ import { setAuthToken } from './actions/userAction';
 import { getAllUsers } from './actions/addUserAction';
 import CreateRevenue from './Pages/Revenue/CreateRevenue';
 import AllRevenue from './Pages/Revenue/AllRevenue';
+import Search from './Pages/Search/Search';
 
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -52,6 +53,7 @@ function App() {
         <Route element={<AttendanceList />} path="/attendancelist/:id" />
         <Route element={<UpdateUserAttendance />} path="/updateattendance/:userId/:attendanceId" />
         <Route element={<Logout />} path="/logout" />
+        <Route element={<Search />} path="/Search" />
         <Route path="/" element={<Navigate to="/login" />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

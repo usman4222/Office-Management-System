@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../AllUsers/AllUser.css'
 import { Fragment } from 'react'
 import { DataGrid } from '@material-ui/data-grid'
@@ -9,19 +9,35 @@ import Sidebar from '../Sidebar'
 import Header from '../../components/Header'
 import { v4 as uuidv4 } from 'uuid';
 import { getAllRevenue } from '../../actions/revenue'
+import { useNavigate, useParams } from 'react-router-dom';
 
 const AllRevenue = () => {
     const dispatch = useDispatch();
     const { enqueueSnackbar } = useSnackbar();
     const { error, success, revenues } = useSelector((state) => state.allRevenues);
+    // const { keyword } = useParams();
+    const [keyword, setKeyword] = useState("");
+    const navigate = useNavigate()
 
     useEffect(() => {
         if (error) {
             enqueueSnackbar(error, { variant: 'error' });
             dispatch(clearErrors());
         }
-        dispatch(getAllRevenue());
-    }, [error, dispatch]);
+        dispatch(getAllRevenue(keyword));
+    }, [error, dispatch, keyword]);
+
+    const searchSubmitHandler = (e) => {
+        e.preventDefault();
+
+        let history = []
+
+        if (keyword.trim()) {
+            history.push(`/${keyword}`);
+        } else {
+            // navigate("/allrevenue");
+        }
+    };
 
     const columns = [
         {
@@ -57,7 +73,7 @@ const AllRevenue = () => {
     ];
 
     const rows = revenues.map((item, index) => ({
-        id: uuidv4(), 
+        id: uuidv4(),
         index: index + 1,
         ref: item.ref,
         date: new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(item.date)),
@@ -81,6 +97,16 @@ const AllRevenue = () => {
                         <div className='dashboard'>
                             <div className='productsListContainer'>
                                 <h1 className='productListHeading'>All Revenues</h1>
+                                <div>
+                                    <form className='searchBox' onSubmit={searchSubmitHandler}>
+                                        <input
+                                            type='text'
+                                            placeholder='Search a Revenue...'
+                                            onChange={(e) => setKeyword(e.target.value)}
+                                        />
+                                        <input type='submit' value='Search' />
+                                    </form>
+                                </div>
                                 <DataGrid
                                     rows={rows}
                                     columns={columns}

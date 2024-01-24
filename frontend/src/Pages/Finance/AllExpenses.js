@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../AllUsers/AllUser.css'
 import { Fragment } from 'react'
 import { DataGrid } from '@material-ui/data-grid'
@@ -9,11 +9,14 @@ import { getAllExpenses } from '../../actions/financeController'
 import Sidebar from '../Sidebar'
 import Header from '../../components/Header'
 import { v4 as uuidv4 } from 'uuid';
+import { useNavigate } from 'react-router-dom'
 
 const AllExpenses = () => {
     const dispatch = useDispatch();
     const { enqueueSnackbar } = useSnackbar();
     const { error, success, expenses } = useSelector((state) => state.allExpenses);
+    const [keyword, setKeyword] = useState("");
+    const navigate = useNavigate()
 
     useEffect(() => {
         if (error) {
@@ -22,6 +25,20 @@ const AllExpenses = () => {
         }
         dispatch(getAllExpenses());
     }, [error, dispatch]);
+
+    
+    const searchSubmitHandler = (e) => {
+        e.preventDefault();
+
+        let history = []
+
+        if (keyword.trim()) {
+            history.push(`/${keyword}`);
+            // navigate(`/${keyword}`)
+        } else {
+            // navigate("/allrevenue");
+        }
+    }
 
     const columns = [
         {
@@ -63,7 +80,7 @@ const AllExpenses = () => {
     ];
 
     const rows = expenses.map((item, index) => ({
-        id: uuidv4(), 
+        id: uuidv4(),
         index: index + 1,
         title: item.title,
         ref: item.ref,
@@ -88,6 +105,16 @@ const AllExpenses = () => {
                         <div className='dashboard'>
                             <div className='productsListContainer'>
                                 <h1 className='productListHeading'>All Expenses</h1>
+                                <div>
+                                    <form className='searchBox' onSubmit={searchSubmitHandler}>
+                                        <input
+                                            type='text'
+                                            placeholder='Search a Expense...'
+                                            onChange={(e) => setKeyword(e.target.value)}
+                                        />
+                                        <input type='submit' value='Search' />
+                                    </form>
+                                </div>
                                 <DataGrid
                                     rows={rows}
                                     columns={columns}

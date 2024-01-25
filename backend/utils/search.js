@@ -26,7 +26,6 @@ class ApiFeatures {
         }
 
         if (this.queryStr.date) {
-            // Assuming the date format is 'MM/DD/YYYY'
             const [month, day, year] = this.queryStr.date.split('/');
             const startDate = new Date(`${year}/${month}/${day}`);
             const endDate = new Date(startDate);

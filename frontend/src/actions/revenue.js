@@ -49,9 +49,6 @@ export const getAllRevenue = (keyword = "", date = "") => async (dispatch) => {
 
         const { data } = await axios.get(`${link}/allrevenues?keyword=${keyword}`);
 
-        // let link = `http://localhost:4000/api/v1/products?keyword=${keyword}`
-
-
         dispatch({ type: GET_ALL_REVENUE_SUCCESS, payload: data.revenues });
     } catch (error) {
         dispatch({

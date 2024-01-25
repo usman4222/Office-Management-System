@@ -9,36 +9,38 @@ import { getAllExpenses } from '../../actions/financeController'
 import Sidebar from '../Sidebar'
 import Header from '../../components/Header'
 import { v4 as uuidv4 } from 'uuid';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 const AllExpenses = () => {
     const dispatch = useDispatch();
     const { enqueueSnackbar } = useSnackbar();
     const { error, success, expenses } = useSelector((state) => state.allExpenses);
     const [keyword, setKeyword] = useState("");
+    const [date, setDate] = useState(null);
     const navigate = useNavigate()
+    const params = useParams()
 
     useEffect(() => {
         if (error) {
             enqueueSnackbar(error, { variant: 'error' });
             dispatch(clearErrors());
         }
-        dispatch(getAllExpenses());
-    }, [error, dispatch]);
+        dispatch(getAllExpenses(keyword));
+    }, [error, dispatch, keyword]);
 
-    
+
     const searchSubmitHandler = (e) => {
         e.preventDefault();
 
-        let history = []
-
-        if (keyword.trim()) {
-            history.push(`/${keyword}`);
-            // navigate(`/${keyword}`)
+        if (keyword.trim() || date) {
+            // If either keyword or date has a value, set both
+            setKeyword(`/allexpenses/${keyword}`);
+            // setDate(`/allrevenue/${date}`);
+            // dispatch(getAllRevenue(keyword, date));
         } else {
-            // navigate("/allrevenue");
+            navigate("/allexpenses");
         }
-    }
+    };
 
     const columns = [
         {
@@ -109,6 +111,7 @@ const AllExpenses = () => {
                                     <form className='searchBox' onSubmit={searchSubmitHandler}>
                                         <input
                                             type='text'
+                                            // type='date'
                                             placeholder='Search a Expense...'
                                             onChange={(e) => setKeyword(e.target.value)}
                                         />

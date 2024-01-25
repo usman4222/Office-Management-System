@@ -1,6 +1,7 @@
 const catchAsyncError = require("../middleware/catchAsyncError");
 const spend = require("../models/financeModel");
 const ErrorHandler = require("../utils/errorHanlder");
+const ApiFeatures = require("../utils/search");
 
 
 exports.financeController = catchAsyncError(async (req, res, next) => {
@@ -20,7 +21,12 @@ exports.financeController = catchAsyncError(async (req, res, next) => {
 
 exports.getAllExpenses = catchAsyncError(async (req, res, next) => {
     try {
-        const expenses = await spend.find();
+
+        const { keyword, number, date } = req.query;
+
+        const apiFeature = new ApiFeatures(spend.find(), { keyword, number, date }).search();
+
+        const expenses = await apiFeature.query;
 
         if (expenses.length === 0) {
             return next(new ErrorHandler("No Expense Found", 400));

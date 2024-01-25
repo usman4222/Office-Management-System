@@ -34,7 +34,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/login" element={<RegisterLogin />} />
+        <Route element={<RegisterLogin />} path="/login" />
         <Route element={<AddUser />} path="/adduser" />
         <Route element={<AllUser />} path="/allemployees" />
         <Route element={<UpdateUser />} path="/updateuser/:id" />
@@ -47,6 +47,7 @@ function App() {
         <Route element={<Finance />} path="/finance" />
         <Route element={<AllExpenses />} path="/allexpenses" />
         <Route element={<CreateRevenue />} path="/revenue" />
+        <Route element={<AllRevenue />} path="/allrevenue/:keyword" />
         <Route element={<AllRevenue />} path="/allrevenue" />
         {/* </>
         )} */}

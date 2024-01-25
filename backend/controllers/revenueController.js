@@ -31,26 +31,23 @@ exports.createRevenue = catchAsyncError(async (req, res, next) => {
 
 exports.getAllRevenue = catchAsyncError(async (req, res, next) => {
     try {
-        const revenues = await revenue.find();
+        const { keyword, number, date } = req.query;
 
-        if (revenues.length === 0) {
-            return next(new ErrorHandler("No Revenues Found", 400));
-        }
+        const apiFeature = new ApiFeatures(revenue.find(), { keyword, number, date }).search();
 
-        const apiFeature = new ApiFeatures(revenue.find(), req.query)
-            .search()
-        const revenueSearch = await apiFeature.query
+        const revenues = await apiFeature.query;
 
         res.status(200).json({
             success: true,
             revenues,
-            revenueSearch,
-            error: { message: "This is an error while getting all revenues" }
         });
     } catch (error) {
+        console.error(error);
         return next(new ErrorHandler("Error getting revenues", 500));
     }
 });
+
+
 
 
 

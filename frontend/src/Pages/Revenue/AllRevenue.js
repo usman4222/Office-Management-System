@@ -11,33 +11,38 @@ import { v4 as uuidv4 } from 'uuid';
 import { getAllRevenue } from '../../actions/revenue'
 import { useNavigate, useParams } from 'react-router-dom';
 
-const AllRevenue = () => {
+const AllRevenue = ({ match }) => {
     const dispatch = useDispatch();
     const { enqueueSnackbar } = useSnackbar();
     const { error, success, revenues } = useSelector((state) => state.allRevenues);
-    // const { keyword } = useParams();
     const [keyword, setKeyword] = useState("");
+    const [date, setDate] = useState(null);
     const navigate = useNavigate()
+    const params = useParams()
+
 
     useEffect(() => {
         if (error) {
             enqueueSnackbar(error, { variant: 'error' });
             dispatch(clearErrors());
         }
-        dispatch(getAllRevenue(keyword));
-    }, [error, dispatch, keyword]);
+        dispatch(getAllRevenue(keyword, date));
+    }, [error, dispatch, keyword, date]);
+
 
     const searchSubmitHandler = (e) => {
         e.preventDefault();
-
-        let history = []
-
-        if (keyword.trim()) {
-            history.push(`/${keyword}`);
+    
+        if (keyword.trim() || date) {
+            // If either keyword or date has a value, set both
+            setKeyword(`/allrevenue/${keyword}`);
+            // setDate(`/allrevenue/${date}`);
+            // dispatch(getAllRevenue(keyword, date));
         } else {
-            // navigate("/allrevenue");
+            navigate("/allrevenue");
         }
     };
+    
 
     const columns = [
         {
@@ -83,44 +88,45 @@ const AllRevenue = () => {
 
     return (
         <Fragment>
-            <div className='main'>
-                <div className='row w-full main1-r1'>
-                    <div className='col-lg-2 main1-r1-b1'>
-                        <Sidebar />
-                    </div>
-                    <div className='col-lg-10 main1-r1-b2'>
-                        <div className='row'>
-                            <div className='col-lg-12'>
-                                <Header />
-                            </div>
+        <div className='main'>
+            <div className='row w-full main1-r1'>
+                <div className='col-lg-2 main1-r1-b1'>
+                    <Sidebar />
+                </div>
+                <div className='col-lg-10 main1-r1-b2'>
+                    <div className='row'>
+                        <div className='col-lg-12'>
+                            <Header />
                         </div>
-                        <div className='dashboard'>
-                            <div className='productsListContainer'>
-                                <h1 className='productListHeading'>All Revenues</h1>
-                                <div>
-                                    <form className='searchBox' onSubmit={searchSubmitHandler}>
-                                        <input
-                                            type='text'
-                                            placeholder='Search a Revenue...'
-                                            onChange={(e) => setKeyword(e.target.value)}
-                                        />
-                                        <input type='submit' value='Search' />
-                                    </form>
-                                </div>
-                                <DataGrid
-                                    rows={rows}
-                                    columns={columns}
-                                    pageSize={100}
-                                    disableSelectionOnClick
-                                    className='productsListTable'
-                                    autoHeight
-                                />
+                    </div>
+                    <div className='dashboard'>
+                        <div className='productsListContainer'>
+                            <h1 className='productListHeading'>All Revenues</h1>
+                            <div>
+                                <form className='searchBox' onSubmit={searchSubmitHandler}>
+                                    <input
+                                        type='text'
+                                        // type='date'
+                                        placeholder='Search a Revenue...'
+                                        onChange={(e) => setKeyword(e.target.value)}
+                                    />
+                                    <input type='submit' value='Search' />
+                                </form>
                             </div>
+                            <DataGrid
+                                rows={rows}
+                                columns={columns}
+                                pageSize={100}
+                                disableSelectionOnClick
+                                className='productsListTable'
+                                autoHeight
+                            />
                         </div>
                     </div>
                 </div>
             </div>
-        </Fragment>
+        </div>
+    </Fragment>
     )
 }
 

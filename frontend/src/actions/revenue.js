@@ -43,11 +43,14 @@ export const addNewRevenue = (revenue) => async (dispatch) => {
 };
 
 
-export const getAllRevenue = () => async (dispatch) => {
+export const getAllRevenue = (keyword = "", date = "") => async (dispatch) => {
     try {
         dispatch({ type: GET_ALL_REVENUE_REQUEST });
 
-        const { data } = await axios.get(`${link}/allrevenues`);
+        const { data } = await axios.get(`${link}/allrevenues?keyword=${keyword}`);
+
+        // let link = `http://localhost:4000/api/v1/products?keyword=${keyword}`
+
 
         dispatch({ type: GET_ALL_REVENUE_SUCCESS, payload: data.revenues });
     } catch (error) {

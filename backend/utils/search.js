@@ -1,22 +1,48 @@
 class ApiFeatures {
     constructor(query, queryStr) {
         this.query = query;
-        this.queryStr = queryStr
+        this.queryStr = queryStr;
     }
 
     search() {
-        const keyword = this.queryStr.keyword ? {
-            name: {
-                $regex: this.queryStr.keyword,
-                $options: "i"
-            }
-        } : {}
+        if (this.queryStr.keyword) {
+            const keywordFilter = {
+                ref: {
+                    $regex: this.queryStr.keyword,
+                    $options: 'i',
+                },
+            };
+            this.query = this.query.find(keywordFilter);
+        }
 
-        console.log(keyword)
-        this.query = this.query.find({ ...keyword })
+        if (this.queryStr.number) {
+            const numberFilter = {
+                number: {
+                    $regex: this.queryStr.number,
+                    $options: 'i',
+                },
+            };
+            this.query = this.query.find(numberFilter);
+        }
+
+        if (this.queryStr.date) {
+            // Assuming the date format is 'MM/DD/YYYY'
+            const [month, day, year] = this.queryStr.date.split('/');
+            const startDate = new Date(`${year}/${month}/${day}`);
+            const endDate = new Date(startDate);
+            endDate.setDate(endDate.getDate() + 1);
+
+            const dateFilter = {
+                date: {
+                    $gte: startDate,
+                    $lt: endDate,
+                },
+            };
+            this.query = this.query.find(dateFilter);
+        }
+
         return this;
     }
 }
-
 
 module.exports = ApiFeatures;

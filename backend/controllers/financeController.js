@@ -21,12 +21,12 @@ exports.financeController = catchAsyncError(async (req, res, next) => {
 
 exports.getAllExpenses = catchAsyncError(async (req, res, next) => {
     try {
+        // const { keyword } = req.query;
 
-        const { keyword, number, date } = req.query;
+        // const apiFeature = new ApiFeatures(spend.find(), { keyword }).search();
 
-        const apiFeature = new ApiFeatures(spend.find(), { keyword, number, date }).search();
-
-        const expenses = await apiFeature.query;
+        // const expenses = await apiFeature.query;
+        const expenses = await spend.find()
 
         if (expenses.length === 0) {
             return next(new ErrorHandler("No Expense Found", 400));
@@ -52,8 +52,8 @@ exports.getCurrentMonthExpenses = catchAsyncError(async (req, res, next) => {
         const totalMonthlyExpenses = await spend.find({
             $expr: {
                 $and: [
-                    { $eq: [{ $month: "$date" }, currentMonth] }, 
-                    { $eq: [{ $year: "$date" }, currentYear] }, 
+                    { $eq: [{ $month: "$date" }, currentMonth] },
+                    { $eq: [{ $year: "$date" }, currentYear] },
                 ],
             },
         });

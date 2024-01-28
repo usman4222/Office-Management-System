@@ -18,8 +18,8 @@ import {
 } from "../constants/userConstant"
 
 const initialState = {
-    token: localStorage.getItem('token'),
-    isAuthenticated: localStorage.getItem('token') ? true : false,
+    token: localStorage.getItem('authToken'),
+    isAuthenticated: localStorage.getItem('authToken') ? true : false,
     loading: false,
     isRegistered: false
 }
@@ -57,7 +57,7 @@ export const userReducer = (state = initialState, action) => {
                 isAuthenticated: false,
                 user: null,
                 error: action.payload
-            }
+            };
         case LOGOUT_FAIL:
             return {
                 ...state,

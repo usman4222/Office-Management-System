@@ -15,15 +15,17 @@ exports.isAuthenticatedUser = catchAsyncError(async (req, res, next) => {
     }
 
     const token = authHeader.split(' ')[1];
+    console.log(token);
 
     try {
         const { _id } = jwt.verify(token, JWT_SECRET);
-        req.user = await User.findById(_id);
+        req.user = await User.findById({ _id });
 
         if (!req.user) {
             return next(new ErrorHandler("Invalid user.", 401));
         }
 
+        console.log("This is user",req.user);
         next();
     } catch (error) {
         console.error(error);

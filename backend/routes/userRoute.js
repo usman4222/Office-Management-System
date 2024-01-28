@@ -1,7 +1,7 @@
 const express = require('express');
 const { registerUser, loginUser, logoutUser } = require('../controllers/userController');
 const { deleteEmployee, addNewEmployee, updateEmployee, getAllEmployees, getOneEmployeeDetails } = require('../controllers/addUserController');
-const { markAttendance,  getSpecificUserAttendance, getSingleAttendance, editSingleAttendance } = require('../controllers/attendanceController');
+const { markAttendance, getSpecificUserAttendance, getSingleAttendance, editSingleAttendance } = require('../controllers/attendanceController');
 const { financeController, getAllExpenses, getCurrentMonthExpenses } = require('../controllers/financeController');
 const { createRevenue, getAllRevenue, getCurrentMonthRevenue } = require('../controllers/revenueController');
 const { isAuthenticatedUser, authorizeRole } = require('../middleware/Authentication')

@@ -41,13 +41,15 @@ export const addNewRevenue = (revenue) => async (dispatch) => {
         throw error;
     }
 };
+// const { data } = await axios.get(`${link}/allrevenues?keyword=${keyword}`);
 
 
-export const getAllRevenue = (keyword = "", date = "") => async (dispatch) => {
+export const getAllRevenue = (keyword = "") => async (dispatch) => {
     try {
         dispatch({ type: GET_ALL_REVENUE_REQUEST });
 
         const { data } = await axios.get(`${link}/allrevenues?keyword=${keyword}`);
+        // const { data } = await axios.get(`${link}/allrevenues?date=${date}`);
 
         dispatch({ type: GET_ALL_REVENUE_SUCCESS, payload: data.revenues });
     } catch (error) {

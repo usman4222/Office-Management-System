@@ -31,12 +31,10 @@ exports.createRevenue = catchAsyncError(async (req, res, next) => {
 
 exports.getAllRevenue = catchAsyncError(async (req, res, next) => {
     try {
-        const { keyword, month } = req.query;
+        const { keyword } = req.query;
 
-        const apiFeature = new ApiFeatures(revenue.find(), { keyword, month });
-        const revenues = await apiFeature.search(); // Use await to get the result
-
-        console.log('Revenues after filtering:', revenues);
+        const apiFeature = new ApiFeatures(revenue.find(), { keyword });
+        const revenues = await apiFeature.search(); 
 
         res.status(200).json({
             success: true,

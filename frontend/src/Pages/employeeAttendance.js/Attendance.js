@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Fragment } from 'react';
 import { DataGrid } from '@material-ui/data-grid';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 import { Button } from '@material-ui/core';
 import { getAllUsers, clearErrors } from '../../actions/addUserAction';
@@ -15,26 +15,26 @@ const Attendance = () => {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
   const { error, users } = useSelector((state) => state.allUser);
-  const { error: deleteError, isDeleted, message } = useSelector((state) => state.delUser);
+  const [keyword, setKeyword] = useState("");
+  const navigate = useNavigate()
+  const params = useParams()
 
   useEffect(() => {
     if (error) {
       enqueueSnackbar(error, { variant: 'error' });
       dispatch(clearErrors());
     }
-    if (deleteError) {
-      enqueueSnackbar(deleteError, { variant: 'error' });
-      dispatch(clearErrors());
-    }
-    if (isDeleted) {
-      enqueueSnackbar('User deleted Successfully', { variant: 'success' });
-      dispatch({ type: DELETE_USER_RESET });
-    }
-    dispatch(getAllUsers());
-  }, [error, dispatch, deleteError, isDeleted, message, enqueueSnackbar]);
+    dispatch(getAllUsers(keyword));
+  }, [error, dispatch, enqueueSnackbar, keyword]);
 
-  const deleteUserHandler = (id) => {
-    dispatch(deleteUser(id));
+  const searchSubmitHandler = (e) => {
+    e.preventDefault();
+
+    if (keyword.trim()) {
+      setKeyword(`/attendance/${keyword}`);
+    } else {
+      navigate("/attendance");
+    }
   };
 
   const columns = [
@@ -152,6 +152,16 @@ const Attendance = () => {
             <div className='dashboard'>
               <div className='productsListContainer'>
                 <h1 className='productListHeading'>Employee Attendance</h1>
+                <div>
+                  <form className='searchBox' onSubmit={searchSubmitHandler}>
+                    <input
+                      type='text'
+                      placeholder='Search a Employee...'
+                      onChange={(e) => setKeyword(e.target.value)}
+                    />
+                    <input type='submit' value='Search' />
+                  </form>
+                </div>
                 <DataGrid
                   rows={rows}
                   columns={columns}

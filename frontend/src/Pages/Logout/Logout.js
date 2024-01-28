@@ -14,7 +14,7 @@ const Logout = () => {
 
     function logoutUser() {
         dispatch(logout());
-        enqueueSnackbar('Not Working Now...!', { variant: 'success' });
+        enqueueSnackbar('Logout Successfully...!', { variant: 'success' });
         navigate('/login'); 
     }
 

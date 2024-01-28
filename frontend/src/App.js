@@ -26,37 +26,46 @@ function App() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
-
   useEffect(() => {
-    dispatch(getAllUsers)
+    dispatch(getAllUsers);
   }, [dispatch]);
+
+  // console.log('User:', user);
+
+  // Check if user is defined before accessing its properties
+  // const isAdmin = isAuthenticated && user && user.role === "admin";
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<RegisterLogin />} path="/login" />
-        <Route element={<AddUser />} path="/adduser" />
-        <Route element={<AllUser />} path="/allemployees" />
-        <Route element={<UpdateUser />} path="/updateuser/:id" />
-        <Route element={<Attendance />} path="/attendance" />
-        <Route element={<UserAttendance />} path="/attendance/:id" />
-        <Route element={<AttendanceDetails />} path="/attendance/view/:id" />
-        <Route element={<DashBoard />} path="/" />
-        {/* {isAuthenticated && user.role === 'admin' && (
-          <> */}
-        <Route element={<Finance />} path="/finance" />
-        <Route element={<AllExpenses />} path="/allexpenses" />
-        <Route element={<CreateRevenue />} path="/revenue" />
-        <Route element={<AllRevenue />} path="/allrevenue/:keyword" />
-        <Route element={<AllRevenue />} path="/allrevenue" />
-        {/* </>
-        )} */}
-        <Route element={<AttendanceList />} path="/attendancelist/:id" />
-        <Route element={<UpdateUserAttendance />} path="/updateattendance/:userId/:attendanceId" />
-        <Route element={<Logout />} path="/logout" />
-        <Route element={<Search />} path="/Search" />
-        <Route path="/" element={<Navigate to="/login" />} />
-        <Route path="*" element={<NotFound />} />
+        {isAuthenticated ? (
+          <>
+            <Route element={<DashBoard />} path="/" />
+            <Route element={<AddUser />} path="/adduser" />
+            <Route element={<AllUser />} path="/allemployees" />
+            <Route element={<UpdateUser />} path="/updateuser/:id" />
+            <Route element={<Attendance />} path="/attendance" />
+            <Route element={<UserAttendance />} path="/attendance/:id" />
+            <Route element={<AttendanceDetails />} path="/attendance/view/:id" />
+            {/* {console.log('User:', user)}
+            {isAdmin && (
+              <> */}
+                <Route element={<Finance />} path="/finance" />
+                <Route element={<AllExpenses />} path="/allexpenses" />
+                <Route element={<CreateRevenue />} path="/revenue" />
+                <Route element={<AllRevenue />} path="/allrevenue/:keyword" />
+                <Route element={<AllRevenue />} path="/allrevenue" />
+              {/* </>
+            )} */}
+            <Route element={<AttendanceList />} path="/attendancelist/:id" />
+            <Route element={<UpdateUserAttendance />} path="/updateattendance/:userId/:attendanceId" />
+            <Route element={<Logout />} path="/logout" />
+            <Route element={<Search />} path="/Search" />
+          </>
+        ) : (
+          <Route path="/login" element={<RegisterLogin />} />
+        )}
+        <Route element={<NotFound />} path="*" />
       </Routes>
     </BrowserRouter>
   );

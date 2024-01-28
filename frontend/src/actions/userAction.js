@@ -30,13 +30,11 @@ export const login = (email, password) => async (dispatch) => {
         });
 
         const { data } = await axios.post(
-            `${link}login`,
+            `${link}/login`,
             { email, password }
         );
 
         localStorage.setItem('authToken', data.token);
-
-        axios.defaults.headers.common['Authorization'] = `Bearer ${ data.token}`;
 
         dispatch({
             type: LOGIN_SUCCESS,
@@ -49,6 +47,7 @@ export const login = (email, password) => async (dispatch) => {
         });
     }
 };
+
 
 
 

@@ -47,8 +47,10 @@ const RegisterLogin = () => {
 
     useEffect(() => {
         if (error) {
-            enqueueSnackbar(`Invalid Credentials`, { variant: 'error' });
+            enqueueSnackbar(error, { variant: 'error' });
             dispatch(clearErrors());
+            console.log("This is error", error)
+            alert(error)
         }
         if (isAuthenticated) {
             enqueueSnackbar('Successfully Logged In', { variant: 'success' });
@@ -83,9 +85,11 @@ const RegisterLogin = () => {
     return (
         <div className='main-form'>
             <div className='login'>
-                <div className={`login ${trans ? 'trans' : ''}`} onClick={logClick}>
+                <div className={`login`} onClick={logClick}>
                     <form ref={loginTab} onSubmit={loginSubmit}>
-                        <h2 className={trans ? 'scaleDown' : ''}>Log In</h2>
+                        <h2 className='mt-2'
+                        // className={trans ? 'scaleDown' : ''}
+                        >Log In</h2>
                         <input
                             type='email'
                             placeholder='Email'
@@ -107,8 +111,8 @@ const RegisterLogin = () => {
                     </form>
 
                 </div>
-                <div className={`register ${trans ? 'transformed' : ''}`} onClick={regClick}>
-                    <form
+                <div className={`register`} onClick={regClick}>
+                    {/* <form
                         ref={registerTab}
                         encType='multipart/form-data'
                         onSubmit={registerSubmit}
@@ -147,7 +151,7 @@ const RegisterLogin = () => {
                         <div className='submitBtn'>
                             <button type='submit'>Register</button>
                         </div>
-                    </form>
+                    </form> */}
                 </div>
 
             </div>

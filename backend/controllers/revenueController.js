@@ -30,6 +30,7 @@ exports.createRevenue = catchAsyncError(async (req, res, next) => {
 
 exports.getAllRevenue = catchAsyncError(async (req, res, next) => {
     try {
+<<<<<<< HEAD
         const { startDate, endDate } = req.query;
 
         if (!startDate || !endDate) {
@@ -65,6 +66,14 @@ exports.getAllRevenue = catchAsyncError(async (req, res, next) => {
         ];
 
         const result = await revenue.aggregate(aggregationPipeline);
+=======
+        const { keyword, month } = req.query;
+
+        const apiFeature = new ApiFeatures(revenue.find(), { keyword, month });
+        const revenues = await apiFeature.search(); // Use await to get the result
+
+        console.log('Revenues after filtering:', revenues);
+>>>>>>> 5e4c09dd8b5848618fe357e655a3216ab5fd9568
 
         res.status(200).json({
             success: true,
@@ -82,7 +91,10 @@ exports.getAllRevenue = catchAsyncError(async (req, res, next) => {
 
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5e4c09dd8b5848618fe357e655a3216ab5fd9568
 exports.getCurrentMonthRevenue = catchAsyncError(async (req, res, next) => {
     try {
         const currentDate = new Date();

@@ -1,17 +1,4 @@
-/* .searchBox{
-    width: 100vw;
-    height: 100vh;
-    max-width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgb(231, 231, 231);
-    position: fixed;
-    top: 0%;
-    left: 0%;
-} */
 .searchBox{
-    /* background: #000; */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -44,4 +31,17 @@
 }
 .searchBox > input[type = "submit"]:hover{
     background: #86EFAC;
+}
+
+
+
+.searchBar {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.dateInputContainer {
+    display: flex;
+    flex-direction: column;
 }

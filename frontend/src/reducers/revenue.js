@@ -49,7 +49,7 @@ export const revenueReducer = (state = { revenue: [] }, action) => {
 
 
 
-export const allRevenuesReducer = (state = { revenues: [] }, action) => {
+export const allRevenuesReducer = (state = { revenues: [], totalAmount: 0 }, action) => {
 
     switch (action.type) {
         case GET_ALL_REVENUE_REQUEST:
@@ -61,7 +61,8 @@ export const allRevenuesReducer = (state = { revenues: [] }, action) => {
             return {
                 ...state,
                 loading: false,
-                revenues: action.payload
+                revenues: action.payload,
+                totalAmount: action.payload.totalAmount,
             }
         case GET_ALL_REVENUE_FAIL:
             return {

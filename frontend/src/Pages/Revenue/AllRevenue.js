@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import '../AllUsers/AllUser.css'
+import './All.css'
 import { Fragment } from 'react'
 import { DataGrid } from '@material-ui/data-grid'
 import { useSelector, useDispatch } from 'react-redux'
@@ -14,35 +15,31 @@ import { useNavigate, useParams } from 'react-router-dom';
 const AllRevenue = ({ match }) => {
     const dispatch = useDispatch();
     const { enqueueSnackbar } = useSnackbar();
-    const { error, success, revenues } = useSelector((state) => state.allRevenues);
-    const [keyword, setKeyword] = useState("");
-    const [date, setDate] = useState(null);
-    const navigate = useNavigate()
-    const params = useParams()
+    const { error, success, revenues, totalAmount } = useSelector((state) => state.allRevenues);
 
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
+
+
+    const handleSearch = () => {
+        if (startDate && endDate) {
+            dispatch(getAllRevenue({ startDate, endDate }));
+        } else {
+            enqueueSnackbar('Please Enter Both Start and End Dates for the Search.', { variant: 'warning' });
+        }
+    };
 
     useEffect(() => {
         if (error) {
             enqueueSnackbar(error, { variant: 'error' });
             dispatch(clearErrors());
         }
-        dispatch(getAllRevenue(keyword, date));
-    }, [error, dispatch, keyword, date]);
-
-
-    const searchSubmitHandler = (e) => {
-        e.preventDefault();
-    
-        if (keyword.trim() || date) {
-            // If either keyword or date has a value, set both
-            setKeyword(`/allrevenue/${keyword}`);
-            // setDate(`/allrevenue/${date}`);
-            // dispatch(getAllRevenue(keyword, date));
-        } else {
-            navigate("/allrevenue");
+        if (startDate && endDate) {
+            dispatch(getAllRevenue({ startDate, endDate }));
         }
-    };
-    
+    }, [error, dispatch, startDate, endDate]);
+
+
 
     const columns = [
         {
@@ -77,7 +74,8 @@ const AllRevenue = ({ match }) => {
         }
     ];
 
-    const rows = revenues.map((item, index) => ({
+
+    const rows = revenues && revenues.map((item, index) => ({
         id: uuidv4(),
         index: index + 1,
         ref: item.ref,
@@ -86,48 +84,69 @@ const AllRevenue = ({ match }) => {
         description: item.description
     }));
 
+
     return (
         <Fragment>
-        <div className='main'>
-            <div className='row w-full main1-r1'>
-                <div className='col-lg-2 main1-r1-b1'>
-                    <Sidebar />
-                </div>
-                <div className='col-lg-10 main1-r1-b2'>
-                    <div className='row'>
-                        <div className='col-lg-12'>
-                            <Header />
-                        </div>
+            <div className='main'>
+                <div className='row w-full main1-r1'>
+                    <div className='col-lg-2 main1-r1-b1'>
+                        <Sidebar />
                     </div>
-                    <div className='dashboard'>
-                        <div className='productsListContainer'>
-                            <h1 className='productListHeading'>All Revenues</h1>
-                            <div>
-                                <form className='searchBox' onSubmit={searchSubmitHandler}>
-                                    <input
-                                        type='text'
-                                        // type='date'
-                                        placeholder='Search a Revenue...'
-                                        onChange={(e) => setKeyword(e.target.value)}
-                                    />
-                                    <input type='submit' value='Search' />
-                                </form>
+                    <div className='col-lg-10 main1-r1-b2'>
+                        <div className='row'>
+                            <div className='col-lg-12'>
+                                <Header />
                             </div>
-                            <DataGrid
-                                rows={rows}
-                                columns={columns}
-                                pageSize={100}
-                                disableSelectionOnClick
-                                className='productsListTable'
-                                autoHeight
-                            />
+                        </div>
+                        <div className='dashboard'>
+                            <div className='productsListContainer'>
+                                <h1 className='productListHeading'>All Revenues</h1>
+                                <div className='search-area'>
+                                    <div className='search-box'>
+                                        <input
+                                            type="date"
+                                            placeholder="Start Date"
+                                            value={startDate}
+                                            onChange={(e) => setStartDate(e.target.value)}
+                                        />
+                                        <input
+                                            type="date"
+                                            placeholder="End Date"
+                                            value={endDate}
+                                            onChange={(e) => setEndDate(e.target.value)}
+                                        />
+                                        <div className='search-btn'>
+                                            <input type='submit' value='Search' onClick={handleSearch} />
+                                        </div>
+                                    </div>
+                                </div>
+                                <DataGrid
+                                    rows={rows}
+                                    columns={columns}
+                                    pageSize={100}
+                                    disableSelectionOnClick
+                                    className='productsListTable'
+                                    autoHeight
+                                />
+                                <p>{totalAmount}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </Fragment>
+        </Fragment>
     )
 }
 
 export default AllRevenue;
+
+{/* <div className='total'>
+<div className='total-box'>
+    <div className='amount-heading'>
+        <p>Total Amount = </p>
+    </div>
+    <div className='amount'>
+        <p>{totalAmount}</p>
+    </div>
+</div>
+</div> */}

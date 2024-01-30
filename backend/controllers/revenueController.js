@@ -28,23 +28,55 @@ exports.createRevenue = catchAsyncError(async (req, res, next) => {
 })
 
 
-
 exports.getAllRevenue = catchAsyncError(async (req, res, next) => {
     try {
-        const { keyword } = req.query;
+        const { startDate, endDate } = req.query;
 
-        const apiFeature = new ApiFeatures(revenue.find(), { keyword });
-        const revenues = await apiFeature.search(); 
+        if (!startDate || !endDate) {
+            return res.status(400).json({
+                success: false,
+                message: 'Both start date and end date are required.',
+            });
+        }
+
+        const dateFilter = {
+            date: {
+                $gte: new Date(startDate),
+                $lte: new Date(endDate),
+            },
+        };
+
+        const aggregationPipeline = [
+            { $match: dateFilter },
+            {
+                $group: {
+                    _id: null,
+                    totalAmount: { $sum: '$amount' },
+                    revenues: { $push: '$$ROOT' },
+                },
+            },
+            {
+                $project: {
+                    _id: 0,
+                    totalAmount: 1,
+                    revenues: 1,
+                },
+            },
+        ];
+
+        const result = await revenue.aggregate(aggregationPipeline);
 
         res.status(200).json({
             success: true,
-            revenues,
+            totalAmount: result.length > 0 ? result[0].totalAmount : 0,
+            revenues: result.length > 0 ? result[0].revenues : [],
         });
     } catch (error) {
         console.error(error);
-        return next(new ErrorHandler("Error getting revenues", 500));
+        return next(new ErrorHandler('Error getting revenues', 500));
     }
 });
+
 
 
 

@@ -15,32 +15,27 @@ const AllExpenses = () => {
     const dispatch = useDispatch();
     const { enqueueSnackbar } = useSnackbar();
     const { error, success, expenses } = useSelector((state) => state.allExpenses);
-    const [keyword, setKeyword] = useState("");
-    const [date, setDate] = useState(null);
-    const navigate = useNavigate()
-    const params = useParams()
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
+
+
+    const handleSearch = () => {
+        if (startDate && endDate) {
+            dispatch(getAllExpenses({ startDate, endDate }));
+        } else {
+            enqueueSnackbar('Please Enter Both Start and End Dates for the Search.', { variant: 'warning' });
+        }
+    };
 
     useEffect(() => {
         if (error) {
             enqueueSnackbar(error, { variant: 'error' });
             dispatch(clearErrors());
         }
-        dispatch(getAllExpenses(keyword));
-    }, [error, dispatch, keyword]);
-
-
-    const searchSubmitHandler = (e) => {
-        e.preventDefault();
-
-        if (keyword.trim() || date) {
-            // If either keyword or date has a value, set both
-            setKeyword(`/allexpenses/${keyword}`);
-            // setDate(`/allrevenue/${date}`);
-            // dispatch(getAllRevenue(keyword, date));
-        } else {
-            navigate("/allexpenses");
+        if (startDate && endDate) {
+            dispatch(getAllExpenses({ startDate, endDate }));
         }
-    };
+    }, [error, dispatch, startDate, endDate]);
 
     const columns = [
         {
@@ -107,16 +102,24 @@ const AllExpenses = () => {
                         <div className='dashboard'>
                             <div className='productsListContainer'>
                                 <h1 className='productListHeading'>All Expenses</h1>
-                                <div>
-                                    <form className='searchBox' onSubmit={searchSubmitHandler}>
+                                <div className='search-area'>
+                                    <div className='search-box'>
                                         <input
-                                            type='text'
-                                            // type='date'
-                                            placeholder='Search a Expense...'
-                                            onChange={(e) => setKeyword(e.target.value)}
+                                            type="date"
+                                            placeholder="Start Date"
+                                            value={startDate}
+                                            onChange={(e) => setStartDate(e.target.value)}
                                         />
-                                        <input type='submit' value='Search' />
-                                    </form>
+                                        <input
+                                            type="date"
+                                            placeholder="End Date"
+                                            value={endDate}
+                                            onChange={(e) => setEndDate(e.target.value)}
+                                        />
+                                        <div className='search-btn'>
+                                            <input type='submit' value='Search' onClick={handleSearch} />
+                                        </div>
+                                    </div>
                                 </div>
                                 <DataGrid
                                     rows={rows}

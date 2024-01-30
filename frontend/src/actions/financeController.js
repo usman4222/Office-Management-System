@@ -47,11 +47,18 @@ export const addNewExpense = (expense) => async (dispatch) => {
 
 
 
-export const getAllExpenses = (keyword = "",) => async (dispatch) => {
+export const getAllExpenses = ({ startDate, endDate }) => async (dispatch) => {
     try {
         dispatch({ type: GET_ALL_EXPENSES_REQUEST });
 
-        const { data } = await axios.get(`${link}/allexpenses?keyword=${keyword}`);
+        const queryParams = new URLSearchParams({
+            startDate: encodeURIComponent(startDate),
+            endDate: encodeURIComponent(endDate),
+        });
+
+        const url = `${link}/allexpenses?${queryParams}`;
+
+        const { data } = await axios.get(url);
 
         dispatch({ type: GET_ALL_EXPENSES_SUCCESS, payload: data.expenses });
     } catch (error) {

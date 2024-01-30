@@ -21,21 +21,46 @@ exports.financeController = catchAsyncError(async (req, res, next) => {
 
 exports.getAllExpenses = catchAsyncError(async (req, res, next) => {
     try {
-        // const { keyword } = req.query;
+        const { startDate, endDate } = req.query;
 
-        // const apiFeature = new ApiFeatures(spend.find(), { keyword }).search();
-
-        // const expenses = await apiFeature.query;
-        const expenses = await spend.find()
-
-        if (expenses.length === 0) {
-            return next(new ErrorHandler("No Expense Found", 400));
+        if (!startDate || !endDate) {
+            return res.status(400).json({
+                success: false,
+                message: 'Both start date and end date are required.',
+            });
         }
+
+        const dateFilter = {
+            date: {
+                $gte: new Date(startDate),
+                $lte: new Date(endDate),
+            },
+        };
+
+        const aggregationPipeline = [
+            { $match: dateFilter },
+            {
+                $group: {
+                    _id: null,
+                    totalAmount: { $sum: '$amount' },
+                    expenses: { $push: '$$ROOT' },
+                },
+            },
+            {
+                $project: {
+                    _id: 0,
+                    totalAmount: 1,
+                    expenses: 1,
+                },
+            },
+        ];
+
+        const result = await spend.aggregate(aggregationPipeline);
 
         res.status(200).json({
             success: true,
-            expenses,
-            error: { message: "This is an error while getting all expenses" }
+            totalAmount: result.length > 0 ? result[0].totalAmount : 0,
+            expenses: result.length > 0 ? result[0].expenses : [],
         });
     } catch (error) {
         return next(new ErrorHandler("Error getting expenses", 500));

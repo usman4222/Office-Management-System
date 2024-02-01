@@ -2,7 +2,7 @@ const express = require('express');
 const { registerUser, loginUser, logoutUser } = require('../controllers/userController');
 const { deleteEmployee, addNewEmployee, updateEmployee, getAllEmployees, getOneEmployeeDetails } = require('../controllers/addUserController');
 const { markAttendance, getSpecificUserAttendance, getSingleAttendance, editSingleAttendance } = require('../controllers/attendanceController');
-const { financeController, getAllExpenses, getCurrentMonthExpenses } = require('../controllers/financeController');
+const { financeController, getAllExpenses, getCurrentMonthExpenses, expenseList } = require('../controllers/financeController');
 const { createRevenue, getAllRevenue, getCurrentMonthRevenue, revenueList } = require('../controllers/revenueController');
 const { isAuthenticatedUser, authorizeRole } = require('../middleware/Authentication')
 const router = express.Router()
@@ -22,6 +22,7 @@ router.route('/getuserattendance/:id').get(getSpecificUserAttendance)
 router.route('/getsingleattendance/:id/:attendanceId').get(getSingleAttendance)
 router.route('/finance').post(financeController)
 router.route('/allexpenses').get(getAllExpenses)
+router.route('/expenselist').get(expenseList)
 router.route('/getExpenses').get(getCurrentMonthExpenses)
 router.route('/revenue').post(createRevenue)
 router.route('/allrevenues').get(getAllRevenue)

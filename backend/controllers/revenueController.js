@@ -31,8 +31,6 @@ exports.revenueList = catchAsyncError(async (req, res, next) => {
     try {
         const revenueList = await revenue.find()
 
-        console.log(revenueList);
-
         return res.status(200).json({
             success: true,
             revenueList

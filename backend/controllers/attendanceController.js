@@ -45,6 +45,70 @@ exports.markAttendance = catchAsyncError(async (req, res, next) => {
 });
 
 
+
+exports.searchUserAttendance = catchAsyncError(async (req, res, next) => {
+    const userId = req.params.id;
+    const startDate = req.query.startDate;
+    const endDate = req.query.endDate;
+
+    try {
+        const user = await newUser.findById(userId);
+
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                error: 'User not found',
+            });
+        }
+
+        let filteredAttendance;
+
+        if (startDate && endDate) {
+            filteredAttendance = user.attendance.filter((entry) => {
+                const entryDate = new Date(entry.date);
+                return entryDate >= new Date(startDate) && entryDate <= new Date(endDate);
+            });
+        } else {
+            filteredAttendance = user.attendance;
+        }
+
+        let presentCount = 0;
+        let absentCount = 0;
+        let leaveCount = 0;
+
+        filteredAttendance.forEach((entry) => {
+            switch (entry.status) {
+                case 'Present':
+                    presentCount++;
+                    break;
+                case 'Absent':
+                    absentCount++;
+                    break;
+                case 'Leave':
+                    leaveCount++;
+                    break;
+                default:
+                    break;
+            }
+        });
+
+        res.status(200).json({
+            success: true,
+            userAttendance: filteredAttendance,
+            presentCount,
+            absentCount,
+            leaveCount,
+        });
+    } catch (error) {
+        console.error(`Error getting user attendance: ${error.message}`);
+        next(error);
+    }
+});
+
+
+
+
+
 exports.getSpecificUserAttendance = catchAsyncError(async (req, res, next) => {
     const userId = req.params.id;
 

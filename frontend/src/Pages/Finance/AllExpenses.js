@@ -101,7 +101,7 @@ const AllExpenses = () => {
                         </div>
                         <div className='dashboard'>
                             <div className='productsListContainer'>
-                                <h1 className='productListHeading'>All Expenses</h1>
+                                <h1 className='productListHeading'>Search Expense by Date</h1>
                                 <div className='search-area'>
                                     <div className='search-box'>
                                         <input

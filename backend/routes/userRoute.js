@@ -1,7 +1,7 @@
 const express = require('express');
 const { registerUser, loginUser, logoutUser } = require('../controllers/userController');
 const { deleteEmployee, addNewEmployee, updateEmployee, getAllEmployees, getOneEmployeeDetails } = require('../controllers/addUserController');
-const { markAttendance, getSpecificUserAttendance, getSingleAttendance, editSingleAttendance } = require('../controllers/attendanceController');
+const { markAttendance, getSpecificUserAttendance, getSingleAttendance, editSingleAttendance, searchUserAttendance } = require('../controllers/attendanceController');
 const { financeController, getAllExpenses, getCurrentMonthExpenses, expenseList } = require('../controllers/financeController');
 const { createRevenue, getAllRevenue, getCurrentMonthRevenue, revenueList } = require('../controllers/revenueController');
 const { isAuthenticatedUser, authorizeRole } = require('../middleware/Authentication')
@@ -17,6 +17,7 @@ router.route('/delete/:id').delete(deleteEmployee)
 router.route('/updateemployee/:id').put(updateEmployee)
 router.route('/employee/:id').get(getOneEmployeeDetails)
 router.route('/attendance/:id').put(markAttendance)
+router.route('/searchattendance/:id').get(searchUserAttendance)
 router.route('/editsingleattendance/:id/:attendanceId').put(editSingleAttendance)
 router.route('/getuserattendance/:id').get(getSpecificUserAttendance)
 router.route('/getsingleattendance/:id/:attendanceId').get(getSingleAttendance)

@@ -1,46 +1,51 @@
 import React, { useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
-import { getAllExpenses } from "../../actions/financeController";
+import { getAllExpenses, getExpenseList } from "../../actions/financeController";
 import { useDispatch, useSelector } from "react-redux";
 
 Chart.register(CategoryScale);
 
 const BarChart = () => {
     const chartRef = useRef(null);
-    const { expenses } = useSelector((state) => state.allExpenses);
+    const { expenseList } = useSelector((state) => state.expenseList);
     const dispatch = useDispatch();
 
+    console.log("This is expenseList", expenseList);
+
     useEffect(() => {
-        // dispatch(getAllExpenses());
+        dispatch(getExpenseList());
     }, [dispatch]);
 
     useEffect(() => {
-        if (expenses.length === 0) return;
-
+        if (!expenseList || !Array.isArray(expenseList.expenseList) || expenseList.expenseList.length === 0) {
+            return;
+        }
+    
         const currentYear = new Date().getFullYear();
-
+    
         const monthlyData = Array.from({ length: 12 }, (_, monthIndex) => {
-            const monthExpenses = expenses.filter((expense) => {
+            const monthExpenses = expenseList.expenseList.filter((expense) => {
                 const expenseDate = new Date(expense.date);
                 const expenseMonth = expenseDate.getMonth();
                 const expenseYear = expenseDate.getFullYear();
                 return expenseMonth === monthIndex && expenseYear === currentYear;
             });
-
+    
             const totalAmount = monthExpenses.reduce(
                 (accumulator, expense) => accumulator + parseFloat(expense.amount),
                 0
             );
-
+    
             return totalAmount;
         });
-
+    
+    
         const chartData = {
             labels: [
                 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
                 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
-              ],
+            ],
             datasets: [
                 {
                     label: "Total Monthly Expenses(Current Year)",
@@ -77,7 +82,7 @@ const BarChart = () => {
                 },
             ],
         };
-
+    
         const ctx = chartRef.current.getContext("2d");
         const myChart = new Chart(ctx, {
             type: "bar",
@@ -93,11 +98,13 @@ const BarChart = () => {
                 },
             },
         });
-
+    
         return () => {
             myChart.destroy();
         };
-    }, [expenses]);
+    }, [expenseList]);
+    
+    
 
     return (
         <div>

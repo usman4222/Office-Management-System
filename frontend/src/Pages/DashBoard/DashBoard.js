@@ -9,7 +9,7 @@ import { Doughnut } from 'react-chartjs-2';
 import { GiExpense } from "react-icons/gi";
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllUsers } from '../../actions/addUserAction';
-import { getAllExpenses, getCurrentMonthExpenses } from '../../actions/financeController';
+import { getAllExpenses, getCurrentMonthExpenses, getExpenseList } from '../../actions/financeController';
 import ReactApexChart from 'react-apexcharts';
 import CountUp from 'react-countup';
 import BarChart from './BarChart';
@@ -28,23 +28,29 @@ const DashBoard = ({ user }) => {
     const { users } = useSelector((state) => state.allUser);
     const { totalCurrentMonthExpenses } = useSelector((state) => state.currentMonthTotal);
     const { totalCurrentMonthRevenue } = useSelector((state) => state.currentMonthRevenue);
-    const { expenses } = useSelector((state) => state.allExpenses);
+    const { expenseList } = useSelector((state) => state.expenseList);
 
 
 
     useEffect(() => {
         dispatch(getAllUsers());
-        // dispatch(getAllExpenses());
+        dispatch(getExpenseList());
         dispatch(getCurrentMonthExpenses())
         dispatch(getCurrentMonthRevenue())
     }, [dispatch]);
 
 
     const calculateTotalExpenses = () => {
-        return expenses.reduce((accumulator, expense) => {
+        if (!expenseList || !Array.isArray(expenseList.expenseList)) {
+            return 0; 
+        }
+    
+        return expenseList.expenseList.reduce((accumulator, expense) => {
             return accumulator + parseFloat(expense.amount);
         }, 0);
     };
+    
+    
 
 
 

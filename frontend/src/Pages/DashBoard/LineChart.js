@@ -1,30 +1,37 @@
 import React, { useEffect, useState } from 'react';
 import { Line } from 'react-chartjs-2';
-import { getAllRevenue } from '../../actions/revenue';
+import { getRevenueList } from '../../actions/revenue';
 import { useDispatch, useSelector } from 'react-redux';
 
 const LineChart = () => {
-    const { revenues } = useSelector((state) => state.allRevenues);
+    const { revenueList } = useSelector((state) => state.revenueList);
     const dispatch = useDispatch();
     const [revenueData, setRevenueData] = useState([]);
 
     useEffect(() => {
-        dispatch(getAllRevenue());
+        dispatch(getRevenueList());
     }, [dispatch]);
 
     useEffect(() => {
+        if (!revenueList || !Array.isArray(revenueList.revenueList)) {
+            console.error("Invalid revenue list structure:", revenueList);
+            return;
+        }
+
         const currentYear = new Date().getFullYear();
-        const revenuesForCurrentYear = revenues.filter(revenue => new Date(revenue.date).getFullYear() === currentYear);
+        const revenuesForCurrentYear = revenueList.revenueList.filter(
+            (revenue) => new Date(revenue.date).getFullYear() === currentYear
+        );
 
         let newRevenueData = Array.from({ length: 12 }, () => 0);
 
-        revenuesForCurrentYear.forEach(revenue => {
+        revenuesForCurrentYear.forEach((revenue) => {
             const monthIndex = new Date(revenue.date).getMonth();
-            newRevenueData[monthIndex] += revenue.amount; 
+            newRevenueData[monthIndex] += revenue.amount;
         });
 
         setRevenueData(newRevenueData);
-    }, [revenues]);
+    }, [revenueList]);
 
     const months = [
         'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',

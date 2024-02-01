@@ -17,6 +17,7 @@ import {
     userUpdateReducer
 } from './reducers/attendanceReducer';
 import {
+    allExpensesListReducer,
     allExpensesReducer,
     currentMonthTotalReducer,
     financeReducer
@@ -38,6 +39,7 @@ const rootReducer = combineReducers({
     editUser: userUpdateReducer,
     finance: financeReducer,
     allExpenses: allExpensesReducer,
+    expenseList: allExpensesListReducer,
     currentMonthTotal: currentMonthTotalReducer,
     revenue: revenueReducer,
     allRevenues: allRevenuesReducer,

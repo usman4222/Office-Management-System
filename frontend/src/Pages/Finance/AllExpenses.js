@@ -9,7 +9,7 @@ import { getAllExpenses } from '../../actions/financeController'
 import Sidebar from '../Sidebar'
 import Header from '../../components/Header'
 import { v4 as uuidv4 } from 'uuid';
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 
 const AllExpenses = () => {
     const dispatch = useDispatch();
@@ -129,6 +129,7 @@ const AllExpenses = () => {
                                     className='productsListTable'
                                     autoHeight
                                 />
+                                <Link to="/expenselist">Expense List</Link>
                             </div>
                         </div>
                     </div>

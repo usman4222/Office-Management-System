@@ -8,7 +8,10 @@ import {
     GET_ALL_EXPENSES_FAIL,
     GET_CURRENT_MONTH_TOTAL_REQUEST,
     GET_CURRENT_MONTH_TOTAL_SUCCESS,
-    GET_CURRENT_MONTH_TOTAL_FAIL
+    GET_CURRENT_MONTH_TOTAL_FAIL,
+    GET_ALL_EXPENSES_LIST_REQUEST,
+    GET_ALL_EXPENSES_LIST_SUCCESS,
+    GET_ALL_EXPENSES_LIST_FAIL
 } from "../constants/financeConstant";
 import axios from "axios";
 
@@ -44,6 +47,20 @@ export const addNewExpense = (expense) => async (dispatch) => {
     }
 };
 
+
+export const getExpenseList = () => async (dispatch) => {
+    try {
+        dispatch({ type: GET_ALL_EXPENSES_LIST_REQUEST });
+
+        const { data } = await axios.get(`${link}/expenselist`);
+        dispatch({ type: GET_ALL_EXPENSES_LIST_SUCCESS, payload: data });
+    } catch (error) {
+        dispatch({
+            type: GET_ALL_EXPENSES_LIST_FAIL,
+            payload: { message: "Error in getting revenue list", error }
+        });
+    }
+};
 
 
 

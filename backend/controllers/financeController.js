@@ -72,8 +72,6 @@ exports.expenseList = catchAsyncError(async (req, res, next) => {
     try {
         const expenseList = await spend.find()
 
-        console.log(expenseList);
-
         return res.status(200).json({
             success: true,
             expenseList

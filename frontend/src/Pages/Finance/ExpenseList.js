@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import '../AllUsers/AllUser.css'
-import './All.css'
+// import './All.css'
 import { Fragment } from 'react'
 import { DataGrid } from '@material-ui/data-grid'
 import { useSelector, useDispatch } from 'react-redux'
@@ -11,11 +11,12 @@ import Header from '../../components/Header'
 import { v4 as uuidv4 } from 'uuid';
 import { getAllRevenue, getRevenueList } from '../../actions/revenue'
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import { getExpenseList } from '../../actions/financeController'
 
-const RevenueList = () => {
+const ExpenseList = () => {
     const dispatch = useDispatch();
     const { enqueueSnackbar } = useSnackbar();
-    const { error, revenueList } = useSelector((state) => state.revenueList);
+    const { error, expenseList } = useSelector((state) => state.expenseList);
 
 
     useEffect(() => {
@@ -24,7 +25,7 @@ const RevenueList = () => {
             enqueueSnackbar(error, { variant: 'error' });
             dispatch(clearErrors());
         }
-        dispatch(getRevenueList());
+        dispatch(getExpenseList());
     }, [error, dispatch]);
 
 
@@ -64,8 +65,8 @@ const RevenueList = () => {
     ];
 
 
-    const rows = revenueList && Array.isArray(revenueList.revenueList)
-        ? revenueList.revenueList.map((item, index) => ({
+    const rows = expenseList && Array.isArray(expenseList.expenseList)
+        ? expenseList.expenseList.map((item, index) => ({
             id: item.id || uuidv4(),
             index: index + 1,
             ref: item.ref,
@@ -92,7 +93,7 @@ const RevenueList = () => {
                         </div>
                         <div className='dashboard'>
                             <div className='productsListContainer'>
-                                <h1 className='productListHeading'>Revenues List</h1>
+                                <h1 className='productListHeading'>Expenses List</h1>
                                 <DataGrid
                                     rows={rows || []}
                                     columns={columns}
@@ -110,4 +111,4 @@ const RevenueList = () => {
     )
 }
 
-export default RevenueList
+export default ExpenseList

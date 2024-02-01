@@ -96,25 +96,21 @@ export const userAttendanceReducer = (state = initialState, action) => {
 export const getUserSingleAttendanceReducer = (state = { singleAttendance: {} }, action) => {
   switch (action.type) {
     case GET_USER_SINGLE_ATTENDANCE_REQUEST:
-      console.log('GET_USER_SINGLE_ATTENDANCE_REQUEST');
       return {
         ...state,
         loading: true
       };
     case GET_USER_SINGLE_ATTENDANCE_SUCCESS:
-      console.log('GET_USER_SINGLE_ATTENDANCE_SUCCESS', action.payload);
       return {
         loading: false,
         singleAttendance: action.payload
       };
     case GET_USER_SINGLE_ATTENDANCE_FAIL:
-      console.log('GET_USER_SINGLE_ATTENDANCE_FAIL', action.payload);
       return {
         loading: false,
         error: action.payload
       };
     case CLEAR_ERRORS:
-      console.log('CLEAR_ERRORS');
       return {
         ...state,
         error: null

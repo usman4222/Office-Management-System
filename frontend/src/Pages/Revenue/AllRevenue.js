@@ -10,7 +10,7 @@ import Sidebar from '../Sidebar'
 import Header from '../../components/Header'
 import { v4 as uuidv4 } from 'uuid';
 import { getAllRevenue } from '../../actions/revenue'
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 const AllRevenue = ({ match }) => {
     const dispatch = useDispatch();
@@ -128,7 +128,7 @@ const AllRevenue = ({ match }) => {
                                     className='productsListTable'
                                     autoHeight
                                 />
-                                <p>{totalAmount}</p>
+                                <Link to="/revenuelist">Revenue List</Link>
                             </div>
                         </div>
                     </div>

@@ -27,6 +27,24 @@ exports.createRevenue = catchAsyncError(async (req, res, next) => {
     }
 })
 
+exports.revenueList = catchAsyncError(async (req, res, next) => {
+    try {
+        const revenueList = await revenue.find()
+
+        console.log(revenueList);
+
+        return res.status(200).json({
+            success: true,
+            revenueList
+        });
+    } catch (error) {
+        return next(new ErrorHandler("Error while getting revenue list"));
+    }
+});
+
+
+
+
 
 exports.getAllRevenue = catchAsyncError(async (req, res, next) => {
     try {

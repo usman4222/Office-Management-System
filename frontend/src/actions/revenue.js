@@ -4,6 +4,9 @@ import {
     CREATE_REVENUE_REQUEST,
     CREATE_REVENUE_SUCCESS,
     GET_ALL_REVENUE_FAIL,
+    GET_ALL_REVENUE_LIST_FAIL,
+    GET_ALL_REVENUE_LIST_REQUEST,
+    GET_ALL_REVENUE_LIST_SUCCESS,
     GET_ALL_REVENUE_REQUEST,
     GET_ALL_REVENUE_SUCCESS,
     GET_CURRENT_MONTH_TOTAL_REVENUE_FAIL,
@@ -64,6 +67,22 @@ export const getAllRevenue = ({ startDate, endDate }) => async (dispatch) => {
         });
     }
 };
+
+
+export const getRevenueList = () => async (dispatch) => {
+    try {
+        dispatch({ type: GET_ALL_REVENUE_LIST_REQUEST });
+
+        const { data } = await axios.get(`${link}/revenuelist`);
+        dispatch({ type: GET_ALL_REVENUE_LIST_SUCCESS, payload: data });
+    } catch (error) {
+        dispatch({
+            type: GET_ALL_REVENUE_LIST_FAIL,
+            payload: { message: "Error in getting revenue list", error }
+        });
+    }
+};
+
 
 
 

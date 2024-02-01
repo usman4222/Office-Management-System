@@ -21,7 +21,7 @@ import {
     currentMonthTotalReducer,
     financeReducer
 } from './reducers/financeReducer';
-import { allRevenuesReducer, currentMonthTotalRevenueReducer, revenueReducer } from './reducers/revenue';
+import { allRevenuesListReducer, allRevenuesReducer, currentMonthTotalRevenueReducer, revenueReducer } from './reducers/revenue';
 
 const rootReducer = combineReducers({
     user: userReducer,
@@ -41,6 +41,7 @@ const rootReducer = combineReducers({
     currentMonthTotal: currentMonthTotalReducer,
     revenue: revenueReducer,
     allRevenues: allRevenuesReducer,
+    revenueList: allRevenuesListReducer,
     currentMonthRevenue: currentMonthTotalRevenueReducer
 });
 

@@ -34,7 +34,7 @@ const DashBoard = ({ user }) => {
 
     useEffect(() => {
         dispatch(getAllUsers());
-        dispatch(getAllExpenses());
+        // dispatch(getAllExpenses());
         dispatch(getCurrentMonthExpenses())
         dispatch(getCurrentMonthRevenue())
     }, [dispatch]);

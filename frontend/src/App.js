@@ -21,6 +21,7 @@ import { getAllUsers } from './actions/addUserAction';
 import CreateRevenue from './Pages/Revenue/CreateRevenue';
 import AllRevenue from './Pages/Revenue/AllRevenue';
 import Search from './Pages/Search/Search';
+import RevenueList from './Pages/Revenue/RevenueList';
 
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -55,6 +56,8 @@ function App() {
                 <Route element={<CreateRevenue />} path="/revenue" />
                 <Route element={<AllRevenue />} path="/allrevenue/:keyword" />
                 <Route element={<AllRevenue />} path="/allrevenue" />
+                <Route element={<RevenueList />} path="/revenuelist" />
+
               {/* </>
             )} */}
             <Route element={<AttendanceList />} path="/attendancelist/:id" />

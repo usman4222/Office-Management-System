@@ -12,7 +12,7 @@ const BarChart = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getAllExpenses());
+        // dispatch(getAllExpenses());
     }, [dispatch]);
 
     useEffect(() => {

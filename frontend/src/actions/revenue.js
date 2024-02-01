@@ -44,7 +44,6 @@ export const addNewRevenue = (revenue) => async (dispatch) => {
         throw error;
     }
 };
-// const { data } = await axios.get(`${link}/allrevenues?keyword=${keyword}`);
 
 export const getAllRevenue = ({ startDate, endDate }) => async (dispatch) => {
     try {
@@ -59,7 +58,10 @@ export const getAllRevenue = ({ startDate, endDate }) => async (dispatch) => {
 
         const { data } = await axios.get(url);
 
-        dispatch({ type: GET_ALL_REVENUE_SUCCESS, payload: data.revenues });
+        dispatch({
+            type: GET_ALL_REVENUE_SUCCESS,
+            payload: { totalAmount: data.totalAmount, revenues: data.revenues }
+        });
     } catch (error) {
         dispatch({
             type: GET_ALL_REVENUE_FAIL,

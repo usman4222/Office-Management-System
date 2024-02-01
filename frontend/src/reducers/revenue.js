@@ -64,7 +64,7 @@ export const allRevenuesReducer = (state = { revenues: [], totalAmount: 0 }, act
             return {
                 ...state,
                 loading: false,
-                revenues: action.payload,
+                revenues: action.payload.revenues,
                 totalAmount: action.payload.totalAmount,
             }
         case GET_ALL_REVENUE_FAIL:

@@ -100,7 +100,7 @@ const AllRevenue = ({ match }) => {
                         </div>
                         <div className='dashboard'>
                             <div className='productsListContainer'>
-                                <h1 className='productListHeading'>All Revenues</h1>
+                                <h1 className='productListHeading'>Search Revenues by Date</h1>
                                 <div className='search-area'>
                                     <div className='search-box'>
                                         <input
@@ -128,7 +128,19 @@ const AllRevenue = ({ match }) => {
                                     className='productsListTable'
                                     autoHeight
                                 />
-                                <Link to="/revenuelist">Revenue List</Link>
+                                <div className='total'>
+                                    <div className='total-box'>
+                                        <div className='amount-heading'>
+                                            <p>Total Amount = </p>
+                                        </div>
+                                        <div className='amount'>
+                                            <p>{totalAmount}</p>
+                                        </div>
+                                    </div>
+                                    <div className='list'>
+                                        <Link to="/revenuelist">Revenue List</Link>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

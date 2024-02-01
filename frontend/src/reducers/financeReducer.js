@@ -91,7 +91,7 @@ export const financeReducer = (state = { expense: [] }, action) => {
 }
 
 
-export const allExpensesReducer = (state = { expenses: [] }, action) => {
+export const allExpensesReducer =  (state = { expenses: [], totalAmount: 0 }, action) => {
 
     switch (action.type) {
         case GET_ALL_EXPENSES_REQUEST:
@@ -103,7 +103,8 @@ export const allExpensesReducer = (state = { expenses: [] }, action) => {
             return {
                 ...state,
                 loading: false,
-                expenses: action.payload
+                expenses: action.payload.expenses,
+                totalAmount: action.payload.totalAmount,
             }
         case GET_ALL_EXPENSES_FAIL:
             return {

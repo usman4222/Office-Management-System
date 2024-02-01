@@ -14,7 +14,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 const AllExpenses = () => {
     const dispatch = useDispatch();
     const { enqueueSnackbar } = useSnackbar();
-    const { error, success, expenses } = useSelector((state) => state.allExpenses);
+    const { error, expenses, totalAmount } = useSelector((state) => state.allExpenses);
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
 
@@ -129,7 +129,19 @@ const AllExpenses = () => {
                                     className='productsListTable'
                                     autoHeight
                                 />
-                                <Link to="/expenselist">Expense List</Link>
+                                <div className='total'>
+                                    <div className='total-box'>
+                                        <div className='amount-heading'>
+                                            <p>Total Amount = </p>
+                                        </div>
+                                        <div className='amount'>
+                                            <p>{totalAmount}</p>
+                                        </div>
+                                    </div>
+                                    <div className='list'>
+                                        <Link to="/expenselist">Expense List</Link>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

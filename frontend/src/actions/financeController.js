@@ -77,7 +77,10 @@ export const getAllExpenses = ({ startDate, endDate }) => async (dispatch) => {
 
         const { data } = await axios.get(url);
 
-        dispatch({ type: GET_ALL_EXPENSES_SUCCESS, payload: data.expenses });
+        dispatch({
+            type:GET_ALL_EXPENSES_SUCCESS,
+            payload: { totalAmount: data.totalAmount, expenses: data.expenses }
+        });
     } catch (error) {
         dispatch({
             type: GET_ALL_EXPENSES_FAIL,

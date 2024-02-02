@@ -14,7 +14,6 @@ const AttendanceList = () => {
 
     const userId = user ? user._id : '';
 
-
     useEffect(() => {
         if (userId) {
             dispatch(getUserAttendance(userId));

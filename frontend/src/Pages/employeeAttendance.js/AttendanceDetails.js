@@ -1,7 +1,7 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import { DataGrid } from '@material-ui/data-grid';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAttendanceDetails } from '../../actions/attendanceAction';
+import { getAttendanceDetails, getUserAttendance } from '../../actions/attendanceAction';
 import { getUserDetails } from '../../actions/updateUser';
 import { Link, useParams } from 'react-router-dom';
 import Header from '../../components/Header';
@@ -13,16 +13,10 @@ import { Button } from '@material-ui/core';
 
 const AttendanceDetails = () => {
     const { user } = useSelector((state) => state.getUser);
+    const { userAttendance, presentCount, absentCount, leaveCount, totalEntries, presentPercentage } = useSelector((state) => state.userAttendance);
     const dispatch = useDispatch();
     const { id } = useParams();
-    const params = useParams();
-    const [showAttendance, setShowAttendance] = useState(false);
     const [attendanceDetails, setAttendanceDetails] = useState([]);
-    const [presentPercentage, setPresentPercentage] = useState(0);
-    const [presentCount, setPresentCount] = useState(0);
-    const [absentCount, setAbsentCount] = useState(0);
-    const [leaveCount, setLeaveCount] = useState(0);
-    const [totalEntries, setTotalEntries] = useState(0);
 
     useEffect(() => {
         const isUserDataIncomplete = !user || user._id !== id;
@@ -33,51 +27,27 @@ const AttendanceDetails = () => {
     }, [dispatch, id, user]);
 
 
+    const userId = user ? user._id : '';
+
     useEffect(() => {
-        if (user && user.attendance && user.attendance.length > 0) {
-            let presentCount = 0;
-            let absentCount = 0;
-            let leaveCount = 0;
-            let totalEntries = 0;
-
-            const currentDate = new Date();
-            const currentMonth = currentDate.getMonth() + 1;
-
-            const attendanceData = user.attendance.map((item, index) => {
-                const id = uuidv4();
-                const entryDate = new Date(item.date);
-
-                if (entryDate.getMonth() + 1 === currentMonth) {
-                    totalEntries++;
-
-                    const date = entryDate.toLocaleDateString();
-                    const status = item.status;
-
-                    if (status === 'Present') {
-                        presentCount++;
-                    } else if (status === 'Absent') {
-                        absentCount++;
-                    } else if (status === 'Leave') {
-                        leaveCount++;
-                    }
-
-                    return { id, date, status };
-                }
-
-                return null;
-            }).filter(Boolean);
-
-            setAttendanceDetails(attendanceData);
-            setShowAttendance(true);
-
-            const percentage = (presentCount / totalEntries) * 100;
-            setPresentPercentage(percentage);
-            setPresentCount(presentCount);
-            setAbsentCount(absentCount);
-            setLeaveCount(leaveCount);
-            setTotalEntries(totalEntries);
+        if (userId) {
+            dispatch(getUserAttendance(userId));
         }
-    }, [user]);
+    }, [dispatch, userId]);
+
+    useEffect(() => {
+        if (userAttendance.userAttendance) {
+            setAttendanceDetails(userAttendance.userAttendance);
+            localStorage.setItem('userAttendance', JSON.stringify(userAttendance.userAttendance));
+        }
+    }, [userAttendance]);
+
+    useEffect(() => {
+        if (userAttendance.userAttendance) {
+            setAttendanceDetails(userAttendance.userAttendance);
+        }
+    }, [userAttendance]);
+
 
     const DoughnutChart = () => {
         const data = {
@@ -85,7 +55,7 @@ const AttendanceDetails = () => {
             datasets: [
                 {
                     label: 'Views',
-                    data: [presentCount, absentCount, leaveCount],
+                    data: [userAttendance.presentCount, userAttendance.absentCount, userAttendance.leaveCount],
                     borderColor: ['rgb(62,12, 171)', 'rgb(214, 44, 129)'],
                     backgroundColor: ['rgba(62,12, 171, 0.3)', 'rgba(214, 44, 129, 0.3)'],
                     borderWidth: 1,
@@ -137,23 +107,23 @@ const AttendanceDetails = () => {
                             <div className='row main-r1'>
                                 <div className='col-lg-2 main-r1-2'>
                                     <p className='status'>Present</p>
-                                    <p>{presentCount}</p>
+                                    <p>{userAttendance.presentCount}</p>
                                 </div>
                                 <div className='col-lg-2 main-r1-b1'>
                                     <p className='status'>Absent</p>
-                                    <p>{absentCount}</p>
+                                    <p>{userAttendance.absentCount}</p>
                                 </div>
                                 <div className='col-lg-2 main-r1-2'>
                                     <p className='status'>Leave</p>
-                                    <p>{leaveCount}</p>
+                                    <p>{userAttendance.leaveCount}</p>
                                 </div>
                                 <div className='col-lg-2 main-r1-b1'>
                                     <p className='status'>Total Days</p>
-                                    <p>{totalEntries}</p>
+                                    <p>{userAttendance.totalEntries}</p>
                                 </div>
                                 <div className='col-lg-2 main-r1-2'>
                                     <p className='status'>Total Persentage</p>
-                                    <p>{presentPercentage.toFixed(0)}%</p>
+                                    <p>{userAttendance.presentPercentage.toFixed(0)}%</p>
                                 </div>
                                 <div className='col-lg-2 main-r1-b1'>
                                     <Link to={`/searchattendance/${user._id}`}>

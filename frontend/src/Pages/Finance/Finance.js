@@ -35,13 +35,13 @@ const Finance = () => {
         dispatch(getCurrentMonthExpenses());
     }, [dispatch, enqueueSnackbar, error]);
 
-    useEffect(() => {
-        if (error) {
-            enqueueSnackbar(error, { variant: 'error' });
-            dispatch(clearErrors());
-        }
-        dispatch(getAllExpenses());
-    }, [error, dispatch]);
+    // useEffect(() => {
+    //     if (error) {
+    //         enqueueSnackbar(error, { variant: 'error' });
+    //         dispatch(clearErrors());
+    //     }
+    //     dispatch(getAllExpenses(startDate, endDate));
+    // }, [error, dispatch]);
 
     const addExpenseHandler = async (e) => {
         e.preventDefault();

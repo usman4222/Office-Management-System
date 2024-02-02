@@ -98,7 +98,21 @@ export const getUserAttendance = (userId) => async (dispatch) => {
 
         if (userId) {
             const { data } = await axios.get(`${link}/getuserattendance/${userId}`);
-            dispatch({ type: GET_USER_ATTENDANCE_SUCCESS, payload: data });
+
+            console.log("This is user attendance data", data);
+
+            dispatch({
+                type: GET_USER_ATTENDANCE_SUCCESS,
+                payload: {
+                    userAttendance: data.userAttendance,
+                    presentCount: data.presentCount,
+                    absentCount: data.absentCount,
+                    leaveCount: data.leaveCount,
+                    totalEntries: data.totalEntries,
+                    presentPercentage: data.presentPercentage,
+                },
+            });
+            console.log(data);
         } else {
             throw new Error('User ID is undefined');
         }

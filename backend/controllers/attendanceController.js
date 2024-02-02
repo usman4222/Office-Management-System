@@ -112,10 +112,6 @@ exports.searchUserAttendance = catchAsyncError(async (req, res, next) => {
 });
 
 
-
-
-
-
 exports.getSpecificUserAttendance = catchAsyncError(async (req, res, next) => {
     const userId = req.params.id;
 
@@ -129,17 +125,53 @@ exports.getSpecificUserAttendance = catchAsyncError(async (req, res, next) => {
             });
         }
 
-        const userAttendance = user.attendance;
+        const currentDate = new Date();
+        const currentMonth = currentDate.getMonth();
+        const currentYear = currentDate.getFullYear();
+
+        const userAttendance = user.attendance.filter((entry) => {
+            const entryDate = new Date(entry.date);
+            return entryDate.getMonth() === currentMonth && entryDate.getFullYear() === currentYear;
+        });
+
+        let presentCount = 0;
+        let absentCount = 0;
+        let leaveCount = 0;
+
+        userAttendance.forEach((entry) => {
+            switch (entry.status) {
+                case 'Present':
+                    presentCount++;
+                    break;
+                case 'Absent':
+                    absentCount++;
+                    break;
+                case 'Leave':
+                    leaveCount++;
+                    break;
+                default:
+                    break;
+            }
+        });
+
+        const totalEntries = userAttendance.length;
+
+        const presentPercentage = (presentCount / totalEntries) * 100;
 
         res.status(200).json({
             success: true,
             userAttendance,
+            presentCount,
+            absentCount,
+            leaveCount,
+            totalEntries,
+            presentPercentage,
         });
     } catch (error) {
         console.error(`Error getting user attendance: ${error.message}`);
         next(error);
     }
-})
+});
 
 
 

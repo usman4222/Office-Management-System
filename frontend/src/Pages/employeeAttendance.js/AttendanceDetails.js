@@ -156,8 +156,8 @@ const AttendanceDetails = () => {
                                     <p>{presentPercentage.toFixed(0)}%</p>
                                 </div>
                                 <div className='col-lg-2 main-r1-b1'>
-                                    <Link to={`/attendancelist/${user._id}`}>
-                                        <Button>Check Details</Button>
+                                    <Link to={`/searchattendance/${user._id}`}>
+                                        <Button>Search Attendance</Button>
                                     </Link>
                                 </div>
                             </div>

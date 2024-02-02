@@ -92,18 +92,25 @@ exports.searchUserAttendance = catchAsyncError(async (req, res, next) => {
             }
         });
 
+        const totalEntries = filteredAttendance.length;
+
+        const presentPercentage = (presentCount / totalEntries) * 100;
+
         res.status(200).json({
             success: true,
             userAttendance: filteredAttendance,
             presentCount,
             absentCount,
             leaveCount,
+            totalEntries,
+            presentPercentage,
         });
     } catch (error) {
         console.error(`Error getting user attendance: ${error.message}`);
         next(error);
     }
 });
+
 
 
 

@@ -12,6 +12,7 @@ import { deleteReducer } from './reducers/deleteUser';
 import { getUserReducer, updateUserDetails } from './reducers/updateUser';
 import {
     getUserSingleAttendanceReducer,
+    searchAttendanceReducer,
     updateUserAttendance,
     userAttendanceReducer,
     userUpdateReducer
@@ -36,6 +37,7 @@ const rootReducer = combineReducers({
     userAttendance: userAttendanceReducer,
     changeAttendance: updateUserAttendance,
     singleAttendance: getUserSingleAttendanceReducer,
+    filterAttendance: searchAttendanceReducer,
     editUser: userUpdateReducer,
     finance: financeReducer,
     allExpenses: allExpensesReducer,

@@ -23,6 +23,7 @@ import AllRevenue from './Pages/Revenue/AllRevenue';
 import Search from './Pages/Search/Search';
 import RevenueList from './Pages/Revenue/RevenueList';
 import ExpenseList from './Pages/Finance/ExpenseList';
+import FilterAttendance from './Pages/employeeAttendance.js/FilterAttendance';
 
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -63,6 +64,7 @@ function App() {
               {/* </>
             )} */}
             <Route element={<AttendanceList />} path="/attendancelist/:id" />
+            <Route element={<FilterAttendance />} path="/searchattendance/:id" />
             <Route element={<UpdateUserAttendance />} path="/updateattendance/:userId/:attendanceId" />
             <Route element={<Logout />} path="/logout" />
             <Route element={<Search />} path="/Search" />

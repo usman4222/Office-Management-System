@@ -13,6 +13,9 @@ import {
     GET_USER_ATTENDANCE_REQUEST,
     GET_USER_ATTENDANCE_SUCCESS,
     GET_USER_ATTENDANCE_FAIL,
+    SEARCH_USER_ATTENDANCE_REQUEST,
+    SEARCH_USER_ATTENDANCE_SUCCESS,
+    SEARCH_USER_ATTENDANCE_FAIL,
 } from '../constants/attendanceConstant';
 
 let link = `http://localhost:4000/api/v1`
@@ -50,6 +53,42 @@ export const updateUserCon = (id, attendanceData) => async (dispatch) => {
         console.log('Update error:', error.response || error.message || error);
     }
 };
+
+
+
+export const getSearchAttendance = (userId, startDate, endDate) => async (dispatch) => {
+    try {
+        dispatch({ type: SEARCH_USER_ATTENDANCE_REQUEST });
+
+        const queryParams = new URLSearchParams({
+            startDate: encodeURIComponent(startDate),
+            endDate: encodeURIComponent(endDate),
+        });
+
+        const url = `${link}/searchattendance/${userId}?${queryParams}`;
+
+        const { data } = await axios.get(url);
+
+        dispatch({
+            type: SEARCH_USER_ATTENDANCE_SUCCESS,
+            payload: {
+                userAttendance: data.userAttendance,
+                presentCount: data.presentCount,
+                absentCount: data.absentCount,
+                leaveCount: data.leaveCount,
+                totalEntries: data.totalEntries,
+                presentPercentage: data.presentPercentage,
+            },
+        });
+    } catch (error) {
+        dispatch({
+            type: SEARCH_USER_ATTENDANCE_FAIL,
+            payload: error.response ? error.response.data.message : error.message,
+        });
+    }
+};
+
+
 
 
 

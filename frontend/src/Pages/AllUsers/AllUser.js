@@ -13,12 +13,13 @@ import { deleteUser } from '../../actions/deleteUser'
 import { DELETE_USER_RESET } from '../../constants/deleteUserConstant'
 import Sidebar from '../Sidebar'
 import Header from '../../components/Header'
+import Loader from '../../components/Loader/Loader';
 
 const AllUser = () => {
 
     const dispatch = useDispatch()
     const { enqueueSnackbar } = useSnackbar();
-    const { error, users } = useSelector((state) => state.allUser)
+    const { loading, error, users } = useSelector((state) => state.allUser)
     const { error: deleteError, isDeleted, message } = useSelector((state) => state.delUser)
     const [keyword, setKeyword] = useState("");
     const navigate = useNavigate()
@@ -100,29 +101,19 @@ const AllUser = () => {
                 return params.getValue(params.id, "role") === "admin"
                     ? "greenColor" : "redColor"
             }
-        },
-        {
-            field: "action",
-            headerName: "Action",
-            minWidth: 100,
-            type: "number",
-            sortable: false,
-            flex: 0.5,
-            renderCell: (params) => {
-                return (
-                    <Fragment>
-                        <Link to={`/updateuser/${params.getValue(params.id, "id")}`} className='edit'>
-                            <EditIcon />
-                        </Link>
-                        <Button onClick={() => deleteUserHandler(params.getValue(params.id, "id"))}>
-                            <DeleteIcon />
-                        </Button>
-
-                    </Fragment>
-                )
-            }
         }
     ]
+
+    const renderActionButton = (id) => (
+        <Fragment>
+            <Link to={`/updateuser/${id}`} className='edit'>
+                <EditIcon />
+            </Link>
+            <Button onClick={() => deleteUserHandler(id)}>
+                <DeleteIcon />
+            </Button>
+        </Fragment>
+    );
 
     const rows = users.map((item, index) => ({
         index: index + 1,
@@ -133,48 +124,75 @@ const AllUser = () => {
         designation: item.designation,
         phone: item.phone,
         address: item.address,
+        action: renderActionButton(item._id),
     }));
 
 
     return (
         <Fragment>
-            <div className='main' method="GET">
-                <div className='row w-full main1-r1'>
-                    <div className='col-lg-2 main1-r1-b1'>
-                        <Sidebar />
-                    </div>
-                    <div className='col-lg-10 main1-r1-b2'>
-                        <div className='row'>
-                            <div className='col-lg-12'>
-                                <Header />
-                            </div>
+            {loading ? <Loader /> : (
+                <div className='main' method="GET">
+                    <div className='row w-full main1-r1'>
+                        <div className='col-lg-2 main1-r1-b1'>
+                            <Sidebar />
                         </div>
-                        <div className='dashboard'>
-                            <div className='productsListContainer'>
-                                <h1 className='productListHeading'>All Employees</h1>
-                                <div>
-                                    <form className='searchBox' onSubmit={searchSubmitHandler}>
-                                        <input
-                                            type='text'
-                                            placeholder='Search a Employee...'
-                                            onChange={(e) => setKeyword(e.target.value)}
-                                        />
-                                        <input type='submit' value='Search' />
-                                    </form>
+                        <div className='col-lg-10 main1-r1-b2'>
+                            <div className='row'>
+                                <div className='col-lg-12'>
+                                    <Header />
                                 </div>
-                                <DataGrid
-                                    rows={rows}
-                                    columns={columns}
-                                    pageSize={100}
-                                    disableSelectionOnClick
-                                    className='productsListTable'
-                                    autoHeight
-                                />
+                            </div>
+                            <div className='dashboard'>
+                                <div className='productsListContainer'>
+                                    <h1 className='productListHeading'>All Employees</h1>
+                                    <div>
+                                        <form className='searchBox' onSubmit={searchSubmitHandler}>
+                                            <input
+                                                type='text'
+                                                placeholder='Search a Employee...'
+                                                onChange={(e) => setKeyword(e.target.value)}
+                                            />
+                                            <input type='submit' value='Search' />
+                                        </form>
+                                    </div>
+                                    {rows.length > 0 ? (
+                                        <table className='table'>
+                                            <thead>
+                                                <tr>
+                                                    <th style={{ textAlign: 'center' }}>Index</th>
+                                                    <th style={{ textAlign: 'center' }}>Name</th>
+                                                    <th style={{ textAlign: 'center' }}>F.Name</th>
+                                                    <th style={{ textAlign: 'center' }}>Phone</th>
+                                                    <th style={{ textAlign: 'center' }}>Address</th>
+                                                    <th style={{ textAlign: 'center' }}>Designation</th>
+                                                    <th style={{ textAlign: 'center' }}>Role</th>
+                                                    <th style={{ textAlign: 'center' }}>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {rows.map((item, index) => (
+                                                    <tr key={index} style={{ backgroundColor: index % 2 === 0 ? '#f2f2f2' : '#ffffff' }}>
+                                                        <td style={{ textAlign: 'center' }}>{item.index}</td>
+                                                        <td style={{ textAlign: 'center' }}>{item.name}</td>
+                                                        <td style={{ textAlign: 'center' }}>{item.fatherName}</td>
+                                                        <td style={{ textAlign: 'center' }}>{item.phone}</td>
+                                                        <td style={{ textAlign: 'center' }}>{item.address}</td>
+                                                        <td style={{ textAlign: 'center' }}>{item.designation}</td>
+                                                        <td style={{ textAlign: 'center' }}>{item.role}</td>
+                                                        <td style={{ textAlign: 'center' }}>{item.action}</td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    ) : (
+                                        <p style={{ textAlign: 'center' }}>No Employees data available</p>
+                                    )}
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            )}
         </Fragment>
     )
 }

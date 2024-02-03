@@ -8,6 +8,7 @@ import { getUserDetails, updateUserDetails } from '../../actions/updateUser';
 import { UPDATE_USER_RESET } from '../../constants/updateUser';
 import Header from '../../components/Header';
 import Sidebar from '../Sidebar';
+import Loader from '../../components/Loader/Loader';
 
 const UpdateUser = () => {
 
@@ -15,7 +16,7 @@ const UpdateUser = () => {
     const navigate = useNavigate()
     const { id } = useParams()
     const { error: updateError, isUpdated } = useSelector((state) => state.updateUser)
-    const { user } = useSelector((state) => state.getUser)
+    const { user, loading } = useSelector((state) => state.getUser)
 
 
     const [name, setName] = useState("")
@@ -87,7 +88,7 @@ const UpdateUser = () => {
 
     return (
         <Fragment>
-            <div className='main'>
+            {loading ? <Loader /> : (<div className='main'>
                 <div className='row w-full'>
                     <div className='col-lg-2'>
                         <Sidebar />
@@ -159,7 +160,7 @@ const UpdateUser = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>)}
         </Fragment>
     );
 };

@@ -43,21 +43,54 @@
 .cv {
   background: #000;
 }
-.search-data{
+
+.search-data {
   padding: 60px 0;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.dough-chart{
+
+.dough-chart {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.df{
+
+.df {
   width: 500px;
   height: 300px;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+@media screen and (max-width: 768px) {
+
+  .att-btn {
+    background: none;
+  }
+
+  .do {
+    /* background: #000; */
+    padding-top: 70%;
+  }
+  .main-r1-b1 a{
+    padding-top: 20px;
+  }
+  .dough-chart{
+    padding-top: 60%;
+  }
+
+}
+
+@media screen and (max-width: 425px) {
+
+  .do {
+    padding-top: 140%;
+  }
+  .dough-chart{
+    padding-top: 120%;
+  }
+
 }

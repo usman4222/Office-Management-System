@@ -12,11 +12,12 @@ import { v4 as uuidv4 } from 'uuid';
 import { getAllRevenue, getRevenueList } from '../../actions/revenue'
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { getExpenseList } from '../../actions/financeController'
+import Loader from '../../components/Loader/Loader'
 
 const ExpenseList = () => {
     const dispatch = useDispatch();
     const { enqueueSnackbar } = useSnackbar();
-    const { error, expenseList } = useSelector((state) => state.expenseList);
+    const { error, expenseList, loading } = useSelector((state) => state.expenseList);
 
 
     useEffect(() => {
@@ -69,6 +70,7 @@ const ExpenseList = () => {
         ? expenseList.expenseList.map((item, index) => ({
             id: item.id || uuidv4(),
             index: index + 1,
+            title: item.title,
             ref: item.ref,
             date: new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(item.date)),
             amount: item.amount,
@@ -80,33 +82,55 @@ const ExpenseList = () => {
 
     return (
         <Fragment>
-            <div className='main'>
-                <div className='row w-full main1-r1'>
-                    <div className='col-lg-2 main1-r1-b1'>
-                        <Sidebar />
-                    </div>
-                    <div className='col-lg-10 main1-r1-b2'>
-                        <div className='row'>
-                            <div className='col-lg-12'>
-                                <Header />
-                            </div>
+            {loading ? <Loader /> : (
+                <div className='main'>
+                    <div className='row w-full main1-r1'>
+                        <div className='col-lg-2 main1-r1-b1'>
+                            <Sidebar />
                         </div>
-                        <div className='dashboard'>
-                            <div className='productsListContainer'>
-                                <h1 className='productListHeading'>Expenses List</h1>
-                                <DataGrid
-                                    rows={rows || []}
-                                    columns={columns}
-                                    pageSize={100}
-                                    disableSelectionOnClick
-                                    className='productsListTable'
-                                    autoHeight
-                                />
+                        <div className='col-lg-10 main1-r1-b2'>
+                            <div className='row'>
+                                <div className='col-lg-12'>
+                                    <Header />
+                                </div>
+                            </div>
+                            <div className='dashboard'>
+                                <div className='productsListContainer'>
+                                    <h1 className='productListHeading'>Expenses List</h1>
+                                    {rows.length > 0 ? (
+                                        <table className='table'>
+                                            <thead>
+                                                <tr>
+                                                    <th style={{ textAlign: 'center' }}>Index</th>
+                                                    <th style={{ textAlign: 'center' }}>Title</th>
+                                                    <th style={{ textAlign: 'center' }}>Ref</th>
+                                                    <th style={{ textAlign: 'center' }}>Date</th>
+                                                    <th style={{ textAlign: 'center' }}>Amount</th>
+                                                    <th style={{ textAlign: 'center' }}>Description</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {rows.map((item, index) => (
+                                                    <tr key={index} style={{ backgroundColor: index % 2 === 0 ? '#f2f2f2' : '#ffffff' }}>
+                                                        <td style={{ textAlign: 'center' }}>{item.index}</td>
+                                                        <td style={{ textAlign: 'center' }}>{item.title}</td>
+                                                        <td style={{ textAlign: 'center' }}>{item.ref}</td>
+                                                        <td style={{ textAlign: 'center' }}>{item.date}</td>
+                                                        <td style={{ textAlign: 'center' }}>{item.amount}</td>
+                                                        <td style={{ textAlign: 'center' }}>{item.description}</td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    ) : (
+                                        <p style={{ textAlign: 'center' }}>No expense data available</p>
+                                    )}
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            )}
         </Fragment>
     )
 }

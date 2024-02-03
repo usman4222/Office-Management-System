@@ -50,7 +50,6 @@ export const updateUserCon = (id, attendanceData) => async (dispatch) => {
             type: UPDATE_USER_FAIL,
             payload: error.response.data.message
         });
-        console.log('Update error:', error.response || error.message || error);
     }
 };
 
@@ -99,8 +98,6 @@ export const getUserAttendance = (userId) => async (dispatch) => {
         if (userId) {
             const { data } = await axios.get(`${link}/getuserattendance/${userId}`);
 
-            console.log("This is user attendance data", data);
-
             dispatch({
                 type: GET_USER_ATTENDANCE_SUCCESS,
                 payload: {
@@ -112,7 +109,6 @@ export const getUserAttendance = (userId) => async (dispatch) => {
                     presentPercentage: data.presentPercentage,
                 },
             });
-            console.log(data);
         } else {
             throw new Error('User ID is undefined');
         }

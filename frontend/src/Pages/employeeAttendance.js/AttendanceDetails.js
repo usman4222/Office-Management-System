@@ -10,9 +10,10 @@ import { Doughnut } from 'react-chartjs-2';
 import { v4 as uuidv4 } from 'uuid';
 import './Attendance.css'
 import { Button } from '@material-ui/core';
+import Loader from '../../components/Loader/Loader';
 
 const AttendanceDetails = () => {
-    const { user } = useSelector((state) => state.getUser);
+    const { loading, user } = useSelector((state) => state.getUser);
     const { userAttendance, presentCount, absentCount, leaveCount, totalEntries, presentPercentage } = useSelector((state) => state.userAttendance);
     const dispatch = useDispatch();
     const { id } = useParams();
@@ -91,55 +92,57 @@ const AttendanceDetails = () => {
 
     return (
         <Fragment>
-            <div className='main'>
-                <div className='row w-full'>
-                    <div className='col-lg-2'>
-                        <Sidebar />
-                    </div>
-                    <div className='col-lg-10'>
-                        <div className='row'>
-                            <div className='col-lg-12'>
-                                <Header />
-                            </div>
+            {loading ? <Loader /> : (
+                <div className='main'>
+                    <div className='row w-full'>
+                        <div className='col-lg-2'>
+                            <Sidebar />
                         </div>
-                        <div className='productsListContainer'>
-                            <h1 className='productListHeading'>{user.name}'s Attendance Details</h1>
-                            <div className='row main-r1'>
-                                <div className='col-lg-2 main-r1-2'>
-                                    <p className='status'>Present</p>
-                                    <p>{userAttendance.presentCount}</p>
-                                </div>
-                                <div className='col-lg-2 main-r1-b1'>
-                                    <p className='status'>Absent</p>
-                                    <p>{userAttendance.absentCount}</p>
-                                </div>
-                                <div className='col-lg-2 main-r1-2'>
-                                    <p className='status'>Leave</p>
-                                    <p>{userAttendance.leaveCount}</p>
-                                </div>
-                                <div className='col-lg-2 main-r1-b1'>
-                                    <p className='status'>Total Days</p>
-                                    <p>{userAttendance.totalEntries}</p>
-                                </div>
-                                <div className='col-lg-2 main-r1-2'>
-                                    <p className='status'>Total Persentage</p>
-                                    <p>{userAttendance.presentPercentage.toFixed(0)}%</p>
-                                </div>
-                                <div className='col-lg-2 main-r1-b1'>
-                                    <Link to={`/searchattendance/${user._id}`}>
-                                        <Button>Search Attendance</Button>
-                                    </Link>
+                        <div className='col-lg-10'>
+                            <div className='row'>
+                                <div className='col-lg-12'>
+                                    <Header />
                                 </div>
                             </div>
-                            <div className='do'>
-                                <div className=' doughnut'>
-                                    <DoughnutChart className="dough" presentCount={presentCount} absentCount={absentCount} leaveCount={leaveCount} />
+                            <div className='productsListContainer'>
+                                <h1 className='productListHeading'>{user.name}'s Attendance Details</h1>
+                                <div className='row main-r1'>
+                                    <div className='col-lg-2 main-r1-2'>
+                                        <p className='status'>Present</p>
+                                        <p>{userAttendance.presentCount}</p>
+                                    </div>
+                                    <div className='col-lg-2 main-r1-b1'>
+                                        <p className='status'>Absent</p>
+                                        <p>{userAttendance.absentCount}</p>
+                                    </div>
+                                    <div className='col-lg-2 main-r1-2'>
+                                        <p className='status'>Leave</p>
+                                        <p>{userAttendance.leaveCount}</p>
+                                    </div>
+                                    <div className='col-lg-2 main-r1-b1'>
+                                        <p className='status'>Total Days</p>
+                                        <p>{userAttendance.totalEntries}</p>
+                                    </div>
+                                    <div className='col-lg-2 main-r1-2'>
+                                        <p className='status'>Total Persentage</p>
+                                        <p>{userAttendance.presentPercentage}%</p>
+                                    </div>
+                                    <div className='col-lg-2 main-r1-b1'>
+                                        <Link to={`/searchattendance/${user._id}`}>
+                                            <Button>Search Attendance</Button>
+                                        </Link>
+                                    </div>
+                                </div>
+                                <div className='do'>
+                                    <div className=' doughnut'>
+                                        <DoughnutChart className="dough" presentCount={presentCount} absentCount={absentCount} leaveCount={leaveCount} />
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            )}
         </Fragment>
     )
 }

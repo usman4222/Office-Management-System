@@ -4,10 +4,11 @@ import { getUserAttendance } from '../../actions/attendanceAction';
 import Sidebar from '../Sidebar';
 import Header from '../../components/Header';
 import { useParams } from 'react-router-dom';
+import Loader from '../../components/Loader/Loader';
 
 const AttendanceList = () => {
     const dispatch = useDispatch();
-    const { user } = useSelector((state) => state.getUser);
+    const { loading, user } = useSelector((state) => state.getUser);
     const { userAttendance } = useSelector((state) => state.userAttendance);
     const attendanceArray = userAttendance.userAttendance || [];
     const [attendanceDetails, setAttendanceDetails] = useState([]);
@@ -74,49 +75,51 @@ const AttendanceList = () => {
 
     return (
         <Fragment>
-            <div className='main'>
-                <div className='row w-full main1-r1'>
-                    <div className='col-lg-2 main1-r1-b1'>
-                        <Sidebar />
-                    </div>
-                    <div className='col-lg-10 main1-r1-b2'>
-                        <div className='row'>
-                            <div className='col-lg-12'>
-                                <Header />
-                            </div>
+            {loading ? <Loader /> : (
+                <div className='main'>
+                    <div className='row w-full main1-r1'>
+                        <div className='col-lg-2 main1-r1-b1'>
+                            <Sidebar />
                         </div>
-                        <div className='dashboard'>
-                            <div className='productsListContainer'>
-                                <h1 className='productListHeading'>Attendance List</h1>
-                                {attendanceArray.length > 0 ? (
-                                    <table className='table'>
-                                        <thead>
-                                            <tr>
-                                                <th style={{ textAlign: 'center' }}>Number</th>
-                                                <th style={{ textAlign: 'center' }}>Date</th>
-                                                <th>Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {attendanceArray.map((detail, index) => (
-                                                <tr key={index}>
-                                                    <td style={{ textAlign: 'center' }}>{index + 1}</td>
-                                                    <td style={{ textAlign: 'center' }}>
-                                                        {formatDate(detail.date)}
-                                                    </td>
-                                                    <td>{detail.status}</td>
+                        <div className='col-lg-10 main1-r1-b2'>
+                            <div className='row'>
+                                <div className='col-lg-12'>
+                                    <Header />
+                                </div>
+                            </div>
+                            <div className='dashboard'>
+                                <div className='productsListContainer'>
+                                    <h1 className='productListHeading'>Attendance List</h1>
+                                    {attendanceArray.length > 0 ? (
+                                        <table className='table'>
+                                            <thead>
+                                                <tr>
+                                                    <th style={{ textAlign: 'center' }}>Number</th>
+                                                    <th style={{ textAlign: 'center' }}>Date</th>
+                                                    <th>Status</th>
                                                 </tr>
-                                            ))}
-                                        </tbody>
-                                    </table>
-                                ) : (
-                                    <p style={{ textAlign: 'center' }}>No attendance data available</p>
-                                )}
+                                            </thead>
+                                            <tbody>
+                                                {attendanceArray.map((detail, index) => (
+                                                    <tr key={index}>
+                                                        <td style={{ textAlign: 'center' }}>{index + 1}</td>
+                                                        <td style={{ textAlign: 'center' }}>
+                                                            {formatDate(detail.date)}
+                                                        </td>
+                                                        <td>{detail.status}</td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    ) : (
+                                        <p style={{ textAlign: 'center' }}>No attendance data available</p>
+                                    )}
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            )}
         </Fragment>
     );
 };

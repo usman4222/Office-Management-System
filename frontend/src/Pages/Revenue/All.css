@@ -89,6 +89,11 @@ input[type = "submit"]{
     input[type = "submit"]{
         width: 30%;
         font-size: 2vmax;
-
+    }
+    .total-box{
+        font-size: 1.5vmax;
+    }
+    .list a{
+        font-size: 1.6vmax;
     }
 }

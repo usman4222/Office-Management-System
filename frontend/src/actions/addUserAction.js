@@ -34,7 +34,6 @@ export const addNewUser = (userData) => async (dispatch) => {
             payload: error.response.data.message
         });
 
-        console.error('Error to create user:', error);
         throw error;
     }
 };

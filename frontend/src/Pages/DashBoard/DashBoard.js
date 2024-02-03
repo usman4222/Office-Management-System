@@ -20,12 +20,13 @@ import { getCurrentMonthRevenue } from '../../actions/revenue';
 import { GiReceiveMoney } from "react-icons/gi";
 import { BsPeopleFill } from "react-icons/bs";
 import { RiMoneyDollarCircleFill } from "react-icons/ri";
+import Loader from '../../components/Loader/Loader';
 
 
 const DashBoard = ({ user }) => {
     const [count, setCount] = useState(0);
     const dispatch = useDispatch()
-    const { users } = useSelector((state) => state.allUser);
+    const { loading, users } = useSelector((state) => state.allUser);
     const { totalCurrentMonthExpenses } = useSelector((state) => state.currentMonthTotal);
     const { totalCurrentMonthRevenue } = useSelector((state) => state.currentMonthRevenue);
     const { expenseList } = useSelector((state) => state.expenseList);
@@ -42,15 +43,15 @@ const DashBoard = ({ user }) => {
 
     const calculateTotalExpenses = () => {
         if (!expenseList || !Array.isArray(expenseList.expenseList)) {
-            return 0; 
+            return 0;
         }
-    
+
         return expenseList.expenseList.reduce((accumulator, expense) => {
             return accumulator + parseFloat(expense.amount);
         }, 0);
     };
-    
-    
+
+
 
 
 
@@ -99,85 +100,87 @@ const DashBoard = ({ user }) => {
 
     return (
         <Fragment>
-            <div className='main'>
-                <div className='row main-r1'>
-                    <div className='col-lg-2  main-r1-b1'>
-                        <Sidebar />
-                    </div>
-                    <div className='col-lg-10 col-sm-12  main-r1-b2'>
-                        <div className='row main-r2'>
-                            <Header />
+            {loading ? <Loader /> : (
+                <div className='main'>
+                    <div className='row main-r1'>
+                        <div className='col-lg-2  main-r1-b1'>
+                            <Sidebar />
                         </div>
-                        <div className='row main-r3'>
-                            <div className='col-lg-3 col-md-6 col-sm-12 main-r3-b1'>
-                                <div className="max-w-sm mx-auto bg-white shadow-lg rounded-md overflow-hidden">
-                                    <div className="p-4">
-                                        <div className="flex items-center mb-4">
-                                            <div className="flex items-center justify-center text-6xl bg-green-300 rounded-full h-20 w-20"><GiExpense /></div>
-                                            <div className="ml-2">
-                                                <p className="text-2xl text-center "><CountUp end={calculateTotalExpenses()} duration={2} /></p>
-                                                <p className="text-lg text-center text-gray-600">Total Expenses</p>
+                        <div className='col-lg-10 col-sm-12  main-r1-b2'>
+                            <div className='row main-r2'>
+                                <Header />
+                            </div>
+                            <div className='row main-r3'>
+                                <div className='col-lg-3 col-md-6 col-sm-12 main-r3-b1'>
+                                    <div className="max-w-sm mx-auto bg-white shadow-lg rounded-md overflow-hidden">
+                                        <div className="p-4">
+                                            <div className="flex items-center mb-4">
+                                                <div className="flex items-center justify-center text-6xl bg-green-300 rounded-full h-20 w-20"><GiExpense /></div>
+                                                <div className="ml-2">
+                                                    <p className="text-2xl text-center "><CountUp end={calculateTotalExpenses()} duration={2} /></p>
+                                                    <p className="text-lg text-center text-gray-600">Total Expenses</p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div className='col-lg-3 col-md-6 col-sm-12 main-r3-b1'>
-                                <div className="max-w-sm mx-auto bg-white shadow-lg rounded-md overflow-hidden">
-                                    <div className="p-4">
-                                        <div className="flex items-center mb-4">
-                                            <div className="flex items-center justify-center text-6xl bg-blue-200 rounded-full h-20 w-20">
-                                                <BsPeopleFill />
-                                            </div>
-                                            <div className="ml-2">
-                                                <p className="text-2xl text-center "><CountUp end={users.length} duration={2} /></p>
-                                                <p className="text-lg  text-gray-600">Total Members</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='col-lg-3 col-md-6 col-sm-12 main-r3-b1'>
-                                <div className="max-w-sm mx-auto bg-white shadow-lg rounded-md overflow-hidden">
-                                    <div className="p-4">
-                                        <div className="flex items-center mb-4">
-                                            <div className="flex items-center justify-center text-6xl bg-yellow-200 rounded-full h-20 w-20">
-                                                <RiMoneyDollarCircleFill />
-                                            </div>
-                                            <div className="ml-2">
-                                                <p className="text-2xl text-center "><CountUp end={totalCurrentMonthExpenses} duration={2} /></p>
-                                                <p className="text-lg  text-gray-600">MonthlyExpense</p>
+                                <div className='col-lg-3 col-md-6 col-sm-12 main-r3-b1'>
+                                    <div className="max-w-sm mx-auto bg-white shadow-lg rounded-md overflow-hidden">
+                                        <div className="p-4">
+                                            <div className="flex items-center mb-4">
+                                                <div className="flex items-center justify-center text-6xl bg-blue-200 rounded-full h-20 w-20">
+                                                    <BsPeopleFill />
+                                                </div>
+                                                <div className="ml-2">
+                                                    <p className="text-2xl text-center "><CountUp end={users.length} duration={2} /></p>
+                                                    <p className="text-lg  text-gray-600">Total Members</p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            {/* <div className='col-lg-3 col-md-6 col-sm-12 main-r3-b1'>
-                                <div className="max-w-sm mx-auto bg-white shadow-lg rounded-md overflow-hidden">
-                                    <div className="p-4">
-                                        <div className="flex items-center mb-4">
-                                            <div className="text-6xl text-black"><GiReceiveMoney /></div>
-                                            <div className="ml-2">
-                                                <p className="text-2xl text-center "><CountUp end={totalCurrentMonthRevenue} duration={2} /></p>
-                                                <p className="text-lg  text-gray-600">Monthly Revenue</p>
+                                <div className='col-lg-3 col-md-6 col-sm-12 main-r3-b1'>
+                                    <div className="max-w-sm mx-auto bg-white shadow-lg rounded-md overflow-hidden">
+                                        <div className="p-4">
+                                            <div className="flex items-center mb-4">
+                                                <div className="flex items-center justify-center text-6xl bg-yellow-200 rounded-full h-20 w-20">
+                                                    <RiMoneyDollarCircleFill />
+                                                </div>
+                                                <div className="ml-2">
+                                                    <p className="text-2xl text-center "><CountUp end={totalCurrentMonthExpenses} duration={2} /></p>
+                                                    <p className="text-lg  text-gray-600">MonthlyExpense</p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div> */}
-                        </div>
-                        <div className='row main-r4'>
-                            <div className='col-lg-4 r4-b1'>
-                                <DoughnutChart />
+                                {/* <div className='col-lg-3 col-md-6 col-sm-12 main-r3-b1'>
+                             <div className="max-w-sm mx-auto bg-white shadow-lg rounded-md overflow-hidden">
+                                 <div className="p-4">
+                                     <div className="flex items-center mb-4">
+                                         <div className="text-6xl text-black"><GiReceiveMoney /></div>
+                                         <div className="ml-2">
+                                             <p className="text-2xl text-center "><CountUp end={totalCurrentMonthRevenue} duration={2} /></p>
+                                             <p className="text-lg  text-gray-600">Monthly Revenue</p>
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+                         </div> */}
                             </div>
-                            <div className='col-lg-8 r4-b2'>
-                                <BarChart />
-                                {/* <LineChart/> */}
+                            <div className='row main-r4'>
+                                <div className='col-lg-4 r4-b1'>
+                                    <DoughnutChart />
+                                </div>
+                                <div className='col-lg-8 r4-b2'>
+                                    <BarChart />
+                                    {/* <LineChart/> */}
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            )}
         </Fragment>
     );
 };

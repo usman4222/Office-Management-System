@@ -9,6 +9,7 @@ import { UPDATE_USER_RESET } from '../../constants/updateUser';
 import { updateUserCon } from '../../actions/attendanceAction';
 import Header from '../../components/Header';
 import Sidebar from '../Sidebar';
+import Loader from '../../components/Loader/Loader';
 
 const UpdateUser = () => {
 
@@ -16,7 +17,7 @@ const UpdateUser = () => {
     const navigate = useNavigate()
     const { id } = useParams()
     const { error: updateError, isUpdated } = useSelector((state) => state.editUser)
-    const { user } = useSelector((state) => state.getUser)
+    const { user, loading } = useSelector((state) => state.getUser)
 
 
     const [date, setDate] = useState("")
@@ -66,52 +67,54 @@ const UpdateUser = () => {
 
     return (
         <Fragment>
-            <div className='man'>
-                <div className='row w-full'>
-                    <div className='col-lg-2'>
-                        <Sidebar />
-                    </div>
-                    <div className='col-lg-10'>
-                        <div className='row'>
-                            <div className='col-lg-12'>
-                                <Header />
-                            </div>
+            {loading ? <Loader /> : (
+                <div className='man'>
+                    <div className='row w-full'>
+                        <div className='col-lg-2'>
+                            <Sidebar />
                         </div>
-                        <h1 className='productListHeading'>Employee Attendance</h1>
-                        <div className='main-form'>
-                            <div className='addUser'>
-                                <form
-                                    className='createProductForm'
-                                    encType='multipart/form-data'
-                                    onSubmit={(e) => updateUserHandler(e, userId)}
-                                >
-                                    <h2 >{user.name}'s Attendance</h2>
-                                    <input
-                                        type='date'
-                                        placeholder='Name'
-                                        className='date-input'
-                                        required
-                                        value={date}
-                                        onChange={(e) => setDate(e.target.value)}
-                                    />
-                                    <select onChange={(e) => setStatus(e.target.value)}>
-                                        <option value="">Choose Status</option>
-                                        {roleCategories.map((cate) => (
-                                            <option key={cate} value={cate}>
-                                                {cate}
-                                            </option>
-                                        ))}
-                                    </select>
+                        <div className='col-lg-10'>
+                            <div className='row'>
+                                <div className='col-lg-12'>
+                                    <Header />
+                                </div>
+                            </div>
+                            <h1 className='productListHeading'>Employee Attendance</h1>
+                            <div className='main-form'>
+                                <div className='addUser'>
+                                    <form
+                                        className='createProductForm'
+                                        encType='multipart/form-data'
+                                        onSubmit={(e) => updateUserHandler(e, userId)}
+                                    >
+                                        <h2 >{user.name}'s Attendance</h2>
+                                        <input
+                                            type='date'
+                                            placeholder='Name'
+                                            className='date-input'
+                                            required
+                                            value={date}
+                                            onChange={(e) => setDate(e.target.value)}
+                                        />
+                                        <select onChange={(e) => setStatus(e.target.value)}>
+                                            <option value="">Choose Status</option>
+                                            {roleCategories.map((cate) => (
+                                                <option key={cate} value={cate}>
+                                                    {cate}
+                                                </option>
+                                            ))}
+                                        </select>
 
-                                    <div className='submitBtn'>
-                                        <button type='submit'>Mark</button>
-                                    </div>
-                                </form>
+                                        <div className='submitBtn'>
+                                            <button type='submit'>Mark</button>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            )}
         </Fragment>
     );
 };

@@ -132,7 +132,6 @@ export const updateUser = (id, userData) => async (dispatch) => {
 
         const config = { headers: { "Content-Type": "application/json" } }
         const { data } = await axios.put(`${link}/user/${id}`, userData, config)
-        console.log(userData)
         dispatch({
             type: UPDATE_USER_SUCCESS,
             payload: data.success

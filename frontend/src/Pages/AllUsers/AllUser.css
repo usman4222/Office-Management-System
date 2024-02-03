@@ -1,11 +1,12 @@
-.productsListContainer{
+.productsListContainer {
     width: 100%;
     box-sizing: border-box;
     display: flex;
     background: #fff;
     flex-direction: column;
 }
-.productListHeading{
+
+.productListHeading {
     font-weight: 400;
     font-size: 2rem;
     padding: 0.5vmax;
@@ -16,45 +17,53 @@
     transition: all ease .3s;
     font-family: Montserrat;
 }
-.productsListTable{
+
+.productsListTable {
     background: #fff;
     border: none !important;
     margin-left: 20px;
     margin-right: 20px;
     height: 100px
 }
-.productsListTable > div{
+
+.productsListTable>div {
     font: 300 1vmax;
     color: rgba(0, 0, 0, 0.678);
     border: none !important;
-} 
-.productsListTable a{
+}
+
+.productsListTable a {
     margin-top: 1.3vmax;
     font-family: Montserrat;
 }
+
 .productsListTable a,
-.productsListTable button{
+.productsListTable button {
     color: rgba(0, 0, 0, 0.527);
     transition: all ease .3s;
     padding: 1vmax;
     font-family: Montserrat;
 
 }
-.edit{
+
+.edit {
     margin-bottom: 13px;
 }
-.productsListTable button:hover{
-    color:  #1C2B36;
+
+.productsListTable button:hover {
+    color: #1C2B36;
 }
-.productsListTable a:hover{
-    color:  #1C2B36;
+
+.productsListTable a:hover {
+    color: #1C2B36;
 }
-.MuiDataGrid-columnHeader div{
+
+.MuiDataGrid-columnHeader div {
     color: #000;
 }
+
 @media screen and (max-width: 600px) {
-    .productsListTable > div{
-        font: 300 4vw; 
+    .productsListTable>div {
+        font: 300 4vw;
     }
-    
 }

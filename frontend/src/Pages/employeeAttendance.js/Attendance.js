@@ -10,11 +10,12 @@ import { deleteUser } from '../../actions/deleteUser';
 import { DELETE_USER_RESET } from '../../constants/deleteUserConstant';
 import Sidebar from '../Sidebar';
 import Header from '../../components/Header';
+import Loader from '../../components/Loader/Loader';
 
 const Attendance = () => {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
-  const { error, users } = useSelector((state) => state.allUser);
+  const { loading, error, users } = useSelector((state) => state.allUser);
   const [keyword, setKeyword] = useState("");
   const navigate = useNavigate()
   const params = useParams()
@@ -103,6 +104,7 @@ const Attendance = () => {
         <Link to={`/attendance/view/${params.getValue(params.id, "id")}`}>
           <Button
             variant="contained"
+            className='att-btn'
             style={{
               backgroundColor: '#344854',
               color: '#ffffff',
@@ -130,51 +132,107 @@ const Attendance = () => {
     index: index + 1,
     name: item.name,
     role: item.role,
-    fatherName: item.fatherName,
     designation: item.designation,
-    phone: item.phone,
-    address: item.address,
   }));
 
   return (
     <Fragment>
-      <div className='main'>
-        <div className='row w-full'>
-          <div className='col-lg-2'>
-            <Sidebar />
-          </div>
-          <div className='col-lg-10'>
-            <div className='row'>
-              <div className='col-lg-12'>
-                <Header />
-              </div>
+      {loading ? <Loader /> : (
+        <div className='main'>
+          <div className='row w-full'>
+            <div className='col-lg-2'>
+              <Sidebar />
             </div>
-            <div className='dashboard'>
-              <div className='productsListContainer'>
-                <h1 className='productListHeading'>Employee Attendance</h1>
-                <div>
-                  <form className='searchBox' onSubmit={searchSubmitHandler}>
-                    <input
-                      type='text'
-                      placeholder='Search a Employee...'
-                      onChange={(e) => setKeyword(e.target.value)}
-                    />
-                    <input type='submit' value='Search' />
-                  </form>
+            <div className='col-lg-10'>
+              <div className='row'>
+                <div className='col-lg-12'>
+                  <Header />
                 </div>
-                <DataGrid
-                  rows={rows}
-                  columns={columns}
-                  pageSize={100}
-                  disableSelectionOnClick
-                  className='productsListTable'
-                  autoHeight
-                />
+              </div>
+              <div className='dashboard'>
+                <div className='productsListContainer'>
+                  <h1 className='productListHeading'>Employee Attendance</h1>
+                  <div>
+                    <form className='searchBox' onSubmit={searchSubmitHandler}>
+                      <input
+                        type='text'
+                        placeholder='Search an Employee...'
+                        onChange={(e) => setKeyword(e.target.value)}
+                      />
+                      <input type='submit' value='Search' />
+                    </form>
+                  </div>
+                  {rows.length > 0 ? (
+                    <table className='table'>
+                      <thead>
+                        <tr>
+                          <th style={{ textAlign: 'center' }}>Index</th>
+                          <th style={{ textAlign: 'center' }}>Name</th>
+                          <th style={{ textAlign: 'center' }}>Designation</th>
+                          <th style={{ textAlign: 'center' }}>Role</th>
+                          <th style={{ textAlign: 'center' }}>Attendance</th>
+                          <th style={{ textAlign: 'center' }}>Details</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {rows.map((item, index) => (
+                          <tr key={index} style={{ backgroundColor: index % 2 === 0 ? '#f2f2f2' : '#ffffff' }}>
+                            <td style={{ textAlign: 'center' }}>{item.index}</td>
+                            <td style={{ textAlign: 'center' }}>{item.name}</td>
+                            <td style={{ textAlign: 'center' }}>{item.designation}</td>
+                            <td style={{ textAlign: 'center' }}>{item.role}</td>
+                            <td style={{ textAlign: 'center' }}>
+                              <Link to={`/attendance/${item.id}`}>
+                                <Button
+                                  variant="contained"
+                                  style={{
+                                    backgroundColor: '#344854',
+                                    color: '#ffffff',
+                                    padding: '10px 20px',
+                                    borderRadius: '5px',
+                                    textTransform: 'none',
+                                    fontWeight: 'bold',
+                                    boxShadow: 'none',
+                                    transition: 'background-color 0.3s ease',
+                                  }}
+                                >
+                                  Mark Attendance
+                                </Button>
+                              </Link>
+                            </td>
+                            <td style={{ textAlign: 'center' }}>
+                              <Link to={`/attendance/view/${item.id}`}>
+                                <Button
+                                  variant="contained"
+                                  className='att-btn'
+                                  style={{
+                                    backgroundColor: '#344854',
+                                    color: '#ffffff',
+                                    padding: '10px ',
+                                    borderRadius: '5px',
+                                    textTransform: 'none',
+                                    fontWeight: 'bold',
+                                    boxShadow: 'none',
+                                    transition: 'background-color 0.3s ease',
+                                  }}
+                                >
+                                  View Attendance
+                                </Button>
+                              </Link>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  ) : (
+                    <p style={{ textAlign: 'center' }}>No Attendance data available</p>
+                  )}
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
     </Fragment>
   );
 };

@@ -24,6 +24,7 @@ import Search from './Pages/Search/Search';
 import RevenueList from './Pages/Revenue/RevenueList';
 import ExpenseList from './Pages/Finance/ExpenseList';
 import FilterAttendance from './Pages/employeeAttendance.js/FilterAttendance';
+import Loader from './components/Loader/Loader';
 
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -68,6 +69,7 @@ function App() {
             <Route element={<UpdateUserAttendance />} path="/updateattendance/:userId/:attendanceId" />
             <Route element={<Logout />} path="/logout" />
             <Route element={<Search />} path="/Search" />
+            <Route element={<Loader />} path="/loader" />
           </>
         ) : (
           <Route path="/login" element={<RegisterLogin />} />

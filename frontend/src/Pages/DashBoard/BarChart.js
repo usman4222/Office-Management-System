@@ -11,8 +11,6 @@ const BarChart = () => {
     const { expenseList } = useSelector((state) => state.expenseList);
     const dispatch = useDispatch();
 
-    console.log("This is expenseList", expenseList);
-
     useEffect(() => {
         dispatch(getExpenseList());
     }, [dispatch]);

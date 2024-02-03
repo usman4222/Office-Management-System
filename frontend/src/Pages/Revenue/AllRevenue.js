@@ -88,7 +88,6 @@ const AllRevenue = ({ match }) => {
 
     return (
         <Fragment>
-            {loading ? <Loader /> : (
                 <div className='main'>
                     <div className='row w-full main1-r1'>
                         <div className='col-lg-2 main1-r1-b1'>
@@ -174,7 +173,6 @@ const AllRevenue = ({ match }) => {
                         </div>
                     </div>
                 </div>
-            )}
         </Fragment>
     )
 }

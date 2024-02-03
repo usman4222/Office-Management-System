@@ -137,7 +137,6 @@ const Attendance = () => {
 
   return (
     <Fragment>
-      {loading ? <Loader /> : (
         <div className='main'>
           <div className='row w-full'>
             <div className='col-lg-2'>
@@ -232,7 +231,6 @@ const Attendance = () => {
             </div>
           </div>
         </div>
-      )}
     </Fragment>
   );
 };

@@ -23,14 +23,18 @@ import { RiMoneyDollarCircleFill } from "react-icons/ri";
 import Loader from '../../components/Loader/Loader';
 
 
-const DashBoard = ({ user }) => {
+const DashBoard = () => {
     const [count, setCount] = useState(0);
     const dispatch = useDispatch()
+    const { isAuthenticated, user } = useSelector((state) => state.user);
     const { loading, users } = useSelector((state) => state.allUser);
     const { totalCurrentMonthExpenses } = useSelector((state) => state.currentMonthTotal);
     const { totalCurrentMonthRevenue } = useSelector((state) => state.currentMonthRevenue);
     const { expenseList } = useSelector((state) => state.expenseList);
 
+    useEffect(() => {
+        dispatch(getAllUsers);
+    }, [dispatch]);
 
 
     useEffect(() => {
@@ -50,9 +54,6 @@ const DashBoard = ({ user }) => {
             return accumulator + parseFloat(expense.amount);
         }, 0);
     };
-
-
-
 
 
     useEffect(() => {
@@ -117,7 +118,9 @@ const DashBoard = ({ user }) => {
                                             <div className="flex items-center mb-4">
                                                 <div className="flex items-center justify-center text-6xl bg-green-300 rounded-full h-20 w-20"><GiExpense /></div>
                                                 <div className="ml-2">
-                                                    <p className="text-2xl text-center "><CountUp end={calculateTotalExpenses()} duration={2} /></p>
+                                                    {/* {user && user.role === "admin" ? ( */}
+                                                        <p className="text-2xl text-center "><CountUp end={calculateTotalExpenses()} duration={2} /></p>
+                                                    {/* ) : <p className="text-2xl text-center ">0</p>} */}
                                                     <p className="text-lg text-center text-gray-600">Total Expenses</p>
                                                 </div>
                                             </div>
@@ -147,7 +150,9 @@ const DashBoard = ({ user }) => {
                                                     <RiMoneyDollarCircleFill />
                                                 </div>
                                                 <div className="ml-2">
-                                                    <p className="text-2xl text-center "><CountUp end={totalCurrentMonthExpenses} duration={2} /></p>
+                                                    {/* {user && user.role === "admin" ? ( */}
+                                                        <p className="text-2xl text-center "><CountUp end={totalCurrentMonthExpenses} duration={2} /></p>
+                                                    {/* ) : <p className="text-2xl text-center ">0</p>} */}
                                                     <p className="text-lg  text-gray-600">MonthlyExpense</p>
                                                 </div>
                                             </div>
@@ -173,7 +178,9 @@ const DashBoard = ({ user }) => {
                                     <DoughnutChart />
                                 </div>
                                 <div className='col-lg-8 r4-b2'>
-                                    <BarChart />
+                                    {/* {user && user.role === "admin" ? ( */}
+                                        <BarChart />
+                                    {/* ) : []} */}
                                     {/* <LineChart/> */}
                                 </div>
                             </div>

@@ -49,14 +49,13 @@ const RegisterLogin = () => {
         if (error) {
             enqueueSnackbar(error, { variant: 'error' });
             dispatch(clearErrors());
-            console.log("This is error", error)
-            alert(error)
         }
         if (isAuthenticated) {
             enqueueSnackbar('Successfully Logged In', { variant: 'success' });
             navigate("/");
         }
-    }, [dispatch, error, isAuthenticated, navigate]);
+    }, [dispatch, error, isAuthenticated, navigate, enqueueSnackbar]);
+    
 
 
 
@@ -106,7 +105,7 @@ const RegisterLogin = () => {
                         />
 
                         <div className='submitBtn'>
-                            <button type='submit'>LogIn</button>
+                            <button type='submit'>Log In</button>
                         </div>
                     </form>
 

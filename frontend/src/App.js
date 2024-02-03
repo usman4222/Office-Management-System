@@ -34,10 +34,8 @@ function App() {
     dispatch(getAllUsers);
   }, [dispatch]);
 
-  // console.log('User:', user);
 
-  // Check if user is defined before accessing its properties
-  // const isAdmin = isAuthenticated && user && user.role === "admin";
+  const isAdmin = isAuthenticated && user && user.role === "admin";
 
   return (
     <BrowserRouter>
@@ -51,8 +49,7 @@ function App() {
             <Route element={<Attendance />} path="/attendance" />
             <Route element={<UserAttendance />} path="/attendance/:id" />
             <Route element={<AttendanceDetails />} path="/attendance/view/:id" />
-            {/* {console.log('User:', user)}
-            {isAdmin && (
+            {/* {isAdmin && (
               <> */}
                 <Route element={<Finance />} path="/finance" />
                 <Route element={<AllExpenses />} path="/allexpenses" />
@@ -61,7 +58,6 @@ function App() {
                 <Route element={<AllRevenue />} path="/allrevenue/:keyword" />
                 <Route element={<AllRevenue />} path="/allrevenue" />
                 <Route element={<RevenueList />} path="/revenuelist" />
-
               {/* </>
             )} */}
             <Route element={<AttendanceList />} path="/attendancelist/:id" />

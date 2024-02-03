@@ -34,8 +34,6 @@ export const addNewExpense = (expense) => async (dispatch) => {
             payload: data
         });
 
-        dispatch(getAllExpenses());
-
         return data;
     } catch (error) {
         dispatch({

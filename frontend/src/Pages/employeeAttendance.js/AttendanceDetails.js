@@ -17,7 +17,7 @@ const AttendanceDetails = () => {
     const { userAttendance, presentCount, absentCount, leaveCount, totalEntries, presentPercentage } = useSelector((state) => state.userAttendance);
     const dispatch = useDispatch();
     const { id } = useParams();
-    const [attendanceDetails, setAttendanceDetails] = useState([]);
+    const [attendanceDetails, setAttendanceDetails] = useState([0]);
 
     useEffect(() => {
         const isUserDataIncomplete = !user || user._id !== id;

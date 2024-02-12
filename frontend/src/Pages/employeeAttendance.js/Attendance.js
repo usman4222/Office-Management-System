@@ -157,6 +157,7 @@ const Attendance = () => {
                         type='text'
                         placeholder='Search an Employee...'
                         onChange={(e) => setKeyword(e.target.value)}
+                        required
                       />
                       <input type='submit' value='Search' />
                     </form>
@@ -165,7 +166,7 @@ const Attendance = () => {
                     <table className='table'>
                       <thead>
                         <tr>
-                          <th style={{ textAlign: 'center' }}>Index</th>
+                          <th style={{ textAlign: 'center', paddingLeft: 30 }}>Index</th>
                           <th style={{ textAlign: 'center' }}>Name</th>
                           <th style={{ textAlign: 'center' }}>Designation</th>
                           <th style={{ textAlign: 'center' }}>Role</th>

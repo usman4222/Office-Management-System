@@ -115,7 +115,7 @@ const DashBoard = () => {
                                 <div className='col-lg-3 col-md-6 col-sm-12 main-r3-b1'>
                                     <div className="max-w-sm mx-auto bg-white shadow-lg rounded-md overflow-hidden">
                                         <div className="p-4">
-                                            <div className="flex items-center mb-4">
+                                            <div className="flex items-center">
                                                 <div className="flex items-center justify-center text-6xl bg-green-300 rounded-full h-20 w-20"><GiExpense /></div>
                                                 <div className="ml-2">
                                                     {/* {user && user.role === "admin" ? ( */}
@@ -130,13 +130,13 @@ const DashBoard = () => {
                                 <div className='col-lg-3 col-md-6 col-sm-12 main-r3-b1'>
                                     <div className="max-w-sm mx-auto bg-white shadow-lg rounded-md overflow-hidden">
                                         <div className="p-4">
-                                            <div className="flex items-center mb-4">
+                                            <div className="flex items-center">
                                                 <div className="flex items-center justify-center text-6xl bg-blue-200 rounded-full h-20 w-20">
                                                     <BsPeopleFill />
                                                 </div>
                                                 <div className="ml-2">
                                                     <p className="text-2xl text-center "><CountUp end={users.length} duration={2} /></p>
-                                                    <p className="text-lg  text-gray-600">Total Members</p>
+                                                    <p className="text-lg text-center  text-gray-600">Total Members</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -145,7 +145,7 @@ const DashBoard = () => {
                                 <div className='col-lg-3 col-md-6 col-sm-12 main-r3-b1'>
                                     <div className="max-w-sm mx-auto bg-white shadow-lg rounded-md overflow-hidden">
                                         <div className="p-4">
-                                            <div className="flex items-center mb-4">
+                                            <div className="flex items-center justify-center">
                                                 <div className="flex items-center justify-center text-6xl bg-yellow-200 rounded-full h-20 w-20">
                                                     <RiMoneyDollarCircleFill />
                                                 </div>
@@ -153,7 +153,7 @@ const DashBoard = () => {
                                                     {/* {user && user.role === "admin" ? ( */}
                                                         <p className="text-2xl text-center "><CountUp end={totalCurrentMonthExpenses} duration={2} /></p>
                                                     {/* ) : <p className="text-2xl text-center ">0</p>} */}
-                                                    <p className="text-lg  text-gray-600">MonthlyExpense</p>
+                                                    <p className="text-lg text-center text-gray-600">Monthly Expense</p>
                                                 </div>
                                             </div>
                                         </div>

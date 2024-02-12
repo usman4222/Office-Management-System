@@ -89,93 +89,85 @@ const AllExpenses = () => {
 
     return (
         <Fragment>
-                <div className='main'>
-                    <div className='row w-full main1-r1'>
-                        <div className='col-lg-2 main1-r1-b1'>
-                            <Sidebar />
-                        </div>
-                        <div className='col-lg-10 main1-r1-b2'>
-                            <div className='row'>
-                                <div className='col-lg-12'>
-                                    <Header />
-                                </div>
+            <div className='main'>
+                <div className='row w-full main1-r1'>
+                    <div className='col-lg-2 main1-r1-b1'>
+                        <Sidebar />
+                    </div>
+                    <div className='col-lg-10 main1-r1-b2'>
+                        <div className='row'>
+                            <div className='col-lg-12'>
+                                <Header />
                             </div>
-                            <div className='dashboard'>
-                                <div className='productsListContainer'>
-                                    <h1 className='productListHeading'>Search Expense by Date</h1>
-                                    <div className='search-area'>
-                                        <div className='search-box'>
-                                            <input
-                                                type="date"
-                                                placeholder="Start Date"
-                                                value={startDate}
-                                                onChange={(e) => setStartDate(e.target.value)}
-                                            />
-                                            <input
-                                                type="date"
-                                                placeholder="End Date"
-                                                value={endDate}
-                                                onChange={(e) => setEndDate(e.target.value)}
-                                            />
-                                            <div className='search-btn'>
-                                                <input type='submit' value='Search' onClick={handleSearch} />
-                                            </div>
+                        </div>
+                        <div className='dashboard'>
+                            <div className='productsListContainer'>
+                                <h1 className='productListHeading'>Search Expense by Date</h1>
+                                <div className='search-area'>
+                                    <div className='search-box'>
+                                        <input
+                                            type="date"
+                                            placeholder="Start Date"
+                                            value={startDate}
+                                            onChange={(e) => setStartDate(e.target.value)}
+                                        />
+                                        <input
+                                            type="date"
+                                            placeholder="End Date"
+                                            value={endDate}
+                                            onChange={(e) => setEndDate(e.target.value)}
+                                        />
+                                        <div className='search-btn'>
+                                            <input type='submit' value='Search' onClick={handleSearch} />
                                         </div>
                                     </div>
-                                    {/* <DataGrid
-                                 rows={rows}
-                                 columns={columns}
-                                 pageSize={100}
-                                 disableSelectionOnClick
-                                 className='productsListTable'
-                                 autoHeight
-                             /> */}
-                                    {rows.length > 0 ? (
-                                        <table className='table'>
-                                            <thead>
-                                                <tr>
-                                                    <th style={{ textAlign: 'center' }}>Index</th>
-                                                    <th style={{ textAlign: 'center' }}>Title</th>
-                                                    <th style={{ textAlign: 'center' }}>Ref</th>
-                                                    <th style={{ textAlign: 'center' }}>Date</th>
-                                                    <th style={{ textAlign: 'center' }}>Amount</th>
-                                                    <th style={{ textAlign: 'center' }}>Description</th>
+                                </div>
+                                {rows.length > 0 ? (
+                                    <table className='table'>
+                                        <thead>
+                                            <tr>
+                                                <th style={{ textAlign: 'center' }}>Index</th>
+                                                <th style={{ textAlign: 'center' }}>Title</th>
+                                                <th style={{ textAlign: 'center' }}>Ref</th>
+                                                <th style={{ textAlign: 'center' }}>Date</th>
+                                                <th style={{ textAlign: 'center' }}>Amount</th>
+                                                <th style={{ textAlign: 'center' }}>Description</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {rows.map((item, index) => (
+                                                <tr key={index} style={{ backgroundColor: index % 2 === 0 ? '#f2f2f2' : '#ffffff' }}>
+                                                    <td style={{ textAlign: 'center' }}>{item.index}</td>
+                                                    <td style={{ textAlign: 'center' }}>{item.title}</td>
+                                                    <td style={{ textAlign: 'center' }}>{item.ref}</td>
+                                                    <td style={{ textAlign: 'center' }}>{item.date}</td>
+                                                    <td style={{ textAlign: 'center' }}>{item.amount}</td>
+                                                    <td style={{ textAlign: 'center' }}>{item.description}</td>
                                                 </tr>
-                                            </thead>
-                                            <tbody>
-                                                {rows.map((item, index) => (
-                                                    <tr key={index} style={{ backgroundColor: index % 2 === 0 ? '#f2f2f2' : '#ffffff' }}>
-                                                        <td style={{ textAlign: 'center' }}>{item.index}</td>
-                                                        <td style={{ textAlign: 'center' }}>{item.title}</td>
-                                                        <td style={{ textAlign: 'center' }}>{item.ref}</td>
-                                                        <td style={{ textAlign: 'center' }}>{item.date}</td>
-                                                        <td style={{ textAlign: 'center' }}>{item.amount}</td>
-                                                        <td style={{ textAlign: 'center' }}>{item.description}</td>
-                                                    </tr>
-                                                ))}
-                                            </tbody>
-                                        </table>
-                                    ) : (
-                                        <p style={{ textAlign: 'center' }}>No expense data available</p>
-                                    )}
-                                    <div className='total'>
-                                        <div className='total-box'>
-                                            <div className='amount-heading'>
-                                                <p>Total Amount = </p>
-                                            </div>
-                                            <div className='amount'>
-                                                <p>{totalAmount}</p>
-                                            </div>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                ) : (
+                                    <p style={{ textAlign: 'center' }}>No Expense Data Available</p>
+                                )}
+                                <div className='total'>
+                                    <div className='total-box'>
+                                        <div className='amount-heading'>
+                                            <p>Total Amount = </p>
                                         </div>
-                                        <div className='list'>
-                                            <Link to="/expenselist">Expense List</Link>
+                                        <div className='amount'>
+                                            <p>{totalAmount}</p>
                                         </div>
+                                    </div>
+                                    <div className='list'>
+                                        <Link to="/expenselist">Expense List</Link>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
         </Fragment>
     )
 }

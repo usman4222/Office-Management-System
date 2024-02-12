@@ -150,15 +150,16 @@ const AllUser = () => {
                                                 type='text'
                                                 placeholder='Search a Employee...'
                                                 onChange={(e) => setKeyword(e.target.value)}
+                                                required
                                             />
                                             <input type='submit' value='Search' />
                                         </form>
                                     </div>
                                     {rows.length > 0 ? (
-                                        <table className='table'>
+                                        <table className='table '>
                                             <thead>
                                                 <tr>
-                                                    <th style={{ textAlign: 'center' }}>Index</th>
+                                                    <th style={{ textAlign: 'center', paddingLeft: 30}}>Index</th>
                                                     <th style={{ textAlign: 'center' }}>Name</th>
                                                     <th style={{ textAlign: 'center' }}>F.Name</th>
                                                     <th style={{ textAlign: 'center' }}>Phone</th>
@@ -174,7 +175,7 @@ const AllUser = () => {
                                                         <td style={{ textAlign: 'center' }}>{item.index}</td>
                                                         <td style={{ textAlign: 'center' }}>{item.name}</td>
                                                         <td style={{ textAlign: 'center' }}>{item.fatherName}</td>
-                                                        <td style={{ textAlign: 'center' }}>{item.phone}</td>
+                                                        <td style={{ textAlign: 'center' }}>0{item.phone}</td>
                                                         <td style={{ textAlign: 'center' }}>{item.address}</td>
                                                         <td style={{ textAlign: 'center' }}>{item.designation}</td>
                                                         <td style={{ textAlign: 'center' }}>{item.role}</td>

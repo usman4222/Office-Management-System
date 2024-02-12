@@ -88,7 +88,7 @@ const RevenueList = () => {
                                         <table className='table'>
                                             <thead>
                                                 <tr>
-                                                    <th style={{ textAlign: 'center' }}>Index</th>
+                                                    <th style={{ textAlign: 'center', paddingLeft: 10 }}>Index</th>
                                                     <th style={{ textAlign: 'center' }}>Ref</th>
                                                     <th style={{ textAlign: 'center' }}>Date</th>
                                                     <th style={{ textAlign: 'center' }}>Amount</th>
@@ -104,11 +104,12 @@ const RevenueList = () => {
                                                         <td style={{ textAlign: 'center' }}>{item.amount}</td>
                                                         <td style={{ textAlign: 'center' }}>{item.description}</td>
                                                     </tr>
+
                                                 ))}
                                             </tbody>
                                         </table>
                                     ) : (
-                                        <p style={{ textAlign: 'center' }}>No revenue data available</p>
+                                        <p style={{ textAlign: 'center' }}>No Revenue Data Available</p>
                                     )}
                                 </div>
                             </div>

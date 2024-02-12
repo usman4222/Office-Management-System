@@ -101,7 +101,7 @@ const ExpenseList = () => {
                                         <table className='table'>
                                             <thead>
                                                 <tr>
-                                                    <th style={{ textAlign: 'center' }}>Index</th>
+                                                    <th style={{ textAlign: 'center', paddingLeft: 30 }}>Index</th>
                                                     <th style={{ textAlign: 'center' }}>Title</th>
                                                     <th style={{ textAlign: 'center' }}>Ref</th>
                                                     <th style={{ textAlign: 'center' }}>Date</th>

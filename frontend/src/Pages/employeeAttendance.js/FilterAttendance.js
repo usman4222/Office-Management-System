@@ -158,7 +158,7 @@ const FilterAttendance = () => {
                                             </tbody>
                                         </table>
                                     ) : (
-                                        <p style={{ textAlign: 'center' }}>No Attendance data available</p>
+                                        <p style={{ textAlign: 'center' }}>No Attendance Data Available</p>
                                     )}
                                     <div className='search-data'>
                                         <div className='row main-r1'>
